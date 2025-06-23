@@ -16,273 +16,514 @@
      </style>
 </head>
 <body>
+
  <!-- Sidebar -->
-<aside class="sidebar no-print">
-    <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>EDILCOMPANY S.R.L.</h5> </div>
-    <ul class="sidebar-nav flex-grow-1">
-        <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
-        <li class="nav-title">Analisi Dettagliata</li>
-        <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
-        <li class="nav-item"> <a class="nav-link active" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
-        <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
-        <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
-        <li class="nav-item"> <a class="nav-link" href="parte5_circolante_flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
-        <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
-        <li class="nav-title">Approfondimenti</li>
-        <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
-    </ul>
-    <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
-</aside>
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>EDILCOMPANY S.R.L.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante_flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
 
 
-<!-- Contenuto Principale Wrapper -->
-<div class="main-wrapper">
-    <!-- Header Orizzontale -->
-    <header class="dashboard-header no-print">
-        <div class="header-title">
-            <h5 class="mb-0">Report Dettagliato: Analisi Economica e Benchmark</h5>
-            <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">21 Maggio 2025</span></p>
-        </div>
-        <div class="header-controls d-flex align-items-center">
-            <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
-            <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
-            <div class="dropdown">
-                <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> EDILCOMPANY S.R.L. </button>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Analisi Economica e Benchmark</h5>
+                <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">21 Maggio 2025</span></p>
             </div>
-        </div>
-    </header>
-    <div class="container d-none d-print-block mt-4 mb-4">
-        <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
-        <p class="text-center mb-0">Report Dettagliato: Analisi Economica e Benchmark | <span class="report-date">21 Maggio 2025</span></p>
-        <hr>
-    </div>
-
-    <!-- Area Contenuto Specifico del Report -->
-    <div class="dashboard-container">
-
-        <!-- ================================================================ -->
-        <!-- CONTENUTO SPECIFICO PARTE 2 - V9 - Updated for EDILCOMPANY S.R.L. -->
-        <!-- ================================================================ -->
-
-         <h2 class="section-title" id="economic-analysis"><i class="fas fa-balance-scale me-2"></i>SEZIONE 2.1: ANALISI ECONOMICA</h2>
-
-        <div class="card mb-4 report-section">
-            <div class="card-header"><h5 class="mb-0">2.1.1 Conto Economico Riclassificato</h5></div>
-            <div class="card-body">
-                <p>Il conto economico riclassificato evidenzia la struttura dei costi e dei ricavi di EDILCOMPANY S.R.L. nel periodo 2022-2024, caratterizzata da una contrazione dei volumi d'affari nel settore del commercio all'ingrosso di materiali da costruzione, compensata da un significativo miglioramento della marginalità operativa.</p>
-
-                 <h6 class="mt-4 text-center small">Grafico 2.1: Andamento Ricavi ed EBITDA 2022-2024 (€000 e %)</h6>
-                 <div class="chart-container mb-4" style="height: 350px;">
-                     <canvas id="economicTrendChart"></canvas>
-                 </div>
-
-                <h6 class="mt-4">Tabella 2.1: Conto Economico Riclassificato 2022-2024 (valori in €)</h6>
-                 <div class="table-responsive">
-                     <table class="table table-sm table-striped table-hover">
-                         <thead class="table-light">
-                             <tr><th>Voce</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var. % 23-24</th></tr>
-                         </thead>
-                         <tbody>
-                             <tr><td>Ricavi</td><td class="text-end">2.809.250</td><td class="text-end">100,0%</td><td class="text-end">2.464.329</td><td class="text-end">100,0%</td><td class="text-end">2.338.270</td><td class="text-end">100,0%</td><td class="text-danger">-5,12%</td></tr>
-                             <tr><td>Acquisti</td><td class="text-end">-2.026.323</td><td class="text-end">-72,1%</td><td class="text-end">-1.840.450</td><td class="text-end">-74,7%</td><td class="text-end">-1.657.453</td><td class="text-end">-70,9%</td><td class="text-success">-10,0%</td></tr>
-                             <tr><td>Consumi</td><td class="text-end">-2.236.499</td><td class="text-end">-79,6%</td><td class="text-end">-1.821.150</td><td class="text-end">-73,9%</td><td class="text-end">-1.591.809</td><td class="text-end">-68,1%</td><td class="text-success">-12,6%</td></tr>
-                             <tr><td>Valore Aggiunto su Consumi</td><td class="text-end">572.751</td><td class="text-end">20,4%</td><td class="text-end">643.179</td><td class="text-end">26,1%</td><td class="text-end">746.460</td><td class="text-end">31,9%</td><td class="text-success">+16,1%</td></tr>
-                             <tr><td>Costi Variabili Produzione</td><td class="text-end">-81.742</td><td class="text-end">-2,9%</td><td class="text-end">-130.589</td><td class="text-end">-5,3%</td><td class="text-end">-242.494</td><td class="text-end">-10,4%</td><td class="text-danger">+85,7%</td></tr>
-                             <tr class="table-secondary"><td>Margine di Contribuzione</td><td class="text-end">491.009</td><td class="text-end">17,5%</td><td class="text-end">512.590</td><td class="text-end">20,8%</td><td class="text-end">503.967</td><td class="text-end">21,6%</td><td class="text-danger">-1,68%</td></tr>
-                             <tr><td>Costi Fissi Produzione</td><td class="text-end">-269.599</td><td class="text-end">-9,6%</td><td class="text-end">-280.584</td><td class="text-end">-11,4%</td><td class="text-end">-241.153</td><td class="text-end">-10,3%</td><td class="text-success">-14,1%</td></tr>
-                             <tr><td>- di cui Personale</td><td class="text-end">-213.459</td><td class="text-end">-7,6%</td><td class="text-end">-213.727</td><td class="text-end">-8,7%</td><td class="text-end">-172.180</td><td class="text-end">-7,36%</td><td class="text-success">-19,4%</td></tr>
-                             <tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">221.410</td><td class="text-end">7,9%</td><td class="text-end">232.006</td><td class="text-end">9,4%</td><td class="text-end">262.814</td><td class="text-end">11,24%</td><td class="text-success">+13,28%</td></tr>
-                             <tr><td>Ammortamenti e Svalutazioni</td><td class="text-end">-34.362</td><td class="text-end">-1,2%</td><td class="text-end">-18.400</td><td class="text-end">-0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100%</td></tr>
-                             <tr><td>EBIT</td><td class="text-end">187.048</td><td class="text-end">6,7%</td><td class="text-end">31.868</td><td class="text-end">1,3%</td><td class="text-end">262.814</td><td class="text-end">11,24%</td><td class="text-success">+724,8%</td></tr>
-                             <tr><td>Saldo Oneri/Ricavi Diversi</td><td class="text-end">-24.444</td><td class="text-end">-0,9%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">-6.257</td><td class="text-end">-0,3%</td><td class="text-danger">n.a.</td></tr>
-                             <tr><td>Margine Ante Gestione Finanziaria</td><td class="text-end">162.604</td><td class="text-end">5,8%</td><td class="text-end">31.868</td><td class="text-end">1,3%</td><td class="text-end">256.557</td><td class="text-end">11,0%</td><td class="text-success">+705,1%</td></tr>
-                             <tr><td>Gestione Finanziaria</td><td class="text-end">-29.029</td><td class="text-end">-1,0%</td><td class="text-end">-17.683</td><td class="text-end">-0,7%</td><td class="text-end">-62.791</td><td class="text-end">-2,7%</td><td class="text-danger">+255,2%</td></tr>
-                             <tr><td>Gestione Straordinaria</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">-118.104</td><td class="text-end">-5,0%</td><td class="text-danger">n.a.</td></tr>
-                             <tr><td>Risultato Ante Imposte</td><td class="text-end">133.575</td><td class="text-end">4,8%</td><td class="text-end">14.185</td><td class="text-end">0,6%</td><td class="text-end">75.661</td><td class="text-end">3,2%</td><td class="text-success">+433,5%</td></tr>
-                             <tr><td>Imposte</td><td class="text-end">-17.042</td><td class="text-end">-0,6%</td><td class="text-end">-26.058</td><td class="text-end">-1,1%</td><td class="text-end">-62.316</td><td class="text-end">-2,7%</td><td class="text-danger">+139,1%</td></tr>
-                             <tr class="table-success fw-bold"><td>Utile/Perdita d'esercizio</td><td class="text-end">116.533</td><td class="text-end">4,1%</td><td class="text-end">-11.873</td><td class="text-end">-0,5%</td><td class="text-end">13.345</td><td class="text-end">0,57%</td><td class="text-success">+212,4%</td></tr>
-                         </tbody>
-                     </table>
-                 </div>
-
-                <h6 class="mt-4">Analisi della composizione dei costi</h6>
-                 <div class="table-responsive">
-                     <table class="table table-sm table-striped table-hover">
-                         <thead class="table-light">
-                             <tr><th>Categoria di costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var.% 23-24</th></tr>
-                         </thead>
-                         <tbody>
-                             <tr><td>Acquisti</td><td class="text-end">2.026.323</td><td class="text-end">72,1%</td><td class="text-end">1.840.450</td><td class="text-end">74,7%</td><td class="text-end">1.657.453</td><td class="text-end">70,9%</td><td class="text-success">-10,0%</td></tr>
-                             <tr><td>Consumi</td><td class="text-end">2.236.499</td><td class="text-end">79,6%</td><td class="text-end">1.821.150</td><td class="text-end">73,9%</td><td class="text-end">1.591.809</td><td class="text-end">68,1%</td><td class="text-success">-12,6%</td></tr>
-                             <tr><td>Costi Variabili Produzione</td><td class="text-end">81.742</td><td class="text-end">2,9%</td><td class="text-end">130.589</td><td class="text-end">5,3%</td><td class="text-end">242.494</td><td class="text-end">10,4%</td><td class="text-danger">+85,7%</td></tr>
-                             <tr><td>Costi Fissi Produzione</td><td class="text-end">269.599</td><td class="text-end">9,6%</td><td class="text-end">280.584</td><td class="text-end">11,4%</td><td class="text-end">241.153</td><td class="text-end">10,3%</td><td class="text-success">-14,1%</td></tr>
-                             <tr><td>- Personale</td><td class="text-end">213.459</td><td class="text-end">7,6%</td><td class="text-end">213.727</td><td class="text-end">8,7%</td><td class="text-end">172.180</td><td class="text-end">7,36%</td><td class="text-success">-19,4%</td></tr>
-                             <tr><td>Ammortamenti</td><td class="text-end">34.362</td><td class="text-end">1,2%</td><td class="text-end">18.400</td><td class="text-end">0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100%</td></tr>
-                             <tr><td>Oneri Diversi di Gestione</td><td class="text-end">24.444</td><td class="text-end">0,9%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">6.257</td><td class="text-end">0,3%</td><td class="text-danger">n.a.</td></tr>
-                             <tr><td>Oneri Finanziari</td><td class="text-end">29.029</td><td class="text-end">1,0%</td><td class="text-end">17.909</td><td class="text-end">0,7%</td><td class="text-end">62.791</td><td class="text-end">2,7%</td><td class="text-danger">+250,6%</td></tr>
-                             <tr><td>Imposte</td><td class="text-end">17.042</td><td class="text-end">0,6%</td><td class="text-end">26.058</td><td class="text-end">1,1%</td><td class="text-end">62.316</td><td class="text-end">2,7%</td><td class="text-danger">+139,1%</td></tr>
-                             <tr class="table-warning"><td>EBITDA Margin Target Settore</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-success">Sopra target</td></tr>
-                         </tbody>
-                     </table>
-                 </div>
-
-                <h6 class="mt-4">Analisi del Conto Economico (EDILCOMPANY S.R.L.):</h6>
-                <ol class="small">
-                    <li><strong>Ricavi:</strong> Contrazione del 5,12% nel 2024 rispetto al 2023, passando da €2.464.329 a €2.338.270, riflettendo le sfide del settore edile e il rallentamento del mercato dei materiali da costruzione.</li>
-                    <li><strong>Margine di Contribuzione (21,6%):</strong> Miglioramento significativo rispetto agli anni precedenti (17,5% nel 2022, 20,8% nel 2023), indicando un'ottimizzazione del mix di prodotto e delle politiche commerciali nonostante il calo dei ricavi.</li>
-                    <li><strong>EBITDA (11,24%):</strong> Incremento del 13,28% in valore assoluto e miglioramento dell'incidenza sui ricavi rispetto al 2023 (9,4%), superiore al range di benchmark settoriale (5-9%), evidenziando un'eccellente efficienza operativa.</li>
-                    <li><strong>Anomalie strutturali:</strong> Assenza di ammortamenti nel 2024 nonostante la presenza di immobilizzazioni per €111.023, elemento anomalo che richiede approfondimento per verificare la corretta applicazione dei principi contabili.</li>
-                    <li><strong>Gestione Straordinaria:</strong> Impatto negativo significativo di €118.104 (5,0% dei ricavi) che erode pesantemente il risultato operativo, suggerendo eventi non ricorrenti che necessitano di analisi specifica.</li>
-                    <li><strong>Oneri finanziari:</strong> Incremento sostanziale del 250,6% rispetto al 2023, con un'incidenza del 2,7% sui ricavi e un costo medio del debito del 17,14%, livello critico che richiede ristrutturazione finanziaria.</li>
-                    <li><strong>Moltiplicatore dei costi fissi:</strong> Pari a 4,64, indicando che per ogni €1.000 di incremento dei costi fissi sono necessari €4.640 di ricavi aggiuntivi per mantenere il risultato invariato.</li>
-                </ol>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> EDILCOMPANY S.R.L. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
             </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Analisi Economica e Benchmark | <span class="report-date">21 Maggio 2025</span></p>
+            <hr>
         </div>
-    </div>
-</div>
 
-<!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-<script src="../js/common.js"></script>
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
 
-<!-- Script per il grafico -->
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dati per il grafico
-        const years = ['2022', '2023', '2024'];
-        const revenues = [2809250, 2464329, 2338270];
-        const ebitda = [221410, 232006, 262814];
-        const ebitdaPercentage = [7.9, 9.4, 11.24];
-        
-        // Formattazione per le etichette
-        const formatter = new Intl.NumberFormat('it-IT', {
-            style: 'currency',
-            currency: 'EUR',
-            maximumFractionDigits: 0
-        });
-        
-        // Inizializzazione del grafico
-        const ctx = document.getElementById('economicTrendChart').getContext('2d');
-        const economicTrendChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: years,
-                datasets: [
-                    {
-                        label: 'Ricavi',
-                        data: revenues,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1,
-                        order: 1
-                    },
-                    {
-                        label: 'EBITDA',
-                        data: ebitda,
-                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1,
-                        order: 2
-                    },
-                    {
-                        label: 'EBITDA %',
-                        data: ebitdaPercentage,
-                        type: 'line',
-                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        borderColor: 'rgba(255, 159, 64, 1)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(255, 159, 64, 1)',
-                        pointRadius: 4,
-                        yAxisID: 'y1',
-                        order: 0
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Valori in Euro'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return formatter.format(value).replace('€', '€ ');
-                            }
-                        }
-                    },
-                    y1: {
-                        position: 'right',
-                        beginAtZero: true,
-                        max: 15,
-                        title: {
-                            display: true,
-                            text: 'EBITDA %'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            }
-                        },
-                        grid: {
-                            drawOnChartArea: false
-                        }
-                    }
-                },
-                plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.dataset.yAxisID === 'y1') {
-                                    label += context.parsed.y + '%';
-                                } else {
-                                    label += formatter.format(context.parsed.y);
-                                }
-                                return label;
-                            }
-                        }
-                    },
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-        
-        // Aggiorna l'anno corrente nel footer
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 2 - V9 - Updated for EDILCOMPANY -->
+            <!-- ================================================================ -->
+
+             <h2 class="section-title" id="economic-analysis"><i class="fas fa-balance-scale me-2"></i>SEZIONE 2.1: ANALISI ECONOMICA</h2>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.1 Conto Economico Riclassificato</h5></div>
+                <div class="card-body">
+                    <p>Il conto economico riclassificato evidenzia la struttura dei costi e dei ricavi di EDILCOMPANY S.R.L. nel periodo 2022-2024, consentendo di valutare la redditività operativa e netta nel settore del commercio all'ingrosso di materiali da costruzione.</p>
+
+                     <h6 class="mt-4 text-center small">Grafico 2.1: Andamento Ricavi ed EBITDA 2022-2024 (€000 e %)</h6>
+                     <div class="chart-container mb-4" style="height: 350px;">
+                         <canvas id="economicTrendChart"></canvas>
+                     </div>
+
+                    <h6 class="mt-4">Tabella 2.1: Conto Economico Riclassificato 2022-2024 (valori in €)</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                             <thead class="table-light">
+                                 <tr><th>Voce</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var. % 23-24</th></tr>
+                             </thead>
+                             <tbody>
+                                 <tr><td>Ricavi</td><td class="text-end">2.809.250</td><td class="text-end">100,0%</td><td class="text-end">2.464.329</td><td class="text-end">100,0%</td><td class="text-end">2.338.270</td><td class="text-end">100,0%</td><td class="text-danger">-5,12%</td></tr>
+                                 <tr><td>Valore Aggiunto su Consumi</td><td class="text-end">572.751</td><td class="text-end">20,4%</td><td class="text-end">643.179</td><td class="text-end">26,1%</td><td class="text-end">746.460</td><td class="text-end">31,9%</td><td class="text-success">+16,06%</td></tr>
+                                 <tr><td>Margine di Contribuzione</td><td class="text-end">491.009</td><td class="text-end">17,5%</td><td class="text-end">512.590</td><td class="text-end">20,8%</td><td class="text-end">503.967</td><td class="text-end">21,6%</td><td class="text-danger">-1,68%</td></tr>
+                                 <tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">221.410</td><td class="text-end">7,9%</td><td class="text-end">232.006</td><td class="text-end">9,4%</td><td class="text-end">262.814</td><td class="text-end">11,2%</td><td class="text-success">+13,28%</td></tr>
+                                 <tr><td>EBIT (Reddito Operativo)</td><td class="text-end">187.048</td><td class="text-end">6,7%</td><td class="text-end">31.868</td><td class="text-end">1,3%</td><td class="text-end">262.814</td><td class="text-end">11,2%</td><td class="text-success">+724,71%</td></tr>
+                                 <tr><td>Margine Ante Gestione Fin.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">31.860</td><td class="text-end">1,3%</td><td class="text-end">256.557</td><td class="text-end">11,0%</td><td class="text-success">+705,12%</td></tr>
+                                 <tr><td>Margine Corrente</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">14.207</td><td class="text-end">0,6%</td><td class="text-end">193.766</td><td class="text-end">8,3%</td><td class="text-success">+1264,26%</td></tr>
+                                 <tr><td>Risultato Ante Imposte</td><td class="text-end">143.674</td><td class="text-end">5,1%</td><td class="text-end">14.207</td><td class="text-end">0,6%</td><td class="text-end">75.661</td><td class="text-end">3,2%</td><td class="text-success">+432,67%</td></tr>
+                                 <tr class="table-success fw-bold"><td>Utile/Perdita d'esercizio</td><td class="text-end">116.533</td><td class="text-end">4,1%</td><td class="text-end">-11.873</td><td class="text-end">-0,5%</td><td class="text-end">13.345</td><td class="text-end">0,6%</td><td class="text-success">Ritorno all'utile</td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+
+                    <h6 class="mt-4">Analisi della composizione dei costi</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                             <thead class="table-light">
+                                 <tr><th>Categoria di costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var.% 23-24</th></tr>
+                             </thead>
+                             <tbody>
+                                 <tr><td>Acquisti</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">1.840.450</td><td class="text-end">74,7%</td><td class="text-end">1.657.453</td><td class="text-end">70,9%</td><td class="text-success">-9,95%</td></tr>
+                                 <tr><td>Consumi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">1.591.809</td><td class="text-end">68,1%</td><td class="text-end">n.d.</td></tr>
+                                 <tr><td>Costi Variabili di Produzione</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">130.589</td><td class="text-end">5,3%</td><td class="text-end">242.494</td><td class="text-end">10,4%</td><td class="text-danger">+85,71%</td></tr>
+                                 <tr><td>Costi Fissi di Produzione</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">241.153</td><td class="text-end">10,3%</td><td class="text-end">n.d.</td></tr>
+                                 <tr><td>Costo del Personale</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">213.727</td><td class="text-end">8,7%</td><td class="text-end">172.180</td><td class="text-end">7,4%</td><td class="text-success">-19,44%</td></tr>
+                                 <tr><td>Ammortamenti</td><td class="text-end">34.362</td><td class="text-end">1,2%</td><td class="text-end">18.400</td><td class="text-end">0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100,00%</td></tr>
+                                 <tr><td>Oneri finanziari</td><td class="text-end">28.149</td><td class="text-end">1,0%</td><td class="text-end">17.909</td><td class="text-end">0,7%</td><td class="text-end">62.791</td><td class="text-end">2,7%</td><td class="text-danger">+250,61%</td></tr>
+                                 <tr><td>Imposte</td><td class="text-end">27.141</td><td class="text-end">1,0%</td><td class="text-end">26.080</td><td class="text-end">1,1%</td><td class="text-end">62.316</td><td class="text-end">2,7%</td><td class="text-danger">+139,05%</td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+
+                    <h6 class="mt-4">Analisi del Conto Economico (EDILCOMPANY S.R.L.):</h6>
+                    <ol class="small">
+                        <li><strong>Ricavi:</strong> Contrazione del 5,12% nel 2024 rispetto al 2023, proseguendo il trend negativo iniziato nel 2023 (-12,28%), evidenziando pressioni competitive nel settore dei materiali da costruzione.</li>
+                        <li><strong>Valore Aggiunto (31,9%):</strong> Significativo miglioramento (+16,06%), con progressiva crescita dal 20,4% del 2022, indicando una migliore gestione dei consumi e possibile shift verso prodotti a maggior margine.</li>
+                        <li><strong>EBITDA (11,2%):</strong> Crescita del 13,28% rispetto al 2023, raggiungendo il livello più alto del triennio nonostante il calo dei ricavi, segnale di buona efficienza operativa.</li>
+                        <li><strong>EBIT:</strong> Anomalia significativa nell'assenza di ammortamenti nel 2024, che determina la coincidenza tra EBIT ed EBITDA (€262.814), elemento da approfondire.</li>
+                        <li><strong>Utile Netto (0,6%):</strong> Ritorno all'utile dopo la perdita del 2023 (-€11.873), pur con marginalità netta ridotta rispetto al 4,1% del 2022.</li>
+                        <li><strong>Oneri finanziari:</strong> Forte incremento (+250,61%) che erode significativamente la redditività, passando dallo 0,7% al 2,7% dei ricavi.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.2 Analisi della Marginalità</h5></div>
+                 <div class="card-body">
+                    <p>L'analisi della marginalità valuta la capacità di generare valore aggiunto nel settore del commercio all'ingrosso di materiali da costruzione.</p>
+                    <div class="row">
+                        <div class="col-lg-7 mb-3 mb-lg-0">
+                            <h6 class="text-center small">Grafico 2.2: Evoluzione delle Principali Marginalità (%)</h6>
+                             <div class="chart-container" style="height: 350px;">
+                                 <canvas id="marginalityChart"></canvas>
+                             </div>
+                        </div>
+                         <div class="col-lg-5">
+                             <h6>Tabella 2.2: Evoluzione Indici di Marginalità (EDILCOMPANY S.R.L.)</h6>
+                             <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                     <thead><tr><th>Indicatore</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Trend</th></tr></thead>
+                                     <tbody>
+                                         <tr><td>Valore Aggiunto/Ricavi</td><td class="text-end">20,4%</td><td class="text-end">26,1%</td><td class="text-end">31,9%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>MdC/Ricavi</td><td class="text-end">17,5%</td><td class="text-end">20,8%</td><td class="text-end">21,6%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>EBITDA/Ricavi</td><td class="text-end">7,9%</td><td class="text-end">9,4%</td><td class="text-end">11,2%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>ROS (EBIT/Ricavi)</td><td class="text-end">6,7%</td><td class="text-end">1,3%</td><td class="text-end">11,2%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr><td>Utile Netto/Ricavi</td><td class="text-end">4,1%</td><td class="text-end">-0,5%</td><td class="text-end">0,6%</td><td class="text-success"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr class="table-secondary"><td>Break-Even Point (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">1.118.883</td><td class="text-warning"><i class="fas fa-arrow-up"></i></td></tr>
+                                         <tr class="table-secondary"><td>Margine Sicurezza</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">52,15%</td><td class="text-success"><i class="fas fa-check"></i></td></tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                             <h6 class="mt-3">Break-Even e Leva Operativa (2024 - EDILCOMPANY S.R.L.)</h6>
+                             <div class="alert-box alert-success small mt-2 p-2">
+                                 <ul class="list-unstyled mb-0">
+                                     <li><i class="fas fa-bullseye me-1"></i> BEP: €1.118.883 | Margine Sicurezza: 52,15% (Ottimo)</li>
+                                     <li><i class="fas fa-calculator me-1"></i> Moltiplicatore CF: 4,64</li>
+                                     <li><i class="fas fa-arrows-alt-v me-1"></i> Variazione ricavi per EBIT=0: -52,15% | Variazione CF per EBIT=0: +108,98%</li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.1.3 Struttura e Dettaglio Principali Costi</h5></div>
+                 <div class="card-body">
+                     <p>Analisi delle principali voci di costo e loro incidenza nel settore del commercio all'ingrosso.</p>
+                     <h6 class="mt-4">Tabella 2.3: Struttura dei Costi 2022-2024 (EDILCOMPANY S.R.L.)</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Categoria di Costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th>Var%</th><th>Valutazione</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Acquisti/Consumi</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">1.840.450</td><td class="text-end">74,7%</td><td class="text-end">1.591.809</td><td class="text-end">68,1%</td><td class="text-success">-13,5%</td><td><span class="status-badge bg-success">Miglioramento</span></td></tr>
+                                <tr><td>Costi Variabili Produzione</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">130.589</td><td class="text-end">5,3%</td><td class="text-end">242.494</td><td class="text-end">10,4%</td><td class="text-danger">+85,7%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Costi Fissi Produzione</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">241.153</td><td class="text-end">10,3%</td><td class="text-end">n.d.</td><td><span class="status-badge bg-secondary">Da valutare</span></td></tr>
+                                <tr><td>Costo del personale</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">213.727</td><td class="text-end">8,7%</td><td class="text-end">172.180</td><td class="text-end">7,4%</td><td class="text-success">-19,4%</td><td><span class="status-badge bg-success">Ottimizzato</span></td></tr>
+                                <tr><td>Ammortamenti</td><td class="text-end">34.362</td><td class="text-end">1,2%</td><td class="text-end">18.400</td><td class="text-end">0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-warning">-100,0%</td><td><span class="status-badge bg-warning">Anomalo</span></td></tr>
+                                <tr><td>Oneri finanziari</td><td class="text-end">28.149</td><td class="text-end">1,0%</td><td class="text-end">17.909</td><td class="text-end">0,7%</td><td class="text-end">62.791</td><td class="text-end">2,7%</td><td class="text-danger">+250,6%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                            </tbody>
+                         </table>
+                     </div>
+                     <h6 class="mt-4">Analisi del Costo del Personale</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light">
+                                <tr><th>Dettaglio</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th class="text-end">Var.% 23-24</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Numero dipendenti</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">8</td><td class="text-end">n.d.</td></tr>
+                                <tr><td>Costo totale personale (€)</td><td class="text-end">n.d.</td><td class="text-end">213.727</td><td class="text-end">172.180</td><td class="text-success">-19,4%</td></tr>
+                                <tr><td>Costo medio per dipendente (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">21.523</td><td class="text-end">n.d.</td></tr>
+                                <tr><td>Incidenza su ricavi (%)</td><td class="text-end">n.d.</td><td class="text-end">8,7%</td><td class="text-end">7,4%</td><td class="text-success">-1,3 p.p.</td></tr>
+                                <tr><td>Ricavi per dipendente (€)</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">292.284</td><td class="text-end">n.d.</td></tr>
+                            </tbody>
+                         </table>
+                     </div>
+                     <h6 class="mt-4">Approfondimento (EDILCOMPANY S.R.L.):</h6>
+                     <ul class="small">
+                          <li><strong>Acquisti/Consumi (68,1%):</strong> Riduzione dell'incidenza rispetto al 2023, segnale positivo di miglioramento del potere contrattuale o shift verso prodotti a maggior margine.</li>
+                          <li><strong>Costi variabili (+85,7%):</strong> Incremento anomalo che richiede approfondimento, possibile riclassificazione di voci o inefficienze operative.</li>
+                          <li><strong>Costo del personale (7,4%):</strong> Ottimizzazione significativa (-19,4%) con buona produttività per dipendente (€292.284), superiore agli standard del settore commercio.</li>
+                          <li><strong>Oneri finanziari (2,7%):</strong> Criticità principale con incremento del 250,6%, che erode significativamente la redditività netta. Il costo del debito (17,14%) è molto elevato.</li>
+                          <li><strong>Ammortamenti:</strong> Assenza totale nel 2024 rappresenta un'anomalia contabile da verificare, considerando la presenza di immobilizzazioni.</li>
+                     </ul>
+                 </div>
+            </div>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.4 Indici di Redditività</h5></div>
+                 <div class="card-body">
+                     <p>Analisi della capacità di generare ritorni adeguati nel settore del commercio all'ingrosso.</p>
+                      <div class="row">
+                         <div class="col-lg-7 mb-3 mb-lg-0">
+                             <h6>Tabella 2.4: Indici di Redditività 2022-2024 (EDILCOMPANY S.R.L.)</h6>
+                              <div class="table-responsive">
+                                 <table class="table table-sm table-striped table-hover">
+                                     <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Soglia</th><th>Valutazione</th></tr></thead>
+                                     <tbody>
+                                         <tr><td>ROE</td><td>Utile/PN</td><td class="text-end">67,81%</td><td class="text-end">-7,42%</td><td class="text-end">7,70%</td><td>> 7%</td><td><span class="status-badge bg-success">Adeguato</span></td></tr>
+                                         <tr><td>ROI</td><td>EBIT/CIN</td><td class="text-end">39,97%</td><td class="text-end">61,44%</td><td class="text-end">52,71%</td><td>> 10%</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                         <tr><td>ROS</td><td>EBIT/Ricavi</td><td class="text-end">6,7%</td><td class="text-end">1,3%</td><td class="text-end">11,24%</td><td>> 6%</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                         <tr><td>EBITDA Margin</td><td>EBITDA/Ricavi</td><td class="text-end">7,9%</td><td class="text-end">9,4%</td><td class="text-end">11,24%</td><td>> 8%</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                         <tr><td>Redditività Netta</td><td>Utile/Ricavi</td><td class="text-end">4,1%</td><td class="text-end">-0,5%</td><td class="text-end">0,6%</td><td>> 2%</td><td><span class="status-badge bg-warning">Insufficiente</span></td></tr>
+                                         <tr><td>Turnover</td><td>Ricavi/CIN</td><td class="text-end">n.d.</td><td class="text-end">n.d.</td><td class="text-end">4,69</td><td>> 2</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                                         <tr><td>Cash Flow / Ricavi</td><td>CF Op./Ricavi</td><td class="text-end">3,90%</td><td class="text-end">5,41%</td><td class="text-end">-6,24%</td><td>> 5%</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                          <div class="col-lg-5">
+                              <h6 class="text-center small">Grafico 2.3: Andamento Redditività (%)</h6>
+                              <div class="chart-container" style="height: 280px;"> <canvas id="profitabilityIndicesChart"></canvas> </div>
+                         </div>
+                     </div>
+                      <h6 class="mt-4">Analisi (EDILCOMPANY S.R.L.):</h6>
+                      <ul class="small">
+                        <li><strong>ROE (7,70%):</strong> Recupero dopo la perdita del 2023, appena sopra la soglia minima del 7%, ma molto inferiore al 67,81% del 2022.</li>
+                        <li><strong>ROI (52,71%):</strong> Valore eccezionalmente positivo, significativamente superiore alla media del settore commercio (15%), indicando ottima efficienza del capitale investito.</li>
+                        <li><strong>ROS (11,24%):</strong> Ottima performance, superiore alla soglia del 6% e al benchmark settoriale (4-7%), confermando buoni margini operativi.</li>
+                        <li><strong>Redditività Netta (0,6%):</strong> Criticità principale, ben al di sotto della soglia del 2%, erosa dagli elevati oneri finanziari.</li>
+                        <li><strong>Cash Flow / Ricavi (-6,24%):</strong> Valore fortemente negativo, segnale critico di assorbimento di liquidità nella gestione operativa.</li>
+                        <li><strong>Turnover (4,69):</strong> Eccellente rotazione del capitale, tipica del settore commercio con bassi investimenti fissi.</li>
+                      </ul>
+                 </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.1.5 Effetto Leva Finanziaria</h5></div>
+                 <div class="card-body">
+                     <p>Valutazione dell'impatto dell'indebitamento sulla redditività del capitale proprio nel contesto del commercio all'ingrosso.</p>
+                      <div class="row">
+                          <div class="col-lg-7 mb-3 mb-lg-0">
+                              <h6>Tabella 2.5: Analisi Effetto Leva 2022-2024 (EDILCOMPANY S.R.L.)</h6>
+                              <div class="table-responsive">
+                                 <table class="table table-sm table-striped table-hover">
+                                      <thead><tr><th>Parametro</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th class="text-end">Variazione 23-24</th></tr></thead>
+                                      <tbody>
+                                          <tr><td>ROI</td><td>EBIT/CIN</td><td class="text-end">39,97%</td><td class="text-end">61,44%</td><td class="text-end">52,71%</td><td class="text-end">-8,73 p.p.</td></tr>
+                                          <tr><td>Costo medio del debito (i)</td><td>Oneri Fin./Debiti Fin.</td><td class="text-end">5,8%</td><td class="text-end">5,4%</td><td class="text-end">17,14%</td><td class="text-end">+11,74 p.p.</td></tr>
+                                          <tr><td>Spread (ROI - i)</td><td>ROI - i</td><td class="text-end text-success">+34,17%</td><td class="text-end text-success">+56,04%</td><td class="text-end text-success">+35,57%</td><td class="text-end">-20,47 p.p.</td></tr>
+                                          <tr><td>Rapporto D/E (Debt/Equity)</td><td>Debiti Fin./PN</td><td class="text-end">2,46</td><td class="text-end">2,09</td><td class="text-end">2,30</td><td class="text-end">+0,21</td></tr>
+                                          <tr class="table-secondary"><td>Effetto leva (ROI - i) × D/E</td><td>(ROI - i) × D/E</td><td class="text-end text-success">+84,06%</td><td class="text-end text-success">+117,12%</td><td class="text-end text-success">+81,81%</td><td class="text-end">-35,31 p.p.</td></tr>
+                                          <tr><td>ROE teorico (ROI + effetto leva)</td><td>ROI + Effetto Leva</td><td class="text-end">124,03%</td><td class="text-end">178,56%</td><td class="text-end">134,52%</td><td class="text-end">-44,04 p.p.</td></tr>
+                                          <tr class="fw-bold"><td>ROE effettivo</td><td>Utile Netto/PN</td><td class="text-end">67,81%</td><td class="text-end">-7,42%</td><td class="text-end">7,70%</td><td class="text-end">+15,12 p.p.</td></tr>
+                                          <tr><td>Differenza (ROE effettivo - ROE teorico)</td><td>ROE - ROE teorico</td><td class="text-end">-56,22%</td><td class="text-end">-185,98%</td><td class="text-end">-126,82%</td><td class="text-end">+59,16 p.p.</td></tr>
+                                      </tbody>
+                                 </table>
+                              </div>
+                          </div>
+                          <div class="col-lg-5">
+                               <h6 class="text-center small">Grafico 2.4: Evoluzione della Struttura Finanziaria</h6>
+                               <div class="chart-container" style="height: 250px;"> <canvas id="leverageChart"></canvas> </div>
+                                <h6 class="mt-4">Analisi Leva (EDILCOMPANY S.R.L.):</h6>
+                               <ul class="small list-unstyled">
+                                <li><i class="fas fa-check-circle text-success me-1"></i> Spread (ROI-i) positivo (+35,57%), ma ridotto rispetto al 2023 per l'impennata del costo del debito.</li>
+                                <li><i class="fas fa-exclamation-circle text-danger me-1"></i> Costo del debito triplicato (dal 5,4% al 17,14%), elemento critico che erode l'effetto leva positivo.</li>
+                                <li><i class="fas fa-info-circle text-warning me-1"></i> D/E elevato (2,30), superiore al benchmark ottimale (<1,5), indicando elevata dipendenza dal capitale di terzi.</li>
+                                <li><i class="fas fa-arrow-down text-danger me-1"></i> ROE effettivo (7,70%) drasticamente inferiore al ROE teorico (134,52%), evidenziando inefficienze gestionali o componenti straordinarie.</li>
+                                <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> L'effetto leva, pur teoricamente positivo (+81,81%), non si traduce in adeguata redditività per gli azionisti.</li>
+                               </ul>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+
+             <h2 class="section-title mt-5" id="benchmark"><i class="fas fa-chart-bar me-2"></i>SEZIONE 2.2: BENCHMARK E POSIZIONAMENTO COMPETITIVO</h2>
+
+            <div class="card mb-4 report-section">
+                <div class="card-header"><h5 class="mb-0">2.2.1 Posizionamento Competitivo</h5></div>
+                 <div class="card-body">
+                     <p>Valutazione della performance rispetto al settore "Commercio all'ingrosso di materiali da costruzione" (ATECO 46.83).</p>
+                     <div class="row">
+                         <div class="col-lg-7 mb-3 mb-lg-0">
+                              <h6 class="text-center small">Grafico 2.5: Posizionamento Competitivo (Base 100 = Media Settore)</h6>
+                             <div class="chart-container" style="height: 350px;"> <canvas id="benchmarkRadarChart"></canvas>          
+                                 <script>
+                                     document.addEventListener('DOMContentLoaded', function() {
+                                         const ctxBenchmarkRadar = document.getElementById('benchmarkRadarChart');
+
+                                         if (ctxBenchmarkRadar) {
+                                             try {
+                                                  const benchmarkRadarData = {
+                                                     labels: ["Crescita Ricavi", "EBITDA Margin", "ROI", "Turnover", "Costo Personale (inv)", "PFN/EBITDA (inv)", "D/E (inv)"],
+                                                     datasets: [
+                                                         {
+                                                             label: "EDILCOMPANY S.R.L.",
+                                                             data: [0, 150, 351, 235, 101, 39, 0],
+                                                             backgroundColor: "rgba(25, 25, 112, 0.3)",
+                                                             borderColor: "rgba(25, 25, 112, 1)",
+                                                             borderWidth: 2, pointBackgroundColor: "rgba(25, 25, 112, 1)", pointBorderColor: "#fff",
+                                                             pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "rgba(25, 25, 112, 1)"
+                                                         },
+                                                         {
+                                                             label: "Media Settore",
+                                                             data: [100, 100, 100, 100, 100, 100, 100],
+                                                             backgroundColor: "rgba(217, 140, 0, 0.3)",
+                                                             borderColor: "rgba(217, 140, 0, 1)",
+                                                             borderWidth: 2, pointBackgroundColor: "rgba(217, 140, 0, 1)", pointBorderColor: "#fff",
+                                                             pointHoverBackgroundColor: "#fff", pointHoverBorderColor: "rgba(217, 140, 0, 1)"
+                                                         }
+                                                     ]
+                                                 };
+
+                                                 const benchmarkRadarOptions = {
+                                                     responsive: true,
+                                                     maintainAspectRatio: false,
+                                                       scales: {
+                                                          r: {
+                                                              angleLines: { color: '#e0e0e0' }, grid: { color: '#e0e0e0' },
+                                                              pointLabels: { font: { size: 10 } },
+                                                              ticks: {
+                                                                  backdropColor: 'rgba(255, 255, 255, 0.75)', font: { size: 9 },
+                                                                  maxTicksLimit: 5,
+                                                              },
+                                                              suggestedMin: 0,
+                                                          }
+                                                       },
+                                                       plugins: {
+                                                            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15, font: { size: 11 } } },
+                                                            title: { display: false },
+                                                            tooltip: {
+                                                                backgroundColor: 'rgba(0, 0, 0, 0.8)', titleFont: { weight: 'bold', size: 13 },
+                                                                bodyFont: { size: 12 }, padding: 10, cornerRadius: 4, displayColors: true, boxPadding: 4,
+                                                                callbacks: {
+                                                                    label: function(context) {
+                                                                        let label = context.dataset.label || '';
+                                                                        if (label) label += ': ';
+                                                                        if (context.parsed.r !== null) { label += context.parsed.r.toFixed(1); }
+                                                                        else { label += 'N/D'; }
+                                                                        return label;
+                                                                    }
+                                                                }
+                                                            }
+                                                       },
+                                                       animation: { duration: 400 }
+                                                 };
+
+                                                 const existingChart = Chart.getChart(ctxBenchmarkRadar);
+                                                 if (existingChart instanceof Chart) {
+                                                     existingChart.destroy();
+                                                 }
+
+                                                 new Chart(ctxBenchmarkRadar, {
+                                                     type: 'radar',
+                                                     data: benchmarkRadarData,
+                                                     options: benchmarkRadarOptions
+                                                 });
+                                                 console.log("Grafico benchmarkRadarChart inizializzato direttamente in HTML.");
+
+                                             } catch (error) {
+                                                 console.error("Errore inizializzazione grafico benchmarkRadarChart in HTML:", error);
+                                                  const ctx = ctxBenchmarkRadar.getContext('2d');
+                                                   if (ctx) {
+                                                       ctx.clearRect(0, 0, ctxBenchmarkRadar.width, ctxBenchmarkRadar.height);
+                                                       ctx.font = '14px Titillium Web, sans-serif';
+                                                       ctx.fillStyle = '#dc3545';
+                                                       ctx.textAlign = 'center';
+                                                       ctx.fillText('Errore durante il caricamento del grafico.', ctxBenchmarkRadar.width / 2, ctxBenchmarkRadar.height / 2);
+                                                   }
+                                             }
+                                         } else {
+                                              console.warn("Canvas 'benchmarkRadarChart' non trovato.");
+                                         }
+                                     });
+                                 </script>
+                                 </div>
+                         </div>
+                         <div class="col-lg-5">
+                              <h6>Tabella 2.6: Posizionamento Competitivo 2024 (EDILCOMPANY S.R.L.)</h6>
+                              <div class="table-responsive">
+                                <table class="table table-sm table-striped table-hover">
+                                    <thead><tr><th>Indicatore</th><th>EDILCOMPANY</th><th>Media Sett.</th><th>Gap</th><th>Valutazione</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Crescita ricavi</td><td>-5,12%</td><td>+3,0%</td><td class="text-danger">-8,12 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                        <tr><td>EBITDA Margin</td><td>11,24%</td><td>7,50%</td><td class="text-success">+3,74 p.p.</td><td><span class="status-badge bg-success">Superiore</span></td></tr>
+                                        <tr><td>ROI</td><td>52,71%</td><td>15,00%</td><td class="text-success">+37,71 p.p.</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>ROE</td><td>7,70%</td><td>12,00%</td><td class="text-danger">-4,30 p.p.</td><td><span class="status-badge bg-warning">Inferiore</span></td></tr>
+                                        <tr><td>Turnover</td><td>4,69</td><td>2,00</td><td class="text-success">+2,69</td><td><span class="status-badge bg-success">Eccellente</span></td></tr>
+                                        <tr><td>PFN/EBITDA</td><td>1,24</td><td>3,20</td><td class="text-success">-1,96</td><td><span class="status-badge bg-success">Superiore</span></td></tr>
+                                        <tr><td>Leva D/E</td><td>2,30</td><td>1,80</td><td class="text-danger">+0,50</td><td><span class="status-badge bg-warning">Elevata</span></td></tr>
+                                        <tr><td>Giorni Crediti Clienti</td><td>111</td><td>75</td><td class="text-danger">+36</td><td><span class="status-badge bg-warning">Problematico</span></td></tr>
+                                        <tr><td>Ciclo Circolante</td><td>119</td><td>85</td><td class="text-danger">+34</td><td><span class="status-badge bg-warning">Problematico</span></td></tr>
+                                    </tbody>
+                                </table>
+                              </div>
+                         </div>
+                     </div>
+                      <h6 class="mt-4">Analisi posizionamento (EDILCOMPANY S.R.L.):</h6>
+                      <p class="small mb-0">EDILCOMPANY S.R.L. presenta un <strong>posizionamento misto</strong> rispetto al settore. Eccelle in termini di efficienza operativa (EBITDA margin 11,24% vs 7,50%), redditività del capitale investito (ROI 52,71% vs 15,00%) e turnover (4,69 vs 2,00). La solidità del debito (PFN/EBITDA 1,24 vs 3,20) è migliore della media. Le <strong>principali criticità</strong> riguardano la contrazione dei ricavi (-5,12%), il ROE inferiore alla media (7,70% vs 12,00%) per l'elevato costo del debito, e la gestione del capitale circolante con tempi superiori ai benchmark. Il cash flow operativo negativo rappresenta un ulteriore elemento di attenzione.</p>
+                 </div>
+            </div>
+
+             <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.2.2 Gap Analysis vs Best Practice</h5></div>
+                  <div class="card-body">
+                     <p>Identificazione aree di miglioramento rispetto alle best practice del settore commercio all'ingrosso.</p>
+                     <h6 class="mt-4">Tabella 2.7: Gap Analysis 2024 (EDILCOMPANY S.R.L.)</h6>
+                      <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                            <thead class="table-light"> <tr><th>Area</th><th>Situazione Attuale</th><th>Benchmark</th><th>Gap</th><th>Valutazione</th></tr></thead>
+                             <tbody>
+                                <tr><td>Cash Flow Operativo</td><td>-6,24% dei ricavi</td><td>>2% dei ricavi</td><td class="text-danger">-8,24 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Costo del Debito</td><td>17,14%</td><td>5-8%</td><td class="text-danger">+10,14 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Gestione Crediti Clienti</td><td>DSO: 111 giorni</td><td>60-90 giorni</td><td class="text-danger">+21 giorni</td><td><span class="status-badge bg-warning">Problematico</span></td></tr>
+                                <tr><td>Gestione Debiti Fornitori</td><td>DPO: 53 giorni</td><td>60-90 giorni</td><td class="text-danger">-7 giorni</td><td><span class="status-badge bg-warning">Subottimale</span></td></tr>
+                                <tr><td>Ciclo del Circolante</td><td>119 giorni</td><td>60-90 giorni</td><td class="text-danger">+29 giorni</td><td><span class="status-badge bg-warning">Problematico</span></td></tr>
+                                <tr><td>Crescita Ricavi</td><td>-5,12%</td><td>+3-5%</td><td class="text-danger">-8,12 p.p.</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                                <tr><td>Ammortamenti</td><td>0% dei ricavi</td><td>1-2% dei ricavi</td><td class="text-warning">Anomalo</td><td><span class="status-badge bg-warning">Da verificare</span></td></tr>
+                                <tr><td>DSCR</td><td>0,241</td><td>>1,2</td><td class="text-danger">-0,959</td><td><span class="status-badge bg-danger">Critico</span></td></tr>
+                             </tbody>
+                         </table>
+                     </div>
+                  </div>
+             </div>
+
+             <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">2.2.3 Azioni di Miglioramento Suggerite</h5></div>
+                  <div class="card-body">
+                      <h6 class="mt-4">Tabella 2.8: Piano di Azione Economico (Sintesi - EDILCOMPANY S.R.L.)</h6>
+                      <div class="table-responsive">
+                          <table class="table table-sm table-hover action-table">
+                              <thead class="table-light"><tr><th><i class="fas fa-flag me-1"></i> Area</th><th><i class="fas fa-wrench me-1"></i> Azione Suggerita</th><th><i class="fas fa-chart-line me-1"></i> Effetti Previsti</th><th><i class="fas fa-coins me-1"></i> Net Benefit Stimato</th></tr></thead>
+                              <tbody>
+                                  <tr><td>Cash Flow Operativo</td><td>Ottimizzazione capitale circolante e implementazione cash management strutturato</td><td>Inversione segno CF operativo</td><td class="text-success">Target: +€150.000 (da -€145.830 a positivo)</td></tr>
+                                  <tr><td>Oneri Finanziari</td><td>Rinegoziazione urgente tassi con banche e valutazione consolidamento debito</td><td>Riduzione costo medio del debito dal 17,14% al 10-12%</td><td class="text-success">Risparmio: €25.000-30.000/anno</td></tr>
+                                  <tr><td>Gestione Crediti</td><td>Politiche credit management più stringenti e valutazione factoring selettivo</td><td>Riduzione DSO da 111 a 90 giorni</td><td class="text-success">Liberazione liquidità: €130.000</td></tr>
+                                  <tr><td>Gestione Fornitori</td><td>Rinegoziazione termini pagamento con fornitori strategici</td><td>Estensione DPO da 53 a 70 giorni</td><td class="text-success">Beneficio finanziario: €95.000</td></tr>
+                                  <tr><td>Strategia Commerciale</td><td>Piano di rilancio vendite con focus su prodotti ad alto margine</td><td>Inversione trend ricavi e crescita +3-5%</td><td class="text-success">Incremento ricavi: €70.000-115.000</td></tr>
+                                  <tr><td>Controllo Costi</td><td>Analisi e razionalizzazione costi variabili di produzione</td><td>Riduzione incidenza costi variabili</td><td class="text-success">Risparmio: €20.000-25.000/anno</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                       <p class="small mt-3 text-muted">L'implementazione di queste azioni consentirebbe di ripristinare la generazione di cassa operativa, ridurre significativamente gli oneri finanziari e migliorare la redditività netta. Il piano consentirebbe di liberare oltre €350.000 di risorse finanziarie attraverso l'ottimizzazione del capitale circolante, con un impatto positivo stimato sull'EBITDA di €50.000-60.000 annui.</p>
+                  </div>
+             </div>
+
+            <div class="card summary-card mb-4 report-section">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-check-circle text-primary me-2"></i>Conclusioni Analisi Economica e Benchmark (EDILCOMPANY S.R.L.)</h5>
+                     <p>EDILCOMPANY S.R.L. presenta un <strong>profilo economico contrastato</strong>: eccellente efficienza operativa (EBITDA margin 11,24%, ROI 52,71%) ma criticità finanziarie significative (cash flow operativo negativo -6,24%, costo del debito 17,14%). La redditività operativa è superiore ai benchmark settoriali, ma viene erosa dagli elevati oneri finanziari.</p>
+                     <p>Le <strong>principali criticità</strong> riguardano: (1) il cash flow operativo negativo che compromette la sostenibilità finanziaria, (2) il costo del debito più che doppio rispetto ai benchmark di mercato, (3) la contrazione dei ricavi (-5,12%) in un contesto di buona marginalità, (4) l'anomalia contabile degli ammortamenti nulli.</p>
+                     <p>Le <strong>azioni prioritarie</strong> devono concentrarsi sul ripristino della generazione di cassa attraverso l'ottimizzazione del capitale circolante, sulla rinegoziazione urgente delle condizioni bancarie per ridurre gli oneri finanziari, e sull'implementazione di un piano commerciale per invertire il trend negativo dei ricavi. La solidità operativa dell'azienda costituisce una base robusta per il turnaround finanziario.</p>
+                </div>
+            </div>
+
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 2 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Nessuna modifica necessaria) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/charts_config.js"></script>
+    <script src="../js/report_init.js"></script>
+     <script>
         document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
-        
-        // Imposta il badge IRP
-        const irpValue = 76.39;
-        const irpBadge = document.getElementById('irp-header-badge');
-        irpBadge.textContent = `IRP: ${irpValue} (B)`;
-        irpBadge.classList.add('bg-warning');
-    });
-    
-    function printDocument() {
-        window.print();
-    }
-    
-    function logout() {
-        // Implementazione del logout
-        alert('Logout effettuato');
-        window.location.href = '../login.html';
-    }
-</script>
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
 
-<!-- Script del bot -->
+         // Script aggiornamento badge IRP header (Updated for EDILCOMPANY)
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 76.39; // Updated IRP Value from PARTE0_irp-report.md
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-warning text-dark';
+                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; // Basso
+                 else if (irpScoreValue < 51) badgeClass = 'bg-danger'; // Alto
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             }
+
+              // Ensure logout function is defined
+             if (typeof logout !== 'function') {
+                 window.logout = function() {
+                    console.log("Logout action triggered (placeholder)");
+                }
+             }
+             // Ensure print function is defined
+             if (typeof printDocument !== 'function') {
+                window.printDocument = function() {
+                    window.print();
+                }
+             }
+         });
+    </script>
 <script 
   type="text/javascript" 
-  src="https://embed.chatnode.ai/4f9932cf-80d0-48fd-8afc-27184e70f45e/popup.js"
+  src="https://embed.chatnode.ai/c28f50ff-7c75-4eb1-b745-616825cafc56/popup.js"
   async
 ></script>
 </body>
