@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilancio Plus - Ottimizzazione - EDILCOMPANY S.R.L. | SCAN</title>
+    <!-- Librerie Esterne -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Custom -->
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+    <!-- Stili Incorporati -->
+    <style>
+        /* Copia/Incolla stili da versione precedente qui... */
+         :root {
+            --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
+            --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
+            --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
+            --text-primary: #212529; --text-secondary: #6c757d;
+            --card-bg: var(--white); --card-border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            /* Nuovi colori per i grafici */
+            --color-attuale: rgba(74, 105, 189, 0.7);       /* Blu secondario */
+            --color-attuale-border: rgba(74, 105, 189, 1);
+            --color-ottimizzato: rgba(76, 175, 80, 0.7);    /* Verde successo */
+            --color-ottimizzato-border: rgba(76, 175, 80, 1);
+        }
+        html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
+        body { display: flex; }
+        .sidebar { width: 250px; background-color: var(--primary); color: #e0e0e0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1031; display: flex; flex-direction: column; box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: width 0.3s ease; overflow-y: auto; }
+        .main-wrapper { margin-left: 250px; width: calc(100% - 250px); display: flex; flex-direction: column; min-height: 100vh; position: relative; padding-top: 70px; }
+        .dashboard-header { background-color: var(--white); padding: 15px 30px; border-bottom: 1px solid var(--card-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 70px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 250px; right: 0; z-index: 1030; }
+        .dashboard-container { padding: 30px; flex-grow: 1; width: 100%; }
+        .footer { background-color: var(--primary); color: rgba(255, 255, 255, 0.7); padding: 15px 30px; font-size: 0.85rem; margin-top: auto; flex-shrink: 0; width: 100%; }
+        .footer img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; vertical-align: middle;}
+        .sidebar-header { padding: 10px 20px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar-header img { max-height: 40px; } .sidebar-header h5 { color: var(--white); margin-top: 10px; font-size: 1.1rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; } .sidebar-nav .nav-item { margin: 0; }
+        .sidebar-nav .nav-link { color: #e0e0e0; padding: 12px 20px; display: flex; align-items: center; font-size: 0.95rem; font-weight: 500; border-left: 4px solid transparent; transition: all 0.2s ease; }
+        .sidebar-nav .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--white); border-left-color: var(--warning); }
+        .sidebar-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); color: var(--white); font-weight: 600; border-left-color: var(--white); }
+        .sidebar-nav .nav-link i { margin-right: 15px; width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-nav .nav-title { padding: 10px 20px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .sidebar-footer { margin-top: auto; padding: 15px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; text-align: left; }
+        .section-title { color: var(--primary); font-weight: 600; margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--secondary); font-size: 1.75rem; display: flex; align-items: center; } .section-title i { margin-right: 10px; }
+        .dashboard-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s ease; height: 100%; }
+        .dashboard-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .card-title-small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table { border: 1px solid var(--card-border); margin-bottom: 1rem; } .table thead th { background-color: var(--light); color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); font-size: 0.9rem; white-space: nowrap; } .table-hover tbody tr:hover { background-color: #eef2f7; } .table td, .table th { vertical-align: middle; padding: 0.6rem 0.75rem; font-size: 0.9rem;} .value-highlight { font-weight: 600; color: var(--primary); } .text-end { text-align: right !important;} .text-success { color: var(--success) !important; } .text-danger { color: var(--danger) !important; } .text-warning { color: var(--warning) !important; } .text-secondary { color: var(--text-secondary) !important; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid; } .alert-box h5 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;} .alert-box ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem;} .alert-box.alert-success { background-color: #d1e7dd; border-color: #a3cfbb; color: #0a3622; } .alert-box.alert-warning { background-color: #fff3cd; border-color: #ffda6a; color: #664d03; } .alert-box.alert-danger { background-color: #f8d7da; border-color: #f1aeb5; color: #58151c; } .alert-box.alert-info { background-color: #cff4fc; border-color: #9eeaf9; color: #055160; }
+        .status-badge { font-size: .75em; font-weight: 700; line-height: 1; padding: .35em .65em; border-radius: .375rem; color: white; display: inline-block; } .status-badge.bg-success { background-color: var(--success) !important; } .status-badge.bg-warning { background-color: var(--warning) !important; color: var(--dark) !important;} .status-badge.bg-danger { background-color: var(--danger) !important; } .status-badge.bg-info { background-color: var(--info) !important; color: var(--dark) !important;}
+        .icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; color: white; margin-right: 12px; font-size: 0.9rem; flex-shrink: 0; }
+        .bg-icon-success { background-color: var(--success); } .bg-icon-warning { background-color: var(--warning); } .bg-icon-danger { background-color: var(--danger); } .bg-icon-info { background-color: #4f6d7a; } .bg-icon-primary { background-color: var(--primary); } .bg-icon-secondary { background-color: var(--secondary); }
+        .list-styled { padding-left: 1.5rem; margin-bottom: 1rem;}
+        .list-styled li { margin-bottom: 0.3rem; }
+        .accordion-body strong { display: block; margin-top: 0.5rem; }
+        .chart-container { height: 280px; margin-bottom: 20px; background-color: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        @media (max-width: 991.98px) { .sidebar { width: 0; border: none; box-shadow: none;} .main-wrapper { margin-left: 0; width: 100%; padding-top: 56px; } .dashboard-header { left: 0; width: 100%; min-height: 56px; padding: 5px 15px;} .header-title h5 { font-size: 1rem;} .header-title p { font-size: 0.75rem;} .dashboard-container { padding: 15px;} .footer { padding: 10px 15px;} }
+        @media print { body { display: block; } .main-wrapper { margin-left: 0; width: 100%; padding-top: 0; } .no-print { display: none !important; } .report-section { page-break-inside: avoid; } }
+    </style>
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+
+    <!-- Sidebar Semplificata -->
+    <aside class="sidebar no-print">
+         <div class="sidebar-header">
+            <!-- Inserisci qui il logo se desiderato -->
+             <img src="assets/img/logo_scan.png" alt="FREM Logo" style="max-height: 40px;">
+            <h5>EDILCOMPANY S.R.L.</h5>
+        </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <!-- Link Home -->
+            <li class="nav-item"> <a class="nav-link" href="index.html"> <i class="fas fa-home fa-fw"></i> Torna alla Home </a> </li>
+            <li class="nav-title">Sezioni Bilancio Plus</li>
+            <!-- Ancore alle sezioni della pagina -->
+            <li class="nav-item"> <a class="nav-link" href="#summary"> <i class="fas fa-clipboard-list fa-fw"></i> Sintesi Attuale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#optimization-areas"> <i class="fas fa-search-plus fa-fw"></i> Aree Ottimizzazione </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#optimization-proposals"> <i class="fas fa-cogs fa-fw"></i> Ipotesi Ottimizzazione </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#impact-summary"> <i class="fas fa-chart-pie fa-fw"></i> Impatto Complessivo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="#final-thoughts"> <i class="fas fa-gavel fa-fw"></i> Considerazioni Finali </a> </li>
+            
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Analisi Finanziaria e Proposte di Ottimizzazione (Bilancio Plus)</h5>
+                <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">Dati al 12/2024</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <!-- Rimosso badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> EDILCOMPANY S.R.L. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
+            <p class="text-center mb-0">Analisi Finanziaria e Proposte di Ottimizzazione (Bilancio Plus) | <span class="report-date">Dati al 12/2024</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO BILANCIO PLUS - EDILCOMPANY S.R.L. (con grafici e colori) -->
+            <!-- ================================================================ -->
+
+             <h2 class="section-title" id="optimization-analysis-title"><i class="fas fa-magic me-2"></i>Analisi Finanziaria e Proposte di Ottimizzazione</h2>
+
+            <!-- Sezione 1: Premessa -->
+            <div class="card mb-4 report-section">
+                 <div class="card-header"><h5 class="mb-0">1. Premessa sulla Definitività dei Dati 2024</h5></div>
+                 <div class="card-body small">
+                     <p>L'analisi si basa sui dati del bilancio 2024 di EDILCOMPANY S.R.L., operante nel settore "46.83 - Commercio all'ingrosso di legname, materiali da costruzione e articoli igienico-sanitari". L'azienda, attiva dal 2005, opera come grossista di materiali da costruzione con 8 dipendenti e un costo del personale di €172.180. Presenta una contrazione moderata dei ricavi (-5,12%) ma con significativo miglioramento della marginalità operativa (EBITDA +13,28%). L'azienda è classificata come STABLE nel sistema Leanus, mantenendo un buon equilibrio patrimoniale nonostante la crescita modesta.</p>
+                 </div>
+            </div>
+
+             <!-- Sezione 2: Sintesi Situazione Attuale -->
+             <div class="card mb-4 report-section" id="summary">
+                 <div class="card-header"><h5 class="mb-0">2. Sintesi della Situazione Attuale</h5></div>
+                 <div class="card-body small">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="card-title-small">2.1 Profilo Economico</h6>
+                            <ul class="list-styled">
+                                <li><strong>Ricavi:</strong> €2.338.270 (<span class="text-danger">-5,12%</span> vs 2023)</li>
+                                <li><strong>EBITDA:</strong> €262.814 (11,24% sui Ricavi) (<span class="text-success">+13,28%</span> vs 2023)</li>
+                                <li><strong>EBIT:</strong> €262.814 (11,24% sui Ricavi) (<span class="text-success">+13,28%</span> vs 2023)</li>
+                                <li><strong>Utile netto:</strong> €13.345 (0,57% sui Ricavi) (<span class="text-success">+€25.218</span> vs 2023)</li>
+                            </ul>
+                             <h6 class="card-title-small mt-3">2.2 Profilo Patrimoniale</h6>
+                            <ul class="list-styled">
+                                <li><strong>Patrimonio Netto:</strong> €173.330 (<span class="text-success">+8,34%</span> vs 2023)</li>
+                                <li><strong>PFN:</strong> €325.295 (<span class="badge bg-warning">Indebitamento</span>)</li>
+                                <li><strong>Liquidità:</strong> €72.916 (<span class="text-danger">-50,41%</span> vs 2023)</li>
+                                <li><strong>PFN/EBITDA:</strong> 1,24 (<span class="badge bg-success">Sostenibile</span>)</li>
+                                <li><strong>Leva (D/E):</strong> 2,30 (<span class="badge bg-warning">Discreta</span>)</li>
+                            </ul>
+                        </div>
+                         <div class="col-md-6">
+                             <h6 class="card-title-small">2.3 Profilo Finanziario</h6>
+                            <ul class="list-styled">
+                                <li><strong>Cash Flow Operativo:</strong> -€145.830 (-6,24% sui Ricavi) (<span class="badge bg-danger">Critico</span>)</li>
+                                <li><strong>DSO:</strong> 111 giorni (<span class="text-warning">+1gg</span> vs 2023)</li>
+                                <li><strong>DPO:</strong> 53 giorni (<span class="text-danger">-23gg</span> vs 2023)</li>
+                                <li><strong>DIO:</strong> 61 giorni (<span class="text-danger">+21gg</span> vs 2023)</li>
+                                <li><strong>CCC:</strong> 119 giorni (<span class="badge bg-warning">Da monitorare</span>)</li>
+                            </ul>
+                             <h6 class="card-title-small mt-3">2.4 Indicatori di Rischio e Rating</h6>
+                             <ul class="list-styled">
+                                <li><strong>Leanus Score:</strong> 5,59 ("3 - Discreto") (<span class="badge bg-warning">Da monitorare</span>)</li>
+                                <li><strong>Z-Score di Altman:</strong> 6,96 (<span class="badge bg-success">Zona di Sicurezza</span>)</li>
+                                <li><strong>Prob. Default (MCC):</strong> 3,62% (<span class="badge bg-warning">Fascia "3"</span>)</li>
+                                <li><strong>DSCR:</strong> 0,241 (<span class="badge bg-danger">Critico</span>)</li>
+                             </ul>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+             <!-- Sezione 3: Aree di Potenziale Ottimizzazione -->
+             <div class="card mb-4 report-section" id="optimization-areas">
+                 <div class="card-header"><h5 class="mb-0">3. Analisi delle Aree di Potenziale Ottimizzazione</h5></div>
+                 <div class="card-body small">
+                      <div class="row">
+                          <div class="col-md-4">
+                              <h6 class="card-title-small">3.1 Area Economica</h6>
+                               <ul class="list-styled">
+                                   <li><i class="fas fa-info-circle text-success me-1"></i> EBITDA: €262.814 (11,24%)</li>
+                                   <li><i class="fas fa-info-circle text-success me-1"></i> Marg. Contr.: €503.967 (21,6%)</li>
+                                   <li><i class="fas fa-info-circle text-success me-1"></i> ROI: 52,71% (ottimo)</li>
+                                   <li><i class="fas fa-info-circle text-warning me-1"></i> ROE: 7,70% (discreto)</li>
+                                   <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> Oneri finanziari: €62.791 (17,14%)</li>
+                               </ul>
+                          </div>
+                           <div class="col-md-4">
+                               <h6 class="card-title-small">3.2 Area Patrimoniale</h6>
+                                <ul class="list-styled">
+                                    <li><i class="fas fa-info-circle text-success me-1"></i> Attivo Fisso: €111.023 (9,4%)</li>
+                                    <li><i class="fas fa-info-circle text-success me-1"></i> Copertura Immob.: 1,56</li>
+                                    <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> Patrimonio Netto: €173.330</li>
+                                    <li><i class="fas fa-info-circle text-success me-1"></i> Turnover: 4,69 (ottimo)</li>
+                                </ul>
+                           </div>
+                            <div class="col-md-4">
+                                <h6 class="card-title-small">3.3 Area Finanziaria</h6>
+                                 <ul class="list-styled">
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> CF Operativo: -€145.830 (-6,24%)</li>
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Oneri Fin.: €62.791 (elevati)</li>
+                                     <li><i class="fas fa-exclamation-triangle text-warning me-1"></i> Liquidità: €72.916 (3,12%)</li>
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> Ciclo Circolante: 119 giorni</li>
+                                     <li><i class="fas fa-exclamation-triangle text-danger me-1"></i> DSCR: 0,241 (critico)</li>
+                                 </ul>
+                            </div>
+                      </div>
+                 </div>
+            </div>
+
+             <!-- Sezione 4: Ipotesi di Ottimizzazione -->
+             <div class="card mb-4 report-section" id="optimization-proposals">
+                <div class="card-header"><h5 class="mb-0">4. Ipotesi di Ottimizzazione del Bilancio 2024</h5></div>
+                 <div class="card-body">
+                     <h6 class="card-title-small">4.1 Premessa Metodologica</h6>
+                     <p class="small">Le seguenti ipotesi sono formulate nel pieno rispetto della normativa e dei principi contabili vigenti, con l'obiettivo di migliorare la rappresentazione della realtà economica sottostante dell'azienda che opera nel settore del commercio all'ingrosso di materiali da costruzione, mantenendo una rappresentazione veritiera e corretta della situazione aziendale.</p>
+
+                     <h6 class="card-title-small mt-4">4.2 Tabella Miglioramenti Proposti</h6>
+                     <div class="table-responsive">
+                         <table class="table table-sm table-striped table-hover">
+                              <thead class="table-light">
+                                  <tr>
+                                      <th>Voce/Indice</th>
+                                      <th>Situazione Attuale (2024)</th>
+                                      <th>Azione Suggerita</th>
+                                      <th>Effetto Previsto</th>
+                                      <th>Impatto Quantitativo</th>
+                                      <th>Principio/Norma</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><strong>Riclassificazione PFN</strong></td>
+                                      <td>€325.295 (PFN/EBITDA: 1,24)</td>
+                                      <td>Riclassificazione debiti commerciali e strumenti di debito operativo</td>
+                                      <td>Miglioramento PFN</td>
+                                      <td class="text-end"><span class="text-success">-€50.000/-€80.000</span> (PFN a €250-270k)</td>
+                                      <td>OIC 19, Art.2424 c.c.</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Ottimizzazione Working Capital</strong></td>
+                                      <td>CCC: 119 giorni</td>
+                                      <td>Riduzione DSO, estensione DPO, ottimizzazione DIO</td>
+                                      <td>Liberazione liquidità</td>
+                                      <td class="text-end"><span class="text-success">+€300.000-€350.000</span> (liquidità operativa)</td>
+                                      <td>Best practice finanziarie</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Revisione Struttura Debito</strong></td>
+                                      <td>Costo debito: 17,14%</td>
+                                      <td>Rinegoziazione tassi e consolidamento debito a MLT</td>
+                                      <td>Riduzione oneri finanziari</td>
+                                      <td class="text-end"><span class="text-success">-€20.000/-€25.000</span> (oneri finanziari)</td>
+                                      <td>Gestione finanziaria</td>
+                                  </tr>
+                                   <tr>
+                                      <td><strong>Affinamento Ammortamenti</strong></td>
+                                      <td>€0 (anomalia rilevata)</td>
+                                      <td>Introduzione quote di ammortamento appropriate secondo OIC 16</td>
+                                      <td>Rappresentazione corretta</td>
+                                      <td class="text-end"><span class="text-success">+€15.000-€20.000</span> (EBITDA)</td>
+                                      <td>OIC 16, Art.2426 c.c.</td>
+                                  </tr>
+                                  <tr>
+                                      <td><strong>Valutazione Rimanenze</strong></td>
+                                      <td>€267.644 (+32,5%)</td>
+                                      <td>Ottimizzazione valutazione e riduzione scorte eccedenti</td>
+                                      <td>Liberazione capitale</td>
+                                      <td class="text-end"><span class="text-success">-€40.000/-€60.000</span> (rimanenze)</td>
+                                      <td>OIC 13, Art.2426 c.c.</td>
+                                  </tr>
+                                   <tr>
+                                      <td><strong>Revisione Accantonamenti</strong></td>
+                                      <td>Fondi: €94.839</td>
+                                      <td>Verifica congruità fondi e rilascio eccedenze</td>
+                                      <td>Miglioramento risultato</td>
+                                      <td class="text-end"><span class="text-success">+€10.000-€15.000</span> (risultato)</td>
+                                      <td>OIC 31, Principio prudenza</td>
+                                  </tr>
+                              </tbody>
+                         </table>
+                     </div>
+
+                     <!-- Sezione Grafici Impatto INSERITA QUI -->
+                     <h6 class="card-title-small mt-5">5.0 Visualizzazione Impatto Ottimizzazioni</h6>
+                     <div class="row">
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.1: EBITDA (€) - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="ebitdaChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.2: EBITDA Margin (%) - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="ebitdaMarginChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                            <h6 class="text-center small">Grafico 5.3: PFN/EBITDA - Prima vs Dopo</h6>
+                            <div class="chart-container"><canvas id="pfnEbitdaChart"></canvas></div>
+                         </div>
+                         <div class="col-lg-6 col-md-6 mb-3">
+                             <h6 class="text-center small">Grafico 5.4: Leanus Score - Prima vs Dopo</h6>
+                             <div class="chart-container"><canvas id="magazzinoChart"></canvas></div>
+                         </div>
+                     </div>
+                     <!-- Fine Sezione Grafici -->
+
+                     <h6 class="card-title-small mt-4">4.3 Motivazioni dei Miglioramenti Proposti (Dettaglio)</h6>
+                      <div class="accordion small" id="motivationsAccordion">
+                          <!-- Riclassificazione PFN -->
+                          <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv1"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv1" aria-expanded="false" aria-controls="collapseMotiv1">4.3.1 Riclassificazione della Posizione Finanziaria Netta</button></h2>
+                              <div id="collapseMotiv1" class="accordion-collapse collapse" aria-labelledby="headingMotiv1" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> La PFN di €325.295 con rapporto PFN/EBITDA di 1,24 include probabilmente strumenti di debito operativo o commerciale (€80.916 di "strumenti di finanza alternativa") che potrebbero essere riclassificati.<br><strong>Soluzione Proposta:</strong> Analisi dettagliata della natura dei debiti verso altri finanziatori, riclassificazione di anticipi su ordini e acconti eventualmente classificati come finanziari, verifica di depositi cauzionali o garanzie classificabili come non finanziari.<br><strong>Ratio/Logica:</strong> L'OIC 19 richiede che nella PFN siano inclusi solo i debiti di natura prettamente finanziaria, escludendo componenti operative o commerciali.<br><strong>Benefici Attesi:</strong> Riduzione della PFN a €250.000-270.000, con miglioramento del rapporto PFN/EBITDA a 0,9-1,0, rafforzando gli indicatori di bancabilità.<br><strong>Normativa Riferimento:</strong> OIC 19 par. 4-9, Art. 2424 c.c.</div></div>
+                          </div>
+                          <!-- Ottimizzazione Working Capital -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv2" aria-expanded="false" aria-controls="collapseMotiv2">4.3.2 Ottimizzazione del Capitale Circolante</button></h2>
+                              <div id="collapseMotiv2" class="accordion-collapse collapse" aria-labelledby="headingMotiv2" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Il ciclo del circolante di 119 giorni determina un significativo assorbimento di liquidità, con DSO elevato (111 gg), DPO basso (53 gg) e DIO in crescita (61 gg), causando un cash flow operativo negativo di -€145.830.<br><strong>Soluzione Proposta:</strong> Implementazione di politiche di credit management per ridurre DSO a 80-90 giorni, rinegoziazione termini fornitori per estendere DPO a 70-80 giorni, ottimizzazione gestione scorte per ridurre DIO a 40-45 giorni.<br><strong>Ratio/Logica:</strong> L'ottimizzazione del working capital è essenziale per liberare risorse finanziarie e migliorare la generazione di cassa operativa, riducendo la dipendenza dal debito finanziario.<br><strong>Benefici Attesi:</strong> Liberazione di liquidità operativa di €300.000-350.000, riduzione del ciclo del circolante a 90-100 giorni, miglioramento del cash flow operativo verso valori positivi.<br><strong>Normativa Riferimento:</strong> Best practice di gestione finanziaria, Principi di continuità aziendale</div></div>
+                          </div>
+                           <!-- Revisione Struttura Debito -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv3" aria-expanded="false" aria-controls="collapseMotiv3">4.3.3 Revisione della Struttura del Debito</button></h2>
+                              <div id="collapseMotiv3" class="accordion-collapse collapse" aria-labelledby="headingMotiv3" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Il costo del debito al 17,14% è significativamente superiore ai tassi di mercato, con €62.791 di oneri finanziari che erodono pesantemente la redditività netta. Inoltre, il 72% del debito è a breve termine, creando rischi di rifinanziamento.<br><strong>Soluzione Proposta:</strong> Rinegoziazione urgente delle condizioni con gli istituti finanziari, consolidamento del debito a breve in finanziamenti a MLT, diversificazione delle fonti di finanziamento, valutazione di strumenti alternativi a costo inferiore.<br><strong>Ratio/Logica:</strong> La riduzione del costo del debito e l'allungamento delle scadenze migliorano la sostenibilità finanziaria e riducono il rischio di tensioni di liquidità.<br><strong>Benefici Attesi:</strong> Riduzione degli oneri finanziari di €20.000-25.000 annui, miglioramento del DSCR verso 0,8-0,9, maggiore stabilità finanziaria.<br><strong>Normativa Riferimento:</strong> Principi di gestione finanziaria, Art. 2423-bis c.c. (continuità aziendale)</div></div>
+                          </div>
+                          <!-- Affinamento Ammortamenti -->
+                          <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv4"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv4" aria-expanded="false" aria-controls="collapseMotiv4">4.3.4 Affinamento delle Politiche di Ammortamento</button></h2>
+                              <div id="collapseMotiv4" class="accordion-collapse collapse" aria-labelledby="headingMotiv4" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Gli ammortamenti risultano pari a €0 nonostante la presenza di immobilizzazioni per €111.023, suggerendo una possibile anomalia contabile o beni completamente ammortizzati ancora in uso.<br><strong>Soluzione Proposta:</strong> Introduzione di quote di ammortamento appropriate secondo OIC 16, revisione della vita utile dei beni strumentali entro i limiti consentiti, valutazione di ammortamenti ridotti per beni entrati in funzione nell'ultimo periodo.<br><strong>Ratio/Logica:</strong> L'OIC 16 richiede che gli ammortamenti riflettano il deperimento economico-tecnico dei beni. L'assenza di ammortamenti può distorcere la rappresentazione della redditività reale.<br><strong>Benefici Attesi:</strong> Miglioramento dell'EBITDA di €15.000-20.000 attraverso una corretta rappresentazione del consumo di capitale fisso, maggiore trasparenza contabile.<br><strong>Normativa Riferimento:</strong> OIC 16 par. 58-70, Art. 2426 c.c. punto 2</div></div>
+                          </div>
+                          <!-- Valutazione Rimanenze -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv5"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv5" aria-expanded="false" aria-controls="collapseMotiv5">4.3.5 Ottimizzazione della Valutazione delle Rimanenze</button></h2>
+                              <div id="collapseMotiv5" class="accordion-collapse collapse" aria-labelledby="headingMotiv5" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> Le rimanenze sono aumentate del 32,5% a €267.644 nonostante il calo dei ricavi (-5,12%), con giorni di rotazione (DIO) saliti a 61, suggerendo possibile accumulo di scorte obsolete o a lenta movimentazione.<br><strong>Soluzione Proposta:</strong> Revisione del metodo di valutazione (FIFO consigliato nel contesto inflattivo del settore edile), implementazione di un fondo svalutazione per categorie a bassa rotazione, verifica del corretto cut-off di fine esercizio.<br><strong>Ratio/Logica:</strong> L'OIC 13 richiede che le rimanenze siano valutate al minore tra costo e valore di realizzo. Un'eccessiva valorizzazione può gonfiare artificialmente attivo e risultato economico.<br><strong>Benefici Attesi:</strong> Riduzione delle rimanenze di €40.000-60.000 con liberazione di capitale circolante, miglioramento degli indici di rotazione, rappresentazione più prudenziale.<br><strong>Normativa Riferimento:</strong> OIC 13 par. 19-42, Art. 2426 c.c. punto 9</div></div>
+                          </div>
+                          <!-- Revisione Accantonamenti -->
+                           <div class="accordion-item">
+                              <h2 class="accordion-header" id="headingMotiv6"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMotiv6" aria-expanded="false" aria-controls="collapseMotiv6">4.3.6 Revisione degli Accantonamenti</button></h2>
+                              <div id="collapseMotiv6" class="accordion-collapse collapse" aria-labelledby="headingMotiv6" data-bs-parent="#motivationsAccordion"><div class="accordion-body"><strong>Problematica:</strong> I fondi per rischi e oneri ammontano a €94.839 (+13,7% vs 2023), ma non è chiara la natura specifica degli accantonamenti e la loro congruità rispetto ai rischi effettivi.<br><strong>Soluzione Proposta:</strong> Analisi dettagliata della composizione dei fondi, verifica della congruità rispetto ai rischi reali, valutazione di rilascio parziale di fondi sovrastimati o non più necessari, rimodulazione temporale di accantonamenti futuri.<br><strong>Ratio/Logica:</strong> L'OIC 31 prevede che gli accantonamenti siano commisurati ai rischi e oneri di esistenza certa o probabile. Accantonamenti eccessivi violano il principio di rappresentazione veritiera e corretta.<br><strong>Benefici Attesi:</strong> Miglioramento del risultato d'esercizio di €10.000-15.000, maggiore chiarezza sulla reale esposizione ai rischi, rafforzamento degli indici di redditività.<br><strong>Normativa Riferimento:</strong> OIC 31 par. 16-41, Art. 2424-bis c.c., Principio di prudenza</div></div>
+                          </div>
+                      </div> <!-- Fine Accordion -->
+                 </div>
+            </div>
+
+             <!-- Sezione 6: Impatto Complessivo -->
+              <div class="card mb-4 report-section" id="impact-summary">
+                 <div class="card-header"><h5 class="mb-0">6. Impatto Complessivo delle Ottimizzazioni Proposte</h5></div>
+                 <div class="card-body small">
+                      <div class="row">
+                         <div class="col-md-4">
+                             <h6 class="card-title-small">6.1 Impatto Indici Economici</h6>
+                             <ul class="list-styled">
+                                 <li><strong>EBITDA:</strong> <span class="text-success">€270.000-€280.000</span> (da €262.814)</li>
+                                 <li><strong>EBITDA Margin:</strong> <span class="text-success">11,5-12,0%</span> (da 11,24%)</li>
+                                 <li><strong>Utile Netto:</strong> <span class="text-success">€30.000-€35.000</span> (da €13.345)</li>
+                                 <li><strong>ROE:</strong> <span class="text-success">15-18%</span> (da 7,70%)</li>
+                                 <li><strong>Cash Flow Operativo:</strong> <span class="text-success">+€100.000-€150.000</span></li>
+                             </ul>
+                         </div>
+                         <div class="col-md-4">
+                              <h6 class="card-title-small">6.2 Impatto Indici Patrimoniali/Finanziari</h6>
+                              <ul class="list-styled">
+                                 <li><strong>PFN:</strong> <span class="text-success">€250.000-€270.000</span> (da €325.295)</li>
+                                 <li><strong>PFN/EBITDA:</strong> <span class="text-success">0,9-1,0</span> (da 1,24)</li>
+                                 <li><strong>D/E:</strong> <span class="text-success">1,9-2,1</span> (da 2,30)</li>
+                                 <li><strong>DSCR:</strong> <span class="text-success">0,8-0,9</span> (da 0,241)</li>
+                                 <li><strong>Ciclo Circolante:</strong> <span class="text-success">90-100 gg</span> (da 119 gg)</li>
+                             </ul>
+                         </div>
+                          <div class="col-md-4">
+                              <h6 class="card-title-small">6.3 Impatto Rating/Rischio</h6>
+                               <ul class="list-styled">
+                                  <li><strong>Leanus Score:</strong> <span class="text-success">6,5-7,0</span> (da 5,59)</li>
+                                  <li><strong>Categoria:</strong> <span class="text-success">Conferma STABLE</span></li>
+                                  <li><strong>Fascia MCC:</strong> <span class="text-success">Possibile "2"</span> (da "3")</li>
+                                  <li><strong>Prob. Default:</strong> <span class="text-success">2,5-3,0%</span> (da 3,62%)</li>
+                               </ul>
+                          </div>
+                      </div>
+                 </div>
+            </div>
+
+            <!-- Sezione 7: Conclusioni -->
+            <div class="card mb-4 report-section" id="final-thoughts">
+                 <div class="card-header"><h5 class="mb-0">7. Considerazioni Finali</h5></div>
+                 <div class="card-body small">
+                     <p>L'analisi condotta su EDILCOMPANY S.R.L. ha evidenziato un profilo aziendale caratterizzato da buona redditività operativa (EBITDA 11,24%) ma significative criticità nella gestione finanziaria, con cash flow operativo negativo (-€145.830) e DSCR critico (0,241). Le ottimizzazioni proposte mirano a valorizzare i punti di forza strutturali affrontando le debolezze finanziarie identificate.</p>
+                     <p>Gli interventi suggeriti porteranno a un miglioramento complessivo del profilo di rischio: l'EBITDA crescerà moderatamente (€270-280k), ma soprattutto si otterrà una drastica riduzione della PFN (da €325k a €250-270k) e un miglioramento del DSCR verso livelli più sostenibili (0,8-0,9). L'aspetto più rilevante riguarda l'ottimizzazione del capitale circolante, che libererà €300-350k di liquidità operativa.</p>
+                     <p>Si raccomanda di prioritizzare: 1) l'ottimizzazione immediata del working capital (massimo impatto sulla liquidità), 2) la rinegoziazione urgente del debito finanziario (riduzione del costo dal 17,14% a livelli di mercato), 3) la riclassificazione della PFN per una rappresentazione più accurata. L'implementazione completa del piano dovrebbe essere completata entro 3 mesi, con monitoraggio mensile del cash flow e trimestrale degli indicatori chiave.</p>
+                 </div>
+            </div>
+
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO BILANCIO PLUS -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+ <!-- Footer Standard (per coerenza, ma nascosto in stampa) -->
+         <footer class="footer no-print">
+              <div class="container-fluid px-4"> <!-- Usa container-fluid per larghezza piena -->
+                  <div class="row">
+                      <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                           <span id="currentYearFooter"></span>
+                      </div>
+                      <div class="col-md-6 text-center text-md-end">
+                          Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a>
+                          <img src="assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2" style="height: 20px; vertical-align: middle;">
+                      </div>
+                  </div>
+              </div>
+          </footer>
+
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js è già caricato nell'HEAD -->
+
+    <!-- ### START SCRIPT JS EMBEDDED ### -->
+    <script>
+        // ======================================
+        // HELPER FUNCTIONS
+        // ======================================
+        function formatCurrency(value, decimals = 0) {
+            if (isNaN(value)) return value;
+            return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(value);
+        }
+        function formatNumber(value, decimals = 0) {
+             if (isNaN(value)) return value;
+             return new Intl.NumberFormat('it-IT', { style: 'decimal', minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(value);
+         }
+        function formatPercentage(value) {
+             if (isNaN(value)) return value;
+             return new Intl.NumberFormat('it-IT', { style: 'decimal', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(value) + '%';
+        }
+
+        function initChart(canvasId, type, data, options) {
+             const canvas = document.getElementById(canvasId);
+             if (!canvas) { console.error(`Canvas element with ID '${canvasId}' not found.`); return null; }
+             const ctx = canvas.getContext('2d');
+             const existingChart = Chart.getChart(canvasId);
+             if (existingChart) { try { existingChart.destroy(); } catch(e) { console.warn(`Could not destroy previous chart instance for ${canvasId}: ${e}`);} }
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+             if (!data || !data.labels || !data.datasets) {
+                  ctx.fillStyle = '#dc3545'; ctx.font = '14px "Titillium Web", sans-serif'; ctx.textAlign = 'center';
+                  ctx.fillText('Errore: Dati non disponibili.', canvas.width / 2, canvas.height / 2);
+                  console.error(`Dati non validi forniti a initChart per ${canvasId}`);
+                  return null;
+              }
+             try {
+                 const newChart = new Chart(ctx, { type: type, data: data, options: options });
+                 return newChart;
+             } catch (error) {
+                  console.error(`Errore durante la creazione del grafico ${canvasId}:`, error);
+                  ctx.fillStyle = '#dc3545'; ctx.font = '14px "Titillium Web", sans-serif'; ctx.textAlign = 'center';
+                  const errorMessage = error.message && typeof error.message === 'string' ? (error.message.length > 100 ? error.message.substring(0, 97) + '...' : error.message) : 'Errore sconosciuto';
+                  ctx.fillText(`Errore grafico: ${errorMessage}`, canvas.width / 2, canvas.height / 2);
+                 return null;
+             }
+         }
+
+        // ======================================
+        // CHART DATA (Bilancio Plus - EDILCOMPANY S.R.L.)
+        // ======================================
+        // Colori Consistenti
+         const colorAttuale = 'rgba(74, 105, 189, 0.7)'; // Blu secondario
+         const colorAttualeBorder = 'rgba(74, 105, 189, 1)';
+         const colorOttimizzato = 'rgba(76, 175, 80, 0.7)'; // Verde successo
+         const colorOttimizzatoBorder = 'rgba(76, 175, 80, 1)';
+
+         const ebitdaData = {
+             labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+             datasets: [{
+                 label: 'EBITDA (€)', data: [262814, 275000],
+                 backgroundColor: [colorAttuale, colorOttimizzato],
+                 borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+             }]
+         };
+         const ebitdaMarginData = {
+              labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+              datasets: [{
+                  label: 'EBITDA Margin (%)', data: [11.24, 11.76],
+                  backgroundColor: [colorAttuale, colorOttimizzato],
+                  borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+              }]
+          };
+          const pfnEbitdaData = {
+               labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+               datasets: [{
+                   label: 'PFN/EBITDA', data: [1.24, 0.95],
+                   backgroundColor: [colorAttuale, colorOttimizzato],
+                   borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+               }]
+           };
+           const magazzinoData = {
+                labels: ['Attuale (2024)', 'Post Ottimizzazione'],
+                datasets: [{
+                    label: 'Leanus Score', data: [5.59, 6.75],
+                    backgroundColor: [colorAttuale, colorOttimizzato],
+                    borderColor: [colorAttualeBorder, colorOttimizzatoBorder], borderWidth: 1
+                }]
+            };
+
+        // ======================================
+        // CHART OPTIONS
+        // ======================================
+        const barChartOptions = {
+             responsive: true, maintainAspectRatio: false, indexAxis: 'x',
+             scales: { y: { beginAtZero: true, ticks: {} }, x: { grid: { display: false }} },
+             plugins: { legend: { display: false }, title: { display: false },
+                 tooltip: {
+                     callbacks: {
+                         label: function(context) {
+                             let label = context.dataset.label || ''; if (label) label += ': '; let value = context.parsed.y;
+                             if (context.dataset.label.includes('(gg)')) { label += formatNumber(value, 0) + ' gg'; }
+                             else if (context.dataset.label.includes('(%)')) { label += formatPercentage(value); }
+                             else if (context.dataset.label.includes('Score')) { label += formatNumber(value, 2); }
+                             else if (context.dataset.label.includes('PFN/EBITDA')) { label += formatNumber(value, 2); }
+                             else { label += formatCurrency(value, 0); }
+                             return label;
+                         }
+                     }
+                 }
+             },
+             animation: { duration: 400 }
+         };
+         const ebitdaOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, ticks: { callback: function(v) { return formatCurrency(v, 0); } } } } };
+         const ebitdaMarginOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, suggestedMin: 10, suggestedMax: 13, ticks: { callback: function(v) { return formatPercentage(v); } } } } };
+         const pfnEbitdaOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, suggestedMin: 0, suggestedMax: 1.5, ticks: { callback: function(v) { return formatNumber(v, 2); } } } } };
+         const magazzinoOptions = { ...barChartOptions, scales: { ...barChartOptions.scales, y: { ...barChartOptions.scales.y, suggestedMin: 0, suggestedMax: 10, ticks: { callback: function(v) { return formatNumber(v, 1); } } } } };
+
+        // ======================================
+        // CHART INITIALIZATION & OTHER SCRIPTS
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+             console.log("Initializing scripts for Bilancio Plus EDILCOMPANY S.R.L. (Embedded)...");
+             // --- Initialize Charts ---
+             try { initChart('ebitdaChart', 'bar', ebitdaData, ebitdaOptions); } catch(e) { console.error("Errore init ebitdaChart:", e); }
+             try { initChart('ebitdaMarginChart', 'bar', ebitdaMarginData, ebitdaMarginOptions); } catch(e) { console.error("Errore init ebitdaMarginChart:", e); }
+             try { initChart('pfnEbitdaChart', 'bar', pfnEbitdaData, pfnEbitdaOptions); } catch(e) { console.error("Errore init pfnEbitdaChart:", e); }
+             try { initChart('magazzinoChart', 'bar', magazzinoData, magazzinoOptions); } catch(e) { console.error("Errore init magazzinoChart:", e); }
+
+             // --- Other Page Scripts ---
+             document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+             const footerYear = document.getElementById('currentYearFooter');
+             if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+             const irpScoreValue = 76.39; // EDILCOMPANY S.R.L. IRP
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-danger';
+                 if (irpScoreValue >= 40 && irpScoreValue < 60) badgeClass = 'bg-warning text-dark'; else if (irpScoreValue >= 60) badgeClass = 'bg-success';
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             } else { console.warn("Elemento 'irp-header-badge' non trovato.") }
+
+             if (typeof window.logout !== 'function') { window.logout = function() { console.log("Logout placeholder"); } }
+             if (typeof window.printDocument !== 'function') { window.printDocument = function() { window.print(); } }
+             console.log("All scripts initialization attempt complete (Embedded).");
+         });
+    </script>
+    <!-- ### END EMBEDDED JAVASCRIPT ### -->
+
+<script 
+  type="text/javascript" 
+  src="https://embed.chatnode.ai/4b455f88-b08f-4f27-a83b-59b94cdb3711/popup.js"
+  async
+></script>
+
+</body>
+</html>

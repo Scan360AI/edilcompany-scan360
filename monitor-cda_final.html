@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard CDA Final - EDILCOMPANY S.R.L. | SCAN</title>
+    <!-- Librerie Esterne -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+
+    <!-- Stili Incorporati (CSS V9/V12/V16 Corretto) -->
+    <style>
+        /* Copia/Incolla tutti gli stili CSS da monitor-cda_final.html qui */
+        .actions-card ol.action-list { padding-left: 0; list-style: none; }
+        .actions-card li { margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;}
+        .actions-card li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
+        .actions-card li strong { color: var(--primary); display: block; margin-bottom: 0.2rem;}
+        .actions-card .priority-badge { font-size: 0.75rem; padding: 3px 8px; flex-shrink: 0; margin-left: 1rem;}
+        /* Stili V15 mantenuti e aggiustamenti */
+        .irp-visual-section { background: linear-gradient(135deg, var(--white) 0%, #f0f4f8 100%); border-radius: 12px; padding: 2rem; box-shadow: var(--shadow); margin-bottom: 2.5rem; border: 1px solid var(--card-border); }
+        .irp-main-title { color: var(--primary); font-weight: 700; margin-bottom: 1.5rem; border-bottom: 2px solid var(--secondary); padding-bottom: 0.8rem; }
+        .irp-gradient-bar-container { margin-bottom: 0.5rem; }
+        .irp-gradient-bar { height: 20px; border-radius: 10px; overflow: hidden; position: relative; background: linear-gradient(to right, #d62246 0%, #d98c00 35%, #ffc107 55%, #4CAF50 80%, #191970 100%); border: 1px solid #bdc3c7; }
+        .irp-marker { position: absolute; top: -5px; bottom: -5px; width: 6px; background-color: #ffffff; border: 2px solid #343a40; transform: translateX(-50%); box-shadow: 0 0 8px rgba(0,0,0,0.5); z-index: 2; border-radius: 3px; }
+        .irp-marker::after { content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 8px solid #343a40; }
+        .irp-scale-labels { font-size: 0.8rem; color: #6c757d; font-weight: 500; padding: 0 5px;}
+        .irp-score-circle { width: 140px; height: 140px; border-radius: 50%; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 0.5rem auto; box-shadow: 0 8px 20px rgba(0,0,0,0.25); background: var(--warning); border: 6px solid rgba(255, 255, 255, 0.5); }
+        .irp-score-circle.risk-low { background: radial-gradient(circle, #6bc571, #4CAF50); }
+        .irp-score-circle.risk-medium { background: radial-gradient(circle, #ffd54f, #FFC107); }
+        .irp-score-circle.risk-high { background: radial-gradient(circle, #f6685e, #F44336); }
+        .irp-score-value { font-size: 3.5rem; font-weight: 700; line-height: 1; text-shadow: 1px 1px 3px rgba(0,0,0,0.4);}
+        .irp-score-max { font-size: 0.9rem; opacity: 0.8; display: block; line-height: 1;}
+        .irp-category-text { font-size: 1.2rem; font-weight: 600; margin-top: 0.5rem; text-align: center; }
+        .irp-category-text .status-badge { font-size: 0.85rem; vertical-align: middle; margin-left: 8px;}
+
+        :root {
+            --primary: #191970; --secondary: #4a69bd; --success: #4CAF50;
+            --warning: #FFC107; --danger: #F44336; --info: #0dcaf0;
+            --light: #f8f9fa; --dark: #343a40; --white: #ffffff;
+            --text-primary: #212529; --text-secondary: #6c757d;
+            --card-bg: var(--white); --card-border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        html, body { height: 100%; overflow-x: hidden; font-family: 'Titillium Web', sans-serif; background-color: #f4f8fb; }
+        body { display: flex; }
+        .sidebar { width: 250px; background-color: var(--primary); color: #e0e0e0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 1031; display: flex; flex-direction: column; box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1); transition: width 0.3s ease; overflow-y: auto; }
+        .main-wrapper { margin-left: 250px; width: calc(100% - 250px); display: flex; flex-direction: column; min-height: 100vh; position: relative; padding-top: 70px; }
+        .dashboard-header { background-color: var(--white); padding: 15px 30px; border-bottom: 1px solid var(--card-border); box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 70px; display: flex; align-items: center; justify-content: space-between; position: fixed; top: 0; left: 250px; right: 0; z-index: 1030; }
+        .dashboard-container { padding: 30px; flex-grow: 1; width: 100%; }
+        .footer { background-color: var(--primary); color: rgba(255, 255, 255, 0.7); padding: 15px 30px; font-size: 0.85rem; margin-top: auto; flex-shrink: 0; width: 100%; }
+        .footer img { max-height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; vertical-align: middle;}
+        .sidebar-header { padding: 10px 20px; margin-bottom: 20px; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .sidebar-header img { max-height: 40px; } .sidebar-header h5 { color: var(--white); margin-top: 10px; font-size: 1.1rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; } .sidebar-nav .nav-item { margin: 0; }
+        .sidebar-nav .nav-link { color: #e0e0e0; padding: 12px 20px; display: flex; align-items: center; font-size: 0.95rem; font-weight: 500; border-left: 4px solid transparent; transition: all 0.2s ease; }
+        .sidebar-nav .nav-link:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--white); border-left-color: var(--warning); }
+        .sidebar-nav .nav-link.active { background-color: rgba(255, 255, 255, 0.1); color: var(--white); font-weight: 600; border-left-color: var(--white); }
+        .sidebar-nav .nav-link i { margin-right: 15px; width: 20px; text-align: center; font-size: 1rem; }
+        .sidebar-nav .nav-title { padding: 10px 20px; font-size: 0.75rem; color: rgba(255, 255, 255, 0.5); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 15px; }
+        .sidebar-footer { margin-top: auto; padding: 15px 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; text-align: left; }
+        .section-title { color: var(--primary); font-weight: 600; margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--secondary); font-size: 1.75rem; display: flex; align-items: center; } .section-title i { margin-right: 10px; }
+        .dashboard-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: var(--shadow); transition: all 0.3s ease; height: 100%; }
+        .dashboard-card:hover { box-shadow: 0 8px 16px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .card-title-small { font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .table { border: 1px solid var(--card-border); margin-bottom: 1rem; } .table thead th { background-color: var(--light); color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--primary); font-size: 0.9rem; white-space: nowrap; } .table-hover tbody tr:hover { background-color: #eef2f7; } .table td, .table th { vertical-align: middle; padding: 0.6rem 0.75rem; font-size: 0.9rem;} .value-highlight { font-weight: 600; color: var(--primary); } .text-end { text-align: right !important;} .text-success { color: var(--success) !important; } .text-danger { color: var(--danger) !important; } .text-warning { color: var(--warning) !important; } .text-secondary { color: var(--text-secondary) !important; }
+        .alert-box { padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid; } .alert-box h5 { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600;} .alert-box ul { padding-left: 20px; margin-bottom: 0; font-size: 0.9rem;} .alert-box.alert-success { background-color: #d1e7dd; border-color: #a3cfbb; color: #0a3622; } .alert-box.alert-warning { background-color: #fff3cd; border-color: #ffda6a; color: #664d03; } .alert-box.alert-danger { background-color: #f8d7da; border-color: #f1aeb5; color: #58151c; } .alert-box.alert-info { background-color: #cff4fc; border-color: #9eeaf9; color: #055160; }
+        .status-badge { font-size: .75em; font-weight: 700; line-height: 1; padding: .35em .65em; border-radius: .375rem; color: white; display: inline-block; } .status-badge.bg-success { background-color: var(--success) !important; } .status-badge.bg-warning { background-color: var(--warning) !important; color: var(--dark) !important;} .status-badge.bg-danger { background-color: var(--danger) !important; } .status-badge.bg-info { background-color: var(--info) !important; color: var(--dark) !important;}
+        .chart-container-cda { height: 350px; margin-bottom: 20px; background-color: var(--white); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
+        .icon-circle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; color: white; margin-right: 12px; font-size: 0.9rem; flex-shrink: 0; }
+        .bg-icon-success { background-color: var(--success); } .bg-icon-warning { background-color: var(--warning); } .bg-icon-danger { background-color: var(--danger); } .bg-icon-info { background-color: #4f6d7a; } .bg-icon-primary { background-color: var(--primary); } .bg-icon-secondary { background-color: var(--secondary); }
+        .kpi-card-v4 { display: flex; align-items: center; padding: 1rem; background-color: var(--white); border-radius: 8px; box-shadow: var(--shadow); margin-bottom: 1.5rem; border: 1px solid var(--card-border); height: 100%;} .kpi-card-v4 .kpi-content { margin-left: 0; flex-grow: 1;} .kpi-card-v4 .kpi-header { display: flex; align-items: center; margin-bottom: 5px;} .kpi-card-v4 .kpi-title { font-size: 0.8rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0; line-height: 1.2;} .kpi-card-v4 .kpi-value { font-size: 1.7rem; font-weight: 700; color: var(--dark); line-height: 1.2; margin-bottom: 3px;} .kpi-card-v4 .kpi-trend { font-size: 0.8rem; font-weight: 600; margin-top: 0px;} .kpi-card-v4 .kpi-trend .fas { margin-right: 4px; } .kpi-card-v4 .trend-up { color: var(--success); } .kpi-card-v4 .trend-down { color: var(--danger); } .kpi-card-v4 .trend-neutral { color: var(--text-secondary); }
+        .accordion-item { background-color: var(--white); border: 1px solid var(--card-border); border-radius: 8px !important; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);} .accordion-header { }
+        .accordion-button { font-weight: 600; font-size: 1.1rem; color: var(--primary); background-color: #f8f9fa; box-shadow: none !important; border-radius: 7px 7px 0 0 !important;}
+        .accordion-button:not(.collapsed) { color: var(--white); background-color: var(--secondary); }
+        .accordion-button:focus { box-shadow: none; }
+        .accordion-button::after { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23191970'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); transition: transform .2s ease-in-out;}
+        .accordion-button:not(.collapsed)::after { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e"); transform: rotate(-180deg); }
+        .accordion-body { padding: 1.5rem; font-size: 0.9rem; } .accordion-body h6 { font-weight: 600; color: var(--secondary); margin-top: 1rem; margin-bottom: 0.5rem; } .accordion-body .table { margin-top: 1rem; }
+        /* Alert Cards V17 */
+        .alert-card { display: flex; align-items: flex-start; padding: 1rem; border-radius: 8px; border: 1px solid; background-color: #f8f9fa; margin-bottom: 1rem; box-shadow: var(--shadow); }
+        .alert-card .alert-icon { font-size: 1.8rem; margin-right: 1rem; flex-shrink: 0; width: 40px; text-align: center; }
+        .alert-card h5 { font-weight: 600; margin-bottom: 0.3rem; font-size: 1.1rem; }
+        .alert-card p { font-size: 0.9rem; margin-bottom: 0; line-height: 1.5; }
+        .alert-card.alert-danger { border-color: #f1aeb5; color: #58151c; background-color: #f8d7da; } .alert-card.alert-danger .alert-icon { color: #a94442; }
+        .alert-card.alert-warning { border-color: #ffda6a; color: #664d03; background-color: #fff3cd; } .alert-card.alert-warning .alert-icon { color: #8a6d3b; }
+        .alert-card.alert-info { border-color: #9eeaf9; color: #055160; background-color: #cff4fc; } .alert-card.alert-info .alert-icon { color: #31708f; }
+        .alert-card.alert-success { border-color: #a3cfbb; color: #0a3622; background-color: #d1e7dd; } .alert-card.alert-success .alert-icon { color: #3c763d; }
+        /* Executive Summary Card */
+        .executive-summary-card { background-color: #f0f4f8; border-left: 5px solid var(--primary); border-radius: 8px; box-shadow: var(--shadow); }
+        .executive-summary-card .card-body { padding: 1.5rem; }
+        /* Card titolo Modern */
+        .card-title-modern { font-size: 1rem; font-weight: 600; color: var(--primary); margin-bottom: 1rem; text-align: center; }
+        /* Chart Card per CDA */
+        .chart-card { padding-top: 1rem; }
+
+        @media (max-width: 991.98px) { .sidebar { width: 0; border: none; box-shadow: none;} .main-wrapper { margin-left: 0; width: 100%; padding-top: 56px; } .dashboard-header { left: 0; width: 100%; min-height: 56px; padding: 5px 15px;} .header-title h5 { font-size: 1rem;} .header-title p { font-size: 0.75rem;} .dashboard-container { padding: 15px;} .footer { padding: 10px 15px;} }
+        /* Stampa */
+         @media print { body { display: block; } .main-wrapper { margin-left: 0; width: 100%; padding-top: 0; } .no-print { display: none !important; } .report-section { page-break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+   <!-- Sidebar -->
+    <aside class="sidebar no-print">
+         <div class="sidebar-header">   <img src="assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;">
+ <h5>EDILCOMPANY S.R.L.</h5> </div>
+         <ul class="sidebar-nav flex-grow-1">
+             <li class="nav-item"> <a class="nav-link active" href="monitor-cda_final.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Overview CDA </a> </li>
+             <!-- Link Interni alla Pagina -->
+             <li class="nav-item"> <a class="nav-link" href="#kpi-section"> <i class="fas fa-key fa-fw"></i> KPI Principali </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#charts-section"> <i class="fas fa-chart-pie fa-fw"></i> Grafici Chiave </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#alerts-section"> <i class="fas fa-bell fa-fw"></i> Alert e Rischi </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#details-accordion"> <i class="fas fa-layer-group fa-fw"></i> Approfondimenti </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="#actions-summary"> <i class="fas fa-tasks fa-fw"></i> Azioni Prioritarie </a> </li>
+             <li class="nav-item"> <a class="nav-link" href="index.html"> <i class="fas fa-home fa-fw"></i> Torna alla home </a> </li>
+         </ul>
+         <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+     </aside>
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                 <h5 class="mb-0">Dashboard Esecutiva CDA</h5>
+                 <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">21 Maggio 2025</span></p>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
+            <p class="text-center mb-0">Dashboard Esecutiva CDA | <span class="report-date">21 Maggio 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Dashboard CDA -->
+        <div class="dashboard-container">
+
+            <!-- Executive Summary Card (Updated for EDILCOMPANY S.R.L.) -->
+            <div class="card executive-summary-card mb-4 report-section">
+                 <div class="card-body">
+                     <div class="row align-items-center">
+                         <div class="col-lg-8">
+                             <h4 class="card-title mb-3" style="color: var(--primary);"><i class="fas fa-info-circle me-2"></i>Executive Summary</h4>
+                             <p class="mb-2">L'analisi finanziaria di EDILCOMPANY S.R.L. evidenzia un <strong>profilo di rischio moderato-basso (IRP 76,39)</strong>, con un'azienda classificata come STABLE che mantiene un buon equilibrio patrimoniale. L'EBITDA margin dell'11,24% è significativamente superiore alla media di settore, con un Leanus Score "3 - Discreto" (5,59).</p>
+                             <p class="mb-0 text-warning">Le <strong>aree di criticità</strong> includono il <strong>cash flow operativo negativo</strong> (-6,24% dei ricavi), il <strong>ciclo del circolante elevato</strong> (119 giorni) e gli <strong>oneri finanziari eccessivi</strong> (17,14% dei debiti medi). Gli interventi proposti possono migliorare significativamente la generazione di cassa e la sostenibilità finanziaria.</p>
+                         </div>
+                         <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                              <h6 class="card-title-small mb-1">Indice Rischio (IRP)</h6>
+                              <!-- IRP EDILCOMPANY -->
+                              <div class="irp-score-circle risk-low mx-auto" style="width: 110px; height: 110px; border-width: 4px;">
+    <span class="irp-score-value" style="font-size: 2.8rem;">76,4</span>
+    <span class="irp-score-max" style="font-size: 0.7rem;">/ 100</span>
+</div>
+<div class="irp-category-text text-success mt-1" style="font-size: 1rem;">
+    Rischio Moderato-Basso <span class="status-badge bg-success">B</span>
+</div>
+                            
+                             <a href="report/irp_dettaglio.html" target="_blank" class="btn btn-link btn-sm p-0 mt-1 small">Dettaglio IRP</a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- Sezione KPI Principali V4 (8 KPI - Updated for EDILCOMPANY S.R.L.) -->
+             <section id="kpi-section" class="report-section">
+                  <h4 class="section-title small"><i class="fas fa-key me-2"></i>INDICATORI CHIAVE</h4>
+                   <div class="row gy-4">
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-danger"><i class="fas fa-euro-sign"></i></span> <div class="kpi-content"> <div class="kpi-title">Ricavi</div> <div class="kpi-value">€ 2,34 M</div> <div class="kpi-trend trend-down"><i class="fas fa-arrow-down"></i> -5,12% YoY</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-percent"></i></span> <div class="kpi-content"> <div class="kpi-title">EBITDA Margin</div> <div class="kpi-value">11,24%</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +1,84 p.p.</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-chart-line"></i></span> <div class="kpi-content"> <div class="kpi-title">EBITDA</div> <div class="kpi-value">€ 263 K</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +13,28% YoY</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-success"><i class="fas fa-coins"></i></span> <div class="kpi-content"> <div class="kpi-title">Utile Netto</div> <div class="kpi-value">€ 13 K</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> Ritorno utile</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-warning"><i class="fas fa-balance-scale-right"></i></span> <div class="kpi-content"> <div class="kpi-title">PFN / EBITDA</div> <div class="kpi-value">1,24x</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +0,43</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-warning"><i class="fas fa-landmark"></i></span> <div class="kpi-content"> <div class="kpi-title">Leva (D/E)</div> <div class="kpi-value">2,30x</div> <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +0,21</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-danger"><i class="fas fa-hourglass-half"></i></span> <div class="kpi-content"> <div class="kpi-title">Ciclo Circolante</div> <div class="kpi-value">119 gg</div> <div class="kpi-trend trend-down"><i class="fas fa-arrow-up"></i> +45 gg</div> </div> </div> </div>
+                      <div class="col-lg-3 col-md-6"> <div class="kpi-card-v4"> <span class="icon-circle bg-icon-danger"><i class="fas fa-water"></i></span> <div class="kpi-content"> <div class="kpi-title">Cash Flow Operativo</div> <div class="kpi-value">-€ 146 K</div> <div class="kpi-trend trend-down text-danger"><i class="fas fa-arrow-down"></i> -6,24% Ricavi</div> </div> </div> </div>
+                 </div>
+             </section>
+
+             <!-- Sezione Alert Principali (Updated for EDILCOMPANY S.R.L.) -->
+             <section id="alerts-section" class="report-section">
+                 <h4 class="section-title small"><i class="fas fa-bell me-2 text-warning"></i>ALERT PRINCIPALI</h4>
+                 <div class="row">
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-danger">
+                             <i class="fas fa-water alert-icon"></i>
+                             <div>
+                                 <h5>Cash Flow Operativo Negativo <span class="badge bg-danger ms-2">Critico</span></h5>
+                                 <p>Il cash flow operativo è negativo per €145.830 (-6,24% dei ricavi), segnalando una criticità nella conversione dei margini in liquidità.</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-danger">
+                             <i class="fas fa-percentage alert-icon"></i>
+                             <div>
+                                 <h5>Oneri Finanziari Elevati <span class="badge bg-danger ms-2">Critico</span></h5>
+                                 <p>Costo del debito al 17,14% significativamente superiore ai tassi di mercato, con oneri finanziari pari a €62.791.</p>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-6 mb-4">
+                         <div class="alert-card alert-warning">
+                              <i class="fas fa-hourglass-half alert-icon"></i>
+                              <div>
+                                   <h5>Ciclo Circolante Elevato <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                   <p>Ciclo del circolante di 119 giorni con significativo assorbimento di liquidità (DSO 111gg, DPO 53gg, DIO 61gg).</p>
+                              </div>
+                         </div>
+                     </div>
+                      <div class="col-lg-6 mb-4">
+                          <div class="alert-card alert-warning">
+                               <i class="fas fa-shield-alt alert-icon"></i>
+                               <div>
+                                   <h5>DSCR Insufficiente <span class="badge bg-warning ms-2 text-dark">Attenzione</span></h5>
+                                   <p>DSCR pari a 0,241, significativamente inferiore alla soglia di sostenibilità (>1,0), indicando difficoltà nel servizio del debito.</p>
+                               </div>
+                          </div>
+                      </div>
+                 </div>
+             </section>
+
+             <!-- Sezione Grafici Chiave CDA (Updated for EDILCOMPANY S.R.L.) -->
+             <section id="charts-section" class="report-section">
+                   <h4 class="section-title small"><i class="fas fa-chart-pie me-2"></i>GRAFICI CHIAVE</h4>
+                   <div class="row">
+                       <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Trend Economico (Ricavi/EBITDA)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                     <canvas id="trendRicaviEbitdaChart"></canvas>
+                                 </div>
+                            </div>
+                       </div>
+                       <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Redditività e Leva (ROE/ROI/D:E)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                      <canvas id="trendPfnEbitdaChart"></canvas>
+                                 </div>
+                            </div>
+                       </div>
+                        <!-- Grafico Ciclo Circolante -->
+                         <div class="col-lg-6 mb-4">
+                            <div class="dashboard-card chart-card">
+                                <h6 class="card-title-modern">Evoluzione Ciclo Circolante (Giorni)</h6>
+                                <div class="chart-container-cda" style="height: 350px;">
+                                     <canvas id="trendWorkingCapitalChart"></canvas>
+                                </div>
+                            </div>
+                       </div>
+                        <div class="col-lg-6 mb-4">
+                           <div class="dashboard-card chart-card">
+                               <h6 class="card-title-modern">Generazione Cassa Operativa (% Ricavi)</h6>
+                               <div class="chart-container-cda" style="height: 350px;">
+                                    <canvas id="trendCashFlowOpChart"></canvas>
+                               </div>
+                           </div>
+                      </div>
+                   </div>
+              </section>
+
+             <!-- SEZIONI DI DETTAGLIO CON ACCORDION (Updated for EDILCOMPANY S.R.L.) -->
+             <h2 class="section-title mt-5" id="details-accordion"><i class="fas fa-layer-group me-2"></i>Approfondimenti Dettagliati</h2>
+             <div class="accordion report-section" id="cdaDetailsAccordion">
+
+                 <!-- 1. Dettaglio Performance Economica -->
+                 <div class="accordion-item">
+                     <h2 class="accordion-header" id="headingEconomic"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEconomic" aria-expanded="false" aria-controls="collapseEconomic"> <i class="fas fa-chart-line me-2"></i> Performance Economica<span class="badge bg-success ms-2">Stabile</span> </button> </h2>
+                     <div id="collapseEconomic" class="accordion-collapse collapse" aria-labelledby="headingEconomic" data-bs-parent="#cdaDetailsAccordion">
+                         <div class="accordion-body">
+                              <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                              <h6>Principali indicatori economici</h6>
+                              <div class="table-responsive mb-3"><table class="table table-sm table-striped">
+                                  <tbody><tr><td>Ricavi</td><td class="value-highlight">€2.338.270</td><td><i class="fas fa-arrow-down text-danger"></i> -5,12%</td></tr><tr><td>EBITDA</td><td class="value-highlight">€262.814 (11,24%)</td><td><i class="fas fa-arrow-up text-success"></i> +13,28%</td></tr><tr><td>EBIT</td><td class="value-highlight">€262.814 (11,24%)</td><td><i class="fas fa-arrow-up text-success"></i> +705,13%</td></tr><tr><td>Utile Netto</td><td class="value-highlight">€13.345 (0,57%)</td><td><i class="fas fa-arrow-up text-success"></i> Ritorno utile</td></tr><tr><td>Margine di Contribuzione</td><td class="value-highlight">21,55%</td><td><i class="fas fa-arrow-down text-danger"></i> -1,68%</td></tr><tr><td>Break-Even Point</td><td class="value-highlight">€1.118.883</td><td><span class="badge bg-success">-52,15% margine</span></td></tr></tbody>
+                              </table></div>
+                              <h6>Indici di redditività</h6>
+                              <div class="table-responsive mb-3"><table class="table table-sm table-striped">
+                                   <tbody><tr><td>ROE</td><td class="value-highlight">7,70%</td><td><i class="fas fa-arrow-up text-success"></i> +15,12 p.p.</td><td><span class="badge bg-success">Discreto</span> (>7%)</td></tr><tr><td>ROI</td><td class="value-highlight">52,71%</td><td><i class="fas fa-arrow-down text-danger"></i> -8,73 p.p.</td><td><span class="badge bg-success">Ottimo</span> (>10%)</td></tr><tr><td>ROS</td><td class="value-highlight">11,24%</td><td><i class="fas fa-arrow-up text-success"></i> +9,94 p.p.</td><td><span class="badge bg-success">Ottimo</span> (>8%)</td></tr><tr><td>Turnover Capitale</td><td class="value-highlight">4,69x</td><td><i class="fas fa-arrow-up text-success"></i> n.d.</td><td><span class="badge bg-success">Ottimo</span> (>1,5x)</td></tr><tr><td>EBIT/Oneri Fin.</td><td class="value-highlight">4,19x</td><td><i class="fas fa-arrow-up text-success"></i> +2,19x</td><td><span class="badge bg-warning text-dark">Borderline</span> (>5x)</td></tr><tr><td>Costo Medio Debito</td><td class="value-highlight">17,14%</td><td><i class="fas fa-arrow-up text-danger"></i> +11,74 p.p.</td><td><span class="badge bg-danger">Critico</span></td></tr></tbody>
+                              </table></div>
+                              <h6 class="mt-3">Evoluzione Conto Economico (Dettaglio)</h6>
+                              <div class="table-responsive"><table class="table table-sm table-striped table-hover">
+                                  <thead class="table-light"><tr><th>Voce</th><th class="text-end">2022 (€)</th><th class="text-end">2023 (€)</th><th class="text-end">2024 (€)</th><th class="text-end">Var % 23-24</th></tr></thead>
+                                  <tbody><tr><td>Ricavi</td><td class="text-end">2.809K</td><td class="text-end">2.464K</td><td class="text-end">2.338K</td><td class="text-end text-danger">-5,1%</td></tr><tr><td>Acquisti</td><td class="text-end">-2.236K</td><td class="text-end">-1.840K</td><td class="text-end">-1.657K</td><td class="text-end text-success">-10,0%</td></tr><tr><td>Valore Aggiunto</td><td class="text-end">573K</td><td class="text-end">643K</td><td class="text-end">746K</td><td class="text-end text-success">+16,1%</td></tr><tr><td>Costi variabili</td><td class="text-end">-82K</td><td class="text-end">-131K</td><td class="text-end">-242K</td><td class="text-end text-danger">+85,7%</td></tr><tr><td>MdC</td><td class="text-end">491K</td><td class="text-end">513K</td><td class="text-end">504K</td><td class="text-end text-danger">-1,7%</td></tr><tr><td>Costi fissi</td><td class="text-end">-269K</td><td class="text-end">-280K</td><td class="text-end">-241K</td><td class="text-end text-success">-14,0%</td></tr><tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">221K</td><td class="text-end">232K</td><td class="text-end">263K</td><td class="text-end text-success">+13,3%</td></tr><tr><td>Amm.ti/Svalut.</td><td class="text-end">-34K</td><td class="text-end">-200K</td><td class="text-end">0K</td><td class="text-end text-success">-100,0%</td></tr><tr><td>EBIT</td><td class="text-end">187K</td><td class="text-end">32K</td><td class="text-end">263K</td><td class="text-end text-success">+705,1%</td></tr><tr><td>Componenti straordinarie</td><td class="text-end">-56K</td><td class="text-end">1K</td><td class="text-end">-118K</td><td class="text-end text-danger">n.s.</td></tr><tr><td>Gest. Finanziaria</td><td class="text-end">-28K</td><td class="text-end">-18K</td><td class="text-end">-63K</td><td class="text-end text-danger">+250,6%</td></tr><tr><td>EBT</td><td class="text-end">132K</td><td class="text-end">14K</td><td class="text-end">76K</td><td class="text-end text-success">+432,7%</td></tr><tr><td>Imposte</td><td class="text-end">-15K</td><td class="text-end">-26K</td><td class="text-end">-62K</td><td class="text-end text-danger">+139,1%</td></tr><tr class="table-success fw-bold"><td>Utile Netto</td><td class="text-end">117K</td><td class="text-end">-12K</td><td class="text-end">13K</td><td class="text-end text-success">Ritorno utile</td></tr></tbody>
+                              </table></div>
+                              <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>EBITDA margin ottimo (11,24%)</li><li>Miglioramento EBITDA (+13,28%)</li><li>ROI eccellente (52,71%)</li><li>Break-even favorevole (52,15% margine)</li></ul></div></div> <div class="col-md-6"><div class="alert alert-danger small p-2"><h6>Aree di miglioramento:</h6><ul><li>Calo dei ricavi (-5,12%)</li><li>Costo del debito elevato (17,14%)</li><li>Utile netto marginale (0,57%)</li><li>Gestione straordinaria negativa</li></ul></div></div></div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <!-- Dettaglio Struttura Patrimoniale -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingAssets"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAssets" aria-expanded="false" aria-controls="collapseAssets"> <i class="fas fa-landmark me-2"></i> Struttura Patrimoniale <span class="badge bg-warning ms-2 text-dark">Discreta</span></button> </h2>
+                      <div id="collapseAssets" class="accordion-collapse collapse" aria-labelledby="headingAssets" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                               <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                               <div class="row mb-4">
+                                  <div class="col-md-6"><h6>Stato Patrimoniale Sintetico (Impieghi)</h6><table class="table table-sm table-striped"><tbody><tr><td>Attivo Fisso Netto</td><td class="value-highlight">€111,0K</td><td><i class="fas fa-arrow-down text-success"></i> -6,88%</td></tr><tr><td>- Imm. materiali</td><td>€65,1K</td><td><i class="fas fa-arrow-down text-success"></i> -22,48%</td></tr><tr><td>- Imm. immateriali</td><td>€0K</td><td><i class="fas fa-equals text-secondary"></i> -100%</td></tr><tr><td>- Imm. finanziarie</td><td>€45,9K</td><td><i class="fas fa-arrow-up text-danger"></i> +52,8%</td></tr><tr><td>Capitale Circolante</td><td class="value-highlight">€1.071,8K</td><td><i class="fas fa-arrow-up text-danger"></i> +9,64%</td></tr><tr><td>- Crediti comm.</td><td>€714,7K</td><td><i class="fas fa-arrow-down text-success"></i> -4,82%</td></tr><tr><td>- Rimanenze</td><td>€267,6K</td><td><i class="fas fa-arrow-up text-danger"></i> +32,50%</td></tr><tr><td>- Debiti comm.</td><td>-€289,7K</td><td><i class="fas fa-arrow-down text-success"></i> -31,94%</td></tr><tr class="table-primary fw-bold"><td>Capitale Investito Netto</td><td class="value-highlight">€498,6K</td><td><i class="fas fa-arrow-up text-danger"></i> +146,8%</td></tr></tbody></table></div>
+                                  <div class="col-md-6"><h6>Struttura delle Fonti</h6><table class="table table-sm table-striped"><tbody><tr><td>Patrimonio Netto</td><td class="value-highlight">€173,3K</td><td><i class="fas fa-arrow-up text-success"></i> +8,34%</td></tr><tr><td>PFN</td><td class="value-highlight">€325,3K</td><td><i class="fas fa-arrow-up text-danger"></i> +73,34%</td></tr><tr><td>- Debiti finanziari</td><td>€398,2K</td><td><i class="fas fa-arrow-up text-danger"></i> +18,98%</td></tr><tr><td>- Liquidità</td><td>€72,9K</td><td><i class="fas fa-arrow-down text-danger"></i> -50,41%</td></tr><tr class="table-primary fw-bold"><td>Totale Fonti</td><td class="value-highlight">€498,6K</td><td><i class="fas fa-arrow-up text-danger"></i> +146,8%</td></tr></tbody></table></div>
+                               </div>
+                               <h6>Indici di Solidità Patrimoniale</h6>
+                               <div class="table-responsive"><table class="table table-sm table-striped table-hover">
+                                   <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Valutazione</th></tr></thead>
+                                   <tbody><tr><td>Autonomia Fin.</td><td>PN / Tot Passivo</td><td class="text-end">11,0%</td><td class="text-end">12,8%</td><td class="text-end">14,7%</td><td><span class="status-badge bg-warning text-dark">Sufficiente</span></td></tr><tr><td>Cop. Immob.</td><td>PN/AF</td><td class="text-end">1,03</td><td class="text-end">1,34</td><td class="text-end">1,56</td><td><span class="status-badge bg-success">Ottima</span></td></tr><tr><td>Struttura Primario</td><td>PN / AF</td><td class="text-end">1,03</td><td class="text-end">1,34</td><td class="text-end">1,56</td><td><span class="status-badge bg-success">Ottima</span></td></tr><tr><td>Struttura Secondario</td><td>(PN+PConsolidate)/AF</td><td class="text-end">1,44</td><td class="text-end">1,95</td><td class="text-end">2,56</td><td><span class="status-badge bg-success">Ottima</span></td></tr><tr><td>Leva Finanziaria (D/E)</td><td>Debt Fin / PN</td><td class="text-end">2,46</td><td class="text-end">2,09</td><td class="text-end">2,30</td><td><span class="status-badge bg-warning text-dark">Discreta</span></td></tr><tr><td>PFN/EBITDA</td><td>PFN / EBITDA</td><td class="text-end">1,58</td><td class="text-end">0,81</td><td class="text-end">1,24</td><td><span class="status-badge bg-success">Sostenibile</span></td></tr></tbody>
+                               </table></div>
+                               <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>Copertura immobilizzazioni ottima (1,56)</li><li>PFN/EBITDA sostenibile (1,24)</li><li>Patrimonio netto in crescita (+8,34%)</li><li>Struttura patrimoniale equilibrata</li></ul></div></div> <div class="col-md-6"><div class="alert alert-warning small p-2"><h6>Aree di attenzione:</h6><ul><li>Leva finanziaria elevata (2,30)</li><li>Riduzione liquidità (-50,41%)</li><li>Incremento debiti finanziari (+18,98%)</li><li>Autonomia finanziaria limitata (14,7%)</li></ul></div></div></div>
+                          </div>
+                      </div>
+                  </div>
+
+                 <!-- Dettaglio Situazione Finanziaria e Flussi -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingFinancial"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFinancial" aria-expanded="false" aria-controls="collapseFinancial"> <i class="fas fa-university me-2"></i> Situazione Finanziaria e Flussi<span class="badge bg-danger ms-2">Critica</span> </button> </h2>
+                      <div id="collapseFinancial" class="accordion-collapse collapse" aria-labelledby="headingFinancial" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                              <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                               <div class="row mb-4">
+                                   <div class="col-md-6"><h6>Indicatori Sostenibilità Debito</h6><table class="table table-sm table-striped"><tbody><tr><td>PFN/EBITDA</td><td class="value-highlight">1,24</td><td><span class="badge bg-success">Sostenibile</span></td></tr><tr><td>Leva (D/E)</td><td class="value-highlight">2,30</td><td><span class="badge bg-warning text-dark">Discreta</span></td></tr><tr><td>DSCR</td><td class="value-highlight">0,241</td><td><span class="badge bg-danger">Critico</span></td></tr><tr><td>Oneri Fin./Ricavi</td><td class="value-highlight">2,69%</td><td><span class="badge bg-warning text-dark">Elevato</span></td></tr><tr><td>CF Op./Ricavi</td><td class="value-highlight">-6,24%</td><td><span class="badge bg-danger">Insufficiente</span></td></tr><tr><td>EBIT/Oneri Fin.</td><td class="value-highlight">4,19</td><td><span class="badge bg-warning text-dark">Borderline</span></td></tr></tbody></table></div>
+                                   <div class="col-md-6"><h6>Posizione Finanziaria Netta</h6><table class="table table-sm table-striped"><tbody><tr><td>Debiti finanziari</td><td class="value-highlight">€398.210</td><td><i class="fas fa-arrow-up text-danger"></i> +18,98%</td></tr><tr><td>Liquidità</td><td class="value-highlight">€72.916</td><td><i class="fas fa-arrow-down text-danger"></i> -50,41%</td></tr><tr class="table-warning fw-bold"><td>PFN</td><td class="value-highlight">€325.295</td><td><i class="fas fa-arrow-up text-danger"></i> +73,34%</td></tr></tbody></table></div>
+                               </div>
+                                <h6 class="mt-3">Capacità di Indebitamento</h6>
+                                <div class="table-responsive"><table class="table table-sm table-striped">
+                                     <thead class="table-light"><tr><th>Indicatore</th><th class="text-end">Valore</th><th>Interpretazione</th></tr></thead>
+                                     <tbody><tr><td>Capacità teorica indebitamento incrementale</td><td class="text-end text-warning">€143.000</td><td>Limitata capacità di assumere nuovo debito</td></tr><tr><td>Stress test - Riduzione ricavi che rende EBIT=0</td><td class="text-end">-52,15%</td><td>Ampio buffer operativo</td></tr><tr><td>Stress test - Aumento costi fissi che rende EBIT=0</td><td class="text-end">+108,98%</td><td>Buona resilienza a shock di costo</td></tr>
+                                     <tr class="table-danger fw-bold"><td>DSCR (Debt Service Coverage Ratio)</td><td class="text-end text-danger">0,241</td><td>Critico - inferiore ai criteri bancari</td></tr><tr><td>Probabilità di Default (MCC)</td><td class="text-end text-warning">3,62%</td><td>Media - FASCIA "3"</td></tr><tr class="table-warning fw-bold"><td>Leanus Score</td><td class="text-end text-warning">5,59</td><td>Profilo "3 - Discreto"</td></tr></tbody>
+                                </table></div>
+                               <div class="row mt-3"> <div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>PFN/EBITDA sostenibile (1,24)</li><li>Buona resilienza operativa</li><li>Break-even favorevole (52,15% margine)</li><li>Z-Score elevato (6,96)</li></ul></div></div> <div class="col-md-6"><div class="alert alert-danger small p-2"><h6>Aree di criticità:</h6><ul><li>Cash Flow Operativo negativo (-€145.830)</li><li>DSCR critico (0,241)</li><li>Oneri finanziari elevati (17,14%)</li><li>Capacità indebitamento limitata</li></ul></div></div></div>
+                          </div>
+                      </div>
+                   </div>
+
+                  <!-- Dettaglio Capitale Circolante -->
+                  <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingCapital"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCapital" aria-expanded="false" aria-controls="collapseCapital"> <i class="fas fa-sync-alt me-2"></i> Capitale Circolante <span class="badge bg-danger ms-2">Critico</span> </button> </h2>
+                      <div id="collapseCapital" class="accordion-collapse collapse" aria-labelledby="headingCapital" data-bs-parent="#cdaDetailsAccordion">
+                          <div class="accordion-body">
+                              <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                              <div class="row mb-4">
+                                  <div class="col-md-6"><h6>Ciclo del Capitale Circolante</h6><table class="table table-sm table-striped"><tbody>
+<tr><td>Giorni Clienti (DSO)</td><td class="value-highlight">111 gg</td><td class="text-secondary"><i class="fas fa-arrow-up"></i> +1 gg</td><td><span class="badge bg-danger">Critico</span></td></tr><tr><td>Giorni Magazzino (DIO)</td><td class="value-highlight">61 gg</td><td class="text-danger"><i class="fas fa-arrow-up"></i> +21 gg</td><td><span class="badge bg-warning text-dark">Da monitorare</span></td></tr><tr><td>Giorni Fornitori (DPO)</td><td class="value-highlight">53 gg</td><td class="text-danger"><i class="fas fa-arrow-down"></i> -23 gg</td><td><span class="badge bg-warning text-dark">Subottimale</span></td></tr><tr class="table-danger fw-bold"><td>Ciclo del Circolante</td><td class="value-highlight">119 gg</td><td class="text-danger"><i class="fas fa-arrow-up"></i> +45 gg</td><td><span class="badge bg-danger">Critico</span></td></tr></tbody></table></div>
+                                  <div class="col-md-6"><h6>Test di Congruità Componenti</h6><table class="table table-sm table-striped"><tbody><tr><td>Crediti vs benchmark</td><td class="value-highlight">111 gg vs 60-90 gg</td><td class="text-danger">Eccesso significativo</td></tr><tr><td>Debiti vs benchmark</td><td class="value-highlight">53 gg vs 60-90 gg</td><td class="text-warning">Deficit significativo</td></tr><tr><td>Working Capital/Ricavi</td><td class="value-highlight">29,63%</td><td class="text-danger">Eccessivo</td></tr></tbody></table></div>
+                              </div>
+                              <h6>Evoluzione Capitale Circolante</h6>
+                              <div class="table-responsive"><table class="table table-sm table-striped">
+                                  <thead class="table-light"><tr><th>Componente</th><th class="text-end">2022</th><th class="text-end">2023</th><th class="text-end">2024</th><th>Variazione</th></tr></thead>
+                                  <tbody><tr><td>Crediti Clienti</td><td class="text-end">€1.132K</td><td class="text-end">€751K</td><td class="text-end">€715K</td><td><span class="badge bg-success">-€36K</span></td></tr><tr><td>Rimanenze</td><td class="text-end">€183K</td><td class="text-end">€202K</td><td class="text-end">€268K</td><td><span class="badge bg-danger">+€66K</span></td></tr><tr><td>Debiti Fornitori</td><td class="text-end">€628K</td><td class="text-end">€426K</td><td class="text-end">€290K</td><td><span class="badge bg-danger">-€136K</span></td></tr><tr><td>Altri Debiti</td><td class="text-end">€262K</td><td class="text-end">€245K</td><td class="text-end">€227K</td><td><span class="badge bg-success">-€18K</span></td></tr></tbody>
+                              </table></div>
+                              <div class="alert alert-danger mt-3 small p-2"><h5>Criticità del circolante:</h5><ul><li>Ciclo del circolante eccessivo (119gg) con peggioramento di 45gg</li><li>Tempi di incasso elevati (DSO 111 giorni)</li><li>Significativo incremento rimanenze (+32,5%)</li><li>Cash Flow Operativo negativo per €145.830</li></ul></div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Dettaglio Rischi -->
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingRisk"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRisk" aria-expanded="false" aria-controls="collapseRisk"> <i class="fas fa-exclamation-triangle me-2"></i> Profilo di Rischio <span class="badge bg-success ms-2">Moderato-Basso</span></button> </h2>
+                       <div id="collapseRisk" class="accordion-collapse collapse" aria-labelledby="headingRisk" data-bs-parent="#cdaDetailsAccordion">
+                           <div class="accordion-body">
+                               <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                                <div class="row">
+                                   <div class="col-md-6"><h6>Indice Rischio Ponderato (IRP)</h6><p>Valore: <strong>76,39 / 100</strong> <span class="badge bg-success">CATEGORIA B</span></p>
+<table class="table table-sm">
+    <tr><td>Coefficiente di Ponderazione</td><td class="text-end">73,26</td></tr>
+    <tr><td>Leanus Score Norm.</td><td class="text-end">75,55</td></tr>
+    <tr><td>MCC Rating Norm.</td><td class="text-end">69,20</td></tr>
+    <tr><td>Z-Score Norm.</td><td class="text-end">100,00</td></tr>
+</table>
+<p class="text-muted small">L'azienda presenta un profilo di rischio moderato-basso con solidità adeguata, pur in presenza di alcune aree di attenzione.</p>
+</div>
+                                   <div class="col-md-6"><h6>Modelli di Rating</h6><table class="table table-sm"><tbody><tr><td>Z-Score Altman</td><td class="value-highlight">6,96</td><td><span class="badge bg-success">Zona Sicura</span></td></tr><tr><td>PD (MCC)</td><td class="value-highlight">3,62%</td><td><span class="badge bg-warning text-dark">Fascia 3</span></td></tr><tr><td>Leanus Score</td><td class="value-highlight">5,59 - Discreto</td><td><span class="badge bg-warning text-dark">Discreto</span></td></tr><tr><td>DSCR</td><td class="value-highlight">0,241</td><td><span class="badge bg-danger">Critico</span></td></tr><tr><td>IRP Finale</td><td class="value-highlight">76,39</td><td><span class="badge bg-success">Categoria B</span></td></tr></tbody></table></div>
+                                </div>
+                                <h6 class="mt-3">Stress Test Sintesi</h6>
+                                <p class="small">Resistenza Ricavi: -52,15% | Resistenza Costi: +108,98% | Liquidità critica: +12gg variazione DSO</p>
+                                <div class="row mt-3"><div class="col-md-6"><div class="alert alert-success small p-2"><h6>Punti di forza:</h6><ul><li>Z-Score elevato (6,96)</li><li>Buona marginalità operativa (11,24%)</li><li>Copertura immobilizzazioni ottima (1,56)</li><li>ROI eccellente (52,71%)</li><li>Break-even favorevole</li></ul></div></div><div class="col-md-6"><div class="alert alert-danger small p-2"><h6>Red Flags:</h6><ul><li>Cash flow operativo negativo</li><li>DSCR critico (0,241)</li><li>Costo del debito elevato (17,14%)</li><li>Ciclo circolante elevato (119gg)</li></ul></div></div></div>
+                           </div>
+                       </div>
+                   </div>
+
+                  <!-- Dettaglio Azioni Raccomandate -->
+                   <div class="accordion-item">
+                       <h2 class="accordion-header" id="headingActions"> <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseActions" aria-expanded="false" aria-controls="collapseActions"> <i class="fas fa-lightbulb me-2"></i> Piano d'Azione </button> </h2>
+                       <div id="collapseActions" class="accordion-collapse collapse" aria-labelledby="headingActions" data-bs-parent="#cdaDetailsAccordion">
+                           <div class="accordion-body">
+                               <!-- Contenuto per EDILCOMPANY S.R.L. -->
+                               <div class="action-item priority-high"><h6>PRIORITÀ ALTA: Ottimizzazione Capitale Circolante</h6><div class="action-detail"><strong>1a. Gestione crediti:</strong> Riduzione DSO da 111 a 90 giorni con liberazione di circa €150.000 di liquidità.</div><div class="action-detail"><strong>1b. Rinegoziazione fornitori:</strong> Estensione DPO da 53 a 70 giorni per migliorare il cash flow.</div></div>
+                               <div class="action-item priority-high"><h6>PRIORITÀ ALTA: Ristrutturazione Debito</h6><div class="action-detail"><strong>2a. Rinegoziazione oneri:</strong> Riduzione costo del debito dal 17,14% a livelli di mercato (7-10%).</div><div class="action-detail"><strong>2b. Consolidamento debito:</strong> Conversione debito a breve in medio-lungo termine per migliorare DSCR.</div></div>
+                               <div class="action-item priority-medium"><h6>PRIORITÀ MEDIA: Controllo Costi</h6><div class="action-detail"><strong>3a. Revisione costi variabili:</strong> Analisi e ottimizzazione costi variabili cresciuti dell'85,7%.</div><div class="action-detail"><strong>3b. Efficientamento operativo:</strong> Target riduzione costi fissi del 5-7% (€15-20K annui).</div></div>
+                               <div class="action-item priority-medium"><h6>PRIORITÀ MEDIA: Gestione Magazzino</h6><div class="action-detail"><strong>4a. Ottimizzazione scorte:</strong> Riduzione DIO da 61 a 45 giorni con liberazione di €70K.</div><div class="action-detail"><strong>4b. Smaltimento obsoleto:</strong> Identificazione e liquidazione scorte a lenta movimentazione.</div></div>
+                               <div class="row mt-4"><div class="col-md-6"><div class="alert alert-success"><h6>Impatto Stimato:</h6><ul><li>Liberazione liquidità: €250-300K</li><li>Riduzione oneri finanziari: €30-40K/anno</li><li>Miglioramento DSCR: da 0,241 a >1,0</li><li>Cash flow operativo positivo</li></ul></div></div><div class="col-md-6"><div class="alert alert-primary"><h6>Tempistiche:</h6><ul><li>Immediato (0-3m): Gestione crediti/debiti</li><li>Breve (3-6m): Ristrutturazione debito</li><li>Medio (6-12m): Efficientamento costi</li></ul></div></div></div>
+                           </div>
+                       </div>
+                   </div>
+
+             </div> <!-- Fine Accordion Principale -->
+
+
+            <!-- Sezione Azioni Prioritarie CDA (Updated for EDILCOMPANY S.R.L.) -->
+             <section id="actions-summary" class="report-section">
+                  <h4 class="section-title small"><i class="fas fa-tasks me-2"></i>AZIONI PRIORITARIE</h4>
+                  <div class="card actions-card">
+                      <div class="card-body">
+                          <ol class="action-list list-unstyled">
+                              <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                      <div>
+                                          <span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-sync-alt"></i></span>
+                                          <strong>Ottimizzazione capitale circolante</strong>
+                                          <p class="small text-muted mb-0">Implementare gestione attiva dei crediti (riduzione DSO a 90gg) e rinegoziazione termini fornitori (estensione DPO a 70gg) per liberare €250-300K di liquidità.</p>
+                                      </div>
+                                      <span class="priority-badge status-badge bg-danger">Alta Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                           <span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-percentage"></i></span>
+                                           <strong>Ristrutturazione del debito finanziario</strong>
+                                          <p class="small text-muted mb-0">Rinegoziazione urgente del costo del debito (dal 17,14% al 7-10%) e consolidamento a medio-lungo termine per migliorare DSCR da 0,241 a >1,0.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-danger">Alta Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                           <span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-water"></i></span>
+                                           <strong>Ripristino cash flow operativo positivo</strong>
+                                          <p class="small text-muted mb-0">Combinazione di ottimizzazione circolante e controllo costi per invertire il cash flow operativo da -€145.830 a valori positivi.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-warning text-dark">Media Priorità</span>
+                                  </div>
+                              </li>
+                               <li>
+                                  <div class="d-flex justify-content-between align-items-start">
+                                       <div>
+                                            <span class="icon-circle icon-circle-sm bg-icon-info me-2"><i class="fas fa-chart-line"></i></span>
+                                            <strong>Sistema di controllo di gestione</strong>
+                                           <p class="small text-muted mb-0">Implementazione di KPI dashboard con monitoraggio mensile di DSO, DPO, DIO, cash flow e marginalità per anticipare criticità.</p>
+                                       </div>
+                                      <span class="priority-badge status-badge bg-info text-dark">Bassa Priorità</span>
+                                  </div>
+                              </li>
+                          </ol>
+                      </div>
+                  </div>
+             </section>
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 -->
+        <footer class="footer no-print">
+             <div class="container-fluid px-4"> <div class="row"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2" style="height: 20px; vertical-align: middle;">
+ </div> </div> </div>
+        </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- ### START EMBEDDED JAVASCRIPT ### -->
+    <script>
+        // ======================================
+        // HELPER FUNCTIONS
+        // ======================================
+        function formatCurrency(value, decimals = 0) {
+            if (isNaN(value)) return value;
+            return new Intl.NumberFormat('it-IT', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            }).format(value);
+        }
+
+        function formatPercentage(value) {
+             if (isNaN(value)) return value;
+             return new Intl.NumberFormat('it-IT', {
+                style: 'decimal',
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1
+             }).format(value) + '%';
+         }
+
+
+        function initChart(canvasId, type, data, options) {
+             const canvas = document.getElementById(canvasId);
+             if (!canvas) {
+                 console.error(`Canvas element with ID '${canvasId}' not found.`);
+                 return null;
+             }
+             const ctx = canvas.getContext('2d');
+
+             // Clear previous chart instance if exists
+             if (canvas.chartInstance) {
+                 try {
+                      canvas.chartInstance.destroy();
+                  } catch(e) { console.warn(`Could not destroy previous chart instance for ${canvasId}: ${e}`); }
+
+             }
+
+             if (!data || !data.labels || !data.datasets) {
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.fillStyle = 'red';
+                  ctx.font = '14px Arial';
+                  ctx.textAlign = 'center';
+                  ctx.fillText('Errore: Dati non disponibili o malformati.', canvas.width / 2, canvas.height / 2);
+                  console.error(`Dati non validi forniti a initChart per ${canvasId}`);
+                  return null;
+              }
+
+
+             try {
+                 canvas.chartInstance = new Chart(ctx, {
+                     type: type,
+                     data: data,
+                     options: options
+                 });
+                 return canvas.chartInstance;
+             } catch (error) {
+                  console.error(`Errore durante la creazione del grafico ${canvasId}:`, error);
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.fillStyle = 'red';
+                  ctx.font = '14px Arial';
+                  ctx.textAlign = 'center';
+                  const errorMessage = error.message.length > 100 ? error.message.substring(0, 97) + '...' : error.message;
+                  ctx.fillText(`Errore grafico: ${errorMessage}`, canvas.width / 2, canvas.height / 2);
+                 return null;
+             }
+         }
+
+
+        // ======================================
+        // CHART DATA (EDILCOMPANY S.R.L.)
+        // ======================================
+         const chartData = {
+             trendRicaviEbitda: {
+                 labels: ['2022', '2023', '2024'],
+                 datasets: [
+                     {
+                         label: "Ricavi (€)",
+                         data: [2809250, 2464329, 2338270], // Valori EDILCOMPANY
+                         borderColor: 'rgb(25, 25, 112)',
+                         backgroundColor: 'rgba(25, 25, 112, 0.1)',
+                         type: 'line', tension: 0.1, yAxisID: 'y', fill: true, pointRadius: 3,
+                     },
+                     {
+                         label: "EBITDA (€)",
+                         data: [221410, 232006, 262814], // Valori EDILCOMPANY
+                         borderColor: 'rgb(77, 140, 87)',
+                         backgroundColor: 'rgba(77, 140, 87, 0.7)',
+                         type: 'bar', yAxisID: 'y', barPercentage: 0.6, categoryPercentage: 0.7
+                     },
+                      {
+                          label: "EBITDA Margin (%)",
+                          data: [7.9, 9.4, 11.2], // Valori EDILCOMPANY
+                          borderColor: 'rgb(217, 140, 0)',
+                          backgroundColor: 'transparent',
+                          type: 'line', tension: 0.1, yAxisID: 'y1', fill: false, borderDash: [5, 5], pointRadius: 3
+                      }
+                 ]
+             },
+             trendPfnEbitda: {
+                 labels: ['2022', '2023', '2024'],
+                 datasets: [
+                     {
+                         label: "ROE (%)",
+                         data: [67.81, -7.42, 7.70], // Valori EDILCOMPANY
+                         borderColor: 'rgb(77, 140, 87)',
+                         backgroundColor: 'rgba(77, 140, 87, 0.2)',
+                         tension: 0.1, fill: true, pointRadius: 5, pointHoverRadius: 7,
+                         pointBackgroundColor: 'rgb(77, 140, 87)'
+                     },
+                     {
+                         label: "ROI (%)",
+                         data: [39.97, 61.44, 52.71], // Valori EDILCOMPANY
+                         borderColor: 'rgb(217, 140, 0)',
+                         backgroundColor: 'rgba(217, 140, 0, 0.2)',
+                         tension: 0.1, fill: true, pointRadius: 5, pointHoverRadius: 7,
+                         pointBackgroundColor: 'rgb(217, 140, 0)'
+                     },
+                      {
+                         label: 'D/E (x)',
+                         data: [2.46, 2.09, 2.30], // Valori EDILCOMPANY
+                         borderColor: 'rgb(74, 105, 189)',
+                         backgroundColor: 'rgba(74, 105, 189, 0.2)',
+                         tension: 0.1, fill: true, pointRadius: 5, pointHoverRadius: 7,
+                         pointBackgroundColor: 'rgb(74, 105, 189)'
+                     }
+                 ]
+             },
+             trendWorkingCapital: {
+                labels: ['2022', '2023', '2024'],
+                 datasets: [
+                    { label: 'DSO', data: [146, 110, 111], borderColor: '#4CAF50', backgroundColor: 'rgba(76, 175, 80, 0.2)', fill: false, tension: 0.1 },
+                    { label: 'DIO', data: [30, 40, 61], borderColor: '#FFC107', backgroundColor: 'rgba(255, 193, 7, 0.2)', fill: false, tension: 0.1 },
+                    { label: 'DPO', data: [95, 76, 53], borderColor: '#4a69bd', backgroundColor: 'rgba(74, 105, 189, 0.2)', fill: false, tension: 0.1 },
+                    { label: 'Ciclo Circolante', data: [81, 74, 119], borderColor: '#F44336', backgroundColor: 'rgba(244, 67, 54, 0.2)', fill: true, tension: 0.1, borderWidth: 2 }
+                 ]
+             },
+            trendCashFlowOp: {
+                labels: ['2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Cash Flow Operativo / Ricavi (%)',
+                    data: [3.90, 5.41, -6.24], // Valori EDILCOMPANY
+                    borderColor: 'rgb(77, 140, 87)',
+                    backgroundColor: 'rgba(77, 140, 87, 0.2)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            }
+         };
+
+        // ======================================
+        // CHART OPTIONS
+        // ======================================
+        const commonChartOptions = {
+             responsive: true,
+             maintainAspectRatio: false,
+             plugins: {
+                 legend: {
+                     position: 'bottom',
+                     labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                 },
+                 tooltip: {
+                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                     titleFont: { weight: 'bold', size: 13 },
+                     bodyFont: { size: 12 },
+                     padding: 10,
+                     cornerRadius: 4,
+                     displayColors: true,
+                     boxPadding: 4,
+                     callbacks: {
+                          label: function(context) {
+                              let label = context.dataset.label || context.label || '';
+                              if (label) label += ': ';
+                              let value = context.parsed.y;
+                               if (value === null || value === undefined) value = context.parsed.r;
+
+                              if (value !== null && value !== undefined) {
+                                  const axisID = context.dataset.yAxisID;
+                                  const labelText = context.label;
+                                  const datasetLabel = context.dataset.label || '';
+
+                                   if (datasetLabel.includes('%') || (axisID === 'y1' && context.chart.options.scales?.y1?.title?.text.includes('%'))) {
+                                      label += formatPercentage(value);
+                                   } else if (datasetLabel.includes('(gg)') || labelText?.includes('(gg)') || datasetLabel.includes('DSO') || datasetLabel.includes('DIO') || datasetLabel.includes('DPO') || datasetLabel.includes('Ciclo Circolante')) {
+                                      label += value.toFixed(0) + ' gg';
+                                   } else if (datasetLabel.includes('(x)') || labelText?.includes('(x)') || datasetLabel.includes('PFN/EBITDA') || datasetLabel.includes('D/E') || datasetLabel.includes('Z-Score')) {
+                                      label += value.toFixed(2) + (datasetLabel.includes('Z-Score') ? '' : 'x');
+                                   } else if (datasetLabel.includes('Score') && !datasetLabel.includes('Z-Score')) {
+                                       label += value.toFixed(2);
+                                   } else if (datasetLabel.includes('Variazione Critica')) {
+                                        label += value.toFixed(2) + (labelText.includes('(gg)') ? ' gg' : '%');
+                                   }
+                                   else if (Math.abs(value) >= 1000000) {
+                                      label += formatCurrency(value / 1000000, 1) + ' M';
+                                  } else if (Math.abs(value) >= 1000) {
+                                      label += formatCurrency(value / 1000, 0) + ' K';
+                                  } else {
+                                       label += formatCurrency(value, (Math.abs(value) < 10 && value !== 0 ? 2 : 0));
+                                  }
+                              } else {
+                                  label += 'N/D';
+                              }
+                              return label;
+                          }
+                      }
+                 }
+             },
+             scales: {
+                 x: {
+                     grid: { display: false },
+                     ticks: { font: { size: 11 } }
+                 },
+                 y: {
+                     grid: { color: '#e0e0e0', borderDash: [2, 3] },
+                     ticks: { font: { size: 11 } }
+                 }
+             },
+             animation: { duration: 400 }
+         };
+
+        // Opzioni specifiche per CDA charts
+         const trendRicEbitdaOptionsCda = {
+             ...commonChartOptions,
+             scales: {
+                 y: {
+                     beginAtZero: true,
+                     title: { display: true, text: 'Valore (€)' },
+                     position: 'left',
+                     ticks: {
+                         callback: function(value) {
+                             if (Math.abs(value) >= 1000000) return (value / 1000000).toFixed(1) + ' M';
+                             if (Math.abs(value) >= 1000) return (value / 1000).toFixed(0) + ' K';
+                             return value;
+                         }
+                     }
+                 },
+                 y1: {
+                     beginAtZero: false,
+                     title: { display: true, text: 'EBITDA Margin (%)' },
+                     position: 'right',
+                     grid: { drawOnChartArea: false },
+                     suggestedMin: 0,
+                     suggestedMax: 15, // Adattato per EDILCOMPANY
+                     ticks: {
+                         callback: function(value) { return value.toFixed(1) + '%'; }
+                     }
+                 }
+             },
+             plugins: {
+                ...commonChartOptions.plugins,
+                title: { display: false }
+            }
+        };
+
+         const trendPfnEbitdaOptionsCda = {
+             ...commonChartOptions,
+             scales: {
+                 y: {
+                     beginAtZero: false,
+                     suggestedMin: -10,
+                     suggestedMax: 80, // Adattato per EDILCOMPANY
+                     title: { display: true, text: 'Valore (%)' }
+                 },
+                  x: { grid: { display: false } }
+             },
+             plugins: {
+                 ...commonChartOptions.plugins,
+                 title: { display: false }
+             }
+        };
+
+        const trendWorkingCapitalOptionsCda = {
+             ...commonChartOptions,
+             scales: {
+                 y: {
+                     beginAtZero: false,
+                     suggestedMin: 0,
+                     suggestedMax: 150, // Adattato per EDILCOMPANY
+                     title: { display: true, text: 'Giorni' }
+                 },
+                  x: { grid: { display: false } }
+             },
+             plugins: {
+                ...commonChartOptions.plugins,
+                title: { display: false }
+            }
+        };
+
+        const trendCashFlowOpOptionsCda = {
+             ...commonChartOptions,
+             scales: {
+                 y: {
+                     beginAtZero: false,
+                     title: { display: true, text: 'Cash Flow Operativo / Ricavi (%)' },
+                     ticks: {
+                         callback: function(value) { return value.toFixed(1) + '%'; }
+                     },
+                     suggestedMin: -8,
+                     suggestedMax: 8 // Range per % adattato per EDILCOMPANY
+                 },
+                  x: { grid: { display: false } }
+             },
+              plugins: {
+                 ...commonChartOptions.plugins,
+                 title: { display: false }
+             }
+        };
+
+
+        // ======================================
+        // CHART INITIALIZATION LOGIC
+        // ======================================
+        document.addEventListener('DOMContentLoaded', function() {
+             console.log("Initializing CDA charts for EDILCOMPANY S.R.L.");
+
+             // Initialize Trend Ricavi/EBITDA Chart
+             initChart('trendRicaviEbitdaChart', 'bar', chartData.trendRicaviEbitda, trendRicEbitdaOptionsCda);
+
+             // Initialize PFN/EBITDA Chart
+             initChart('trendPfnEbitdaChart', 'line', chartData.trendPfnEbitda, trendPfnEbitdaOptionsCda);
+
+             // Initialize Working Capital Chart
+             initChart('trendWorkingCapitalChart', 'line', chartData.trendWorkingCapital, trendWorkingCapitalOptionsCda);
+
+             // Initialize Cash Flow Op Chart
+             initChart('trendCashFlowOpChart', 'line', chartData.trendCashFlowOp, trendCashFlowOpOptionsCda);
+
+             console.log("CDA charts initialization complete.");
+        });
+
+        // ======================================
+        // OTHER PAGE SCRIPTS
+        // ======================================
+         document.addEventListener('DOMContentLoaded', function() {
+             document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+             const footerYear = document.getElementById('currentYearFooterReport');
+             if(footerYear) footerYear.textContent = new Date().getFullYear();
+
+             const irpScoreValue = 76.39; // IRP EDILCOMPANY
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             const scoreCircle = document.querySelector('.irp-score-circle');
+             const categoryTextElement = document.querySelector('.irp-category-text');
+             const categoryBadge = categoryTextElement ? categoryTextElement.querySelector('.status-badge') : null;
+
+             let badgeHeaderClass = 'bg-success';
+             let circleClass = 'risk-low';
+             let categoryText = 'Moderato-Basso';
+             let categoryTextColor = 'text-success';
+             let badgeClass = 'bg-success';
+             let categoryBadgeText = 'B';
+             let categoryBadgeTextColor = '';
+
+             if (irpScoreValue >= 71) {
+                 badgeHeaderClass = 'bg-success'; circleClass = 'risk-low';
+                 categoryText = 'Moderato-Basso'; categoryTextColor = 'text-success'; badgeClass = 'bg-success'; categoryBadgeText = 'B'; categoryBadgeTextColor = '';
+             } else if (irpScoreValue < 41) {
+                 badgeHeaderClass = 'bg-danger'; circleClass = 'risk-high';
+                 categoryText = 'Severo'; categoryTextColor = 'text-danger'; badgeClass = 'bg-danger'; categoryBadgeText = 'E+'; categoryBadgeTextColor = '';
+             }
+
+             if (irpHeaderBadge) {
+                 irpHeaderBadge.className = `badge ${badgeHeaderClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             }
+
+             if(scoreCircle) {
+                 scoreCircle.classList.remove('risk-low', 'risk-medium', 'risk-high');
+                 scoreCircle.classList.add(circleClass);
+             }
+
+             if(categoryTextElement && categoryBadge) {
+                 categoryTextElement.classList.remove('text-success', 'text-warning', 'text-danger');
+                 categoryTextElement.textContent = '';
+                 categoryTextElement.appendChild(document.createTextNode(`Rischio ${categoryText} `));
+                 categoryTextElement.classList.add(categoryTextColor);
+                 categoryBadge.className = `status-badge ${badgeClass}`;
+                 categoryBadge.textContent = categoryBadgeText;
+                 if(categoryBadgeTextColor) {
+                     categoryBadge.classList.add(categoryBadgeTextColor);
+                 } else {
+                     categoryBadge.classList.remove('text-dark');
+                 }
+                 categoryTextElement.appendChild(categoryBadge);
+             }
+
+             if (typeof logout !== 'function') {
+                 window.logout = function() {
+                    console.log("Logout action triggered (placeholder)");
+                }
+             }
+             if (typeof printDocument !== 'function') {
+                window.printDocument = function() {
+                    window.print();
+                }
+             }
+         });
+
+    </script>
+    <!-- ### END EMBEDDED JAVASCRIPT ### -->
+
+<script 
+  type="text/javascript" 
+  src="https://embed.chatnode.ai/4b455f88-b08f-4f27-a83b-59b94cdb3711/popup.js"
+  async
+></script>
+</body>
+</html>
