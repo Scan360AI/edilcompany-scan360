@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Economica e Benchmark - EDILCOMPANY S.R.L. | SCAN V9</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+     <style>
+        .table-success-light { background-color: #d1e7dd !important; }
+        .table-warning-light { background-color: #fff3cd !important; }
+        .table-danger-light { background-color: #f8d7da !important; }
+     </style>
+</head>
+<body>
+ <!-- Sidebar -->
+<aside class="sidebar no-print">
+    <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>EDILCOMPANY S.R.L.</h5> </div>
+    <ul class="sidebar-nav flex-grow-1">
+        <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+        <li class="nav-title">Analisi Dettagliata</li>
+        <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+        <li class="nav-item"> <a class="nav-link active" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+        <li class="nav-item"> <a class="nav-link" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+        <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+        <li class="nav-item"> <a class="nav-link" href="parte5_circolante_flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+        <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+        <li class="nav-title">Approfondimenti</li>
+        <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+    </ul>
+    <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+</aside>
+
+
+<!-- Contenuto Principale Wrapper -->
+<div class="main-wrapper">
+    <!-- Header Orizzontale -->
+    <header class="dashboard-header no-print">
+        <div class="header-title">
+            <h5 class="mb-0">Report Dettagliato: Analisi Economica e Benchmark</h5>
+            <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">21 Maggio 2025</span></p>
+        </div>
+        <div class="header-controls d-flex align-items-center">
+            <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+            <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> EDILCOMPANY S.R.L. </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+            </div>
+        </div>
+    </header>
+    <div class="container d-none d-print-block mt-4 mb-4">
+        <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
+        <p class="text-center mb-0">Report Dettagliato: Analisi Economica e Benchmark | <span class="report-date">21 Maggio 2025</span></p>
+        <hr>
+    </div>
+
+    <!-- Area Contenuto Specifico del Report -->
+    <div class="dashboard-container">
+
+        <!-- ================================================================ -->
+        <!-- CONTENUTO SPECIFICO PARTE 2 - V9 - Updated for EDILCOMPANY S.R.L. -->
+        <!-- ================================================================ -->
+
+         <h2 class="section-title" id="economic-analysis"><i class="fas fa-balance-scale me-2"></i>SEZIONE 2.1: ANALISI ECONOMICA</h2>
+
+        <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">2.1.1 Conto Economico Riclassificato</h5></div>
+            <div class="card-body">
+                <p>Il conto economico riclassificato evidenzia la struttura dei costi e dei ricavi di EDILCOMPANY S.R.L. nel periodo 2022-2024, caratterizzata da una contrazione dei volumi d'affari nel settore del commercio all'ingrosso di materiali da costruzione, compensata da un significativo miglioramento della marginalità operativa.</p>
+
+                 <h6 class="mt-4 text-center small">Grafico 2.1: Andamento Ricavi ed EBITDA 2022-2024 (€000 e %)</h6>
+                 <div class="chart-container mb-4" style="height: 350px;">
+                     <canvas id="economicTrendChart"></canvas>
+                 </div>
+
+                <h6 class="mt-4">Tabella 2.1: Conto Economico Riclassificato 2022-2024 (valori in €)</h6>
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light">
+                             <tr><th>Voce</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var. % 23-24</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>Ricavi</td><td class="text-end">2.809.250</td><td class="text-end">100,0%</td><td class="text-end">2.464.329</td><td class="text-end">100,0%</td><td class="text-end">2.338.270</td><td class="text-end">100,0%</td><td class="text-danger">-5,12%</td></tr>
+                             <tr><td>Acquisti</td><td class="text-end">-2.026.323</td><td class="text-end">-72,1%</td><td class="text-end">-1.840.450</td><td class="text-end">-74,7%</td><td class="text-end">-1.657.453</td><td class="text-end">-70,9%</td><td class="text-success">-10,0%</td></tr>
+                             <tr><td>Consumi</td><td class="text-end">-2.236.499</td><td class="text-end">-79,6%</td><td class="text-end">-1.821.150</td><td class="text-end">-73,9%</td><td class="text-end">-1.591.809</td><td class="text-end">-68,1%</td><td class="text-success">-12,6%</td></tr>
+                             <tr><td>Valore Aggiunto su Consumi</td><td class="text-end">572.751</td><td class="text-end">20,4%</td><td class="text-end">643.179</td><td class="text-end">26,1%</td><td class="text-end">746.460</td><td class="text-end">31,9%</td><td class="text-success">+16,1%</td></tr>
+                             <tr><td>Costi Variabili Produzione</td><td class="text-end">-81.742</td><td class="text-end">-2,9%</td><td class="text-end">-130.589</td><td class="text-end">-5,3%</td><td class="text-end">-242.494</td><td class="text-end">-10,4%</td><td class="text-danger">+85,7%</td></tr>
+                             <tr class="table-secondary"><td>Margine di Contribuzione</td><td class="text-end">491.009</td><td class="text-end">17,5%</td><td class="text-end">512.590</td><td class="text-end">20,8%</td><td class="text-end">503.967</td><td class="text-end">21,6%</td><td class="text-danger">-1,68%</td></tr>
+                             <tr><td>Costi Fissi Produzione</td><td class="text-end">-269.599</td><td class="text-end">-9,6%</td><td class="text-end">-280.584</td><td class="text-end">-11,4%</td><td class="text-end">-241.153</td><td class="text-end">-10,3%</td><td class="text-success">-14,1%</td></tr>
+                             <tr><td>- di cui Personale</td><td class="text-end">-213.459</td><td class="text-end">-7,6%</td><td class="text-end">-213.727</td><td class="text-end">-8,7%</td><td class="text-end">-172.180</td><td class="text-end">-7,36%</td><td class="text-success">-19,4%</td></tr>
+                             <tr class="table-success fw-bold"><td>EBITDA</td><td class="text-end">221.410</td><td class="text-end">7,9%</td><td class="text-end">232.006</td><td class="text-end">9,4%</td><td class="text-end">262.814</td><td class="text-end">11,24%</td><td class="text-success">+13,28%</td></tr>
+                             <tr><td>Ammortamenti e Svalutazioni</td><td class="text-end">-34.362</td><td class="text-end">-1,2%</td><td class="text-end">-18.400</td><td class="text-end">-0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100%</td></tr>
+                             <tr><td>EBIT</td><td class="text-end">187.048</td><td class="text-end">6,7%</td><td class="text-end">31.868</td><td class="text-end">1,3%</td><td class="text-end">262.814</td><td class="text-end">11,24%</td><td class="text-success">+724,8%</td></tr>
+                             <tr><td>Saldo Oneri/Ricavi Diversi</td><td class="text-end">-24.444</td><td class="text-end">-0,9%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">-6.257</td><td class="text-end">-0,3%</td><td class="text-danger">n.a.</td></tr>
+                             <tr><td>Margine Ante Gestione Finanziaria</td><td class="text-end">162.604</td><td class="text-end">5,8%</td><td class="text-end">31.868</td><td class="text-end">1,3%</td><td class="text-end">256.557</td><td class="text-end">11,0%</td><td class="text-success">+705,1%</td></tr>
+                             <tr><td>Gestione Finanziaria</td><td class="text-end">-29.029</td><td class="text-end">-1,0%</td><td class="text-end">-17.683</td><td class="text-end">-0,7%</td><td class="text-end">-62.791</td><td class="text-end">-2,7%</td><td class="text-danger">+255,2%</td></tr>
+                             <tr><td>Gestione Straordinaria</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">-118.104</td><td class="text-end">-5,0%</td><td class="text-danger">n.a.</td></tr>
+                             <tr><td>Risultato Ante Imposte</td><td class="text-end">133.575</td><td class="text-end">4,8%</td><td class="text-end">14.185</td><td class="text-end">0,6%</td><td class="text-end">75.661</td><td class="text-end">3,2%</td><td class="text-success">+433,5%</td></tr>
+                             <tr><td>Imposte</td><td class="text-end">-17.042</td><td class="text-end">-0,6%</td><td class="text-end">-26.058</td><td class="text-end">-1,1%</td><td class="text-end">-62.316</td><td class="text-end">-2,7%</td><td class="text-danger">+139,1%</td></tr>
+                             <tr class="table-success fw-bold"><td>Utile/Perdita d'esercizio</td><td class="text-end">116.533</td><td class="text-end">4,1%</td><td class="text-end">-11.873</td><td class="text-end">-0,5%</td><td class="text-end">13.345</td><td class="text-end">0,57%</td><td class="text-success">+212,4%</td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+
+                <h6 class="mt-4">Analisi della composizione dei costi</h6>
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light">
+                             <tr><th>Categoria di costo</th><th class="text-end">2022</th><th class="text-end">% Ricavi</th><th class="text-end">2023</th><th class="text-end">% Ricavi</th><th class="text-end">2024</th><th class="text-end">% Ricavi</th><th class="text-end">Var.% 23-24</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr><td>Acquisti</td><td class="text-end">2.026.323</td><td class="text-end">72,1%</td><td class="text-end">1.840.450</td><td class="text-end">74,7%</td><td class="text-end">1.657.453</td><td class="text-end">70,9%</td><td class="text-success">-10,0%</td></tr>
+                             <tr><td>Consumi</td><td class="text-end">2.236.499</td><td class="text-end">79,6%</td><td class="text-end">1.821.150</td><td class="text-end">73,9%</td><td class="text-end">1.591.809</td><td class="text-end">68,1%</td><td class="text-success">-12,6%</td></tr>
+                             <tr><td>Costi Variabili Produzione</td><td class="text-end">81.742</td><td class="text-end">2,9%</td><td class="text-end">130.589</td><td class="text-end">5,3%</td><td class="text-end">242.494</td><td class="text-end">10,4%</td><td class="text-danger">+85,7%</td></tr>
+                             <tr><td>Costi Fissi Produzione</td><td class="text-end">269.599</td><td class="text-end">9,6%</td><td class="text-end">280.584</td><td class="text-end">11,4%</td><td class="text-end">241.153</td><td class="text-end">10,3%</td><td class="text-success">-14,1%</td></tr>
+                             <tr><td>- Personale</td><td class="text-end">213.459</td><td class="text-end">7,6%</td><td class="text-end">213.727</td><td class="text-end">8,7%</td><td class="text-end">172.180</td><td class="text-end">7,36%</td><td class="text-success">-19,4%</td></tr>
+                             <tr><td>Ammortamenti</td><td class="text-end">34.362</td><td class="text-end">1,2%</td><td class="text-end">18.400</td><td class="text-end">0,7%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-success">-100%</td></tr>
+                             <tr><td>Oneri Diversi di Gestione</td><td class="text-end">24.444</td><td class="text-end">0,9%</td><td class="text-end">0</td><td class="text-end">0,0%</td><td class="text-end">6.257</td><td class="text-end">0,3%</td><td class="text-danger">n.a.</td></tr>
+                             <tr><td>Oneri Finanziari</td><td class="text-end">29.029</td><td class="text-end">1,0%</td><td class="text-end">17.909</td><td class="text-end">0,7%</td><td class="text-end">62.791</td><td class="text-end">2,7%</td><td class="text-danger">+250,6%</td></tr>
+                             <tr><td>Imposte</td><td class="text-end">17.042</td><td class="text-end">0,6%</td><td class="text-end">26.058</td><td class="text-end">1,1%</td><td class="text-end">62.316</td><td class="text-end">2,7%</td><td class="text-danger">+139,1%</td></tr>
+                             <tr class="table-warning"><td>EBITDA Margin Target Settore</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-end">-</td><td class="text-end">5-9%</td><td class="text-success">Sopra target</td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+
+                <h6 class="mt-4">Analisi del Conto Economico (EDILCOMPANY S.R.L.):</h6>
+                <ol class="small">
+                    <li><strong>Ricavi:</strong> Contrazione del 5,12% nel 2024 rispetto al 2023, passando da €2.464.329 a €2.338.270, riflettendo le sfide del settore edile e il rallentamento del mercato dei materiali da costruzione.</li>
+                    <li><strong>Margine di Contribuzione (21,6%):</strong> Miglioramento significativo rispetto agli anni precedenti (17,5% nel 2022, 20,8% nel 2023), indicando un'ottimizzazione del mix di prodotto e delle politiche commerciali nonostante il calo dei ricavi.</li>
+                    <li><strong>EBITDA (11,24%):</strong> Incremento del 13,28% in valore assoluto e miglioramento dell'incidenza sui ricavi rispetto al 2023 (9,4%), superiore al range di benchmark settoriale (5-9%), evidenziando un'eccellente efficienza operativa.</li>
+                    <li><strong>Anomalie strutturali:</strong> Assenza di ammortamenti nel 2024 nonostante la presenza di immobilizzazioni per €111.023, elemento anomalo che richiede approfondimento per verificare la corretta applicazione dei principi contabili.</li>
+                    <li><strong>Gestione Straordinaria:</strong> Impatto negativo significativo di €118.104 (5,0% dei ricavi) che erode pesantemente il risultato operativo, suggerendo eventi non ricorrenti che necessitano di analisi specifica.</li>
+                    <li><strong>Oneri finanziari:</strong> Incremento sostanziale del 250,6% rispetto al 2023, con un'incidenza del 2,7% sui ricavi e un costo medio del debito del 17,14%, livello critico che richiede ristrutturazione finanziaria.</li>
+                    <li><strong>Moltiplicatore dei costi fissi:</strong> Pari a 4,64, indicando che per ogni €1.000 di incremento dei costi fissi sono necessari €4.640 di ricavi aggiuntivi per mantenere il risultato invariato.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+<script src="../js/common.js"></script>
+
+<!-- Script per il grafico -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Dati per il grafico
+        const years = ['2022', '2023', '2024'];
+        const revenues = [2809250, 2464329, 2338270];
+        const ebitda = [221410, 232006, 262814];
+        const ebitdaPercentage = [7.9, 9.4, 11.24];
+        
+        // Formattazione per le etichette
+        const formatter = new Intl.NumberFormat('it-IT', {
+            style: 'currency',
+            currency: 'EUR',
+            maximumFractionDigits: 0
+        });
+        
+        // Inizializzazione del grafico
+        const ctx = document.getElementById('economicTrendChart').getContext('2d');
+        const economicTrendChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: years,
+                datasets: [
+                    {
+                        label: 'Ricavi',
+                        data: revenues,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        order: 1
+                    },
+                    {
+                        label: 'EBITDA',
+                        data: ebitda,
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1,
+                        order: 2
+                    },
+                    {
+                        label: 'EBITDA %',
+                        data: ebitdaPercentage,
+                        type: 'line',
+                        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                        pointRadius: 4,
+                        yAxisID: 'y1',
+                        order: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Valori in Euro'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return formatter.format(value).replace('€', '€ ');
+                            }
+                        }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        max: 15,
+                        title: {
+                            display: true,
+                            text: 'EBITDA %'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.dataset.yAxisID === 'y1') {
+                                    label += context.parsed.y + '%';
+                                } else {
+                                    label += formatter.format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+        
+        // Aggiorna l'anno corrente nel footer
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        
+        // Imposta il badge IRP
+        const irpValue = 76.39;
+        const irpBadge = document.getElementById('irp-header-badge');
+        irpBadge.textContent = `IRP: ${irpValue} (B)`;
+        irpBadge.classList.add('bg-warning');
+    });
+    
+    function printDocument() {
+        window.print();
+    }
+    
+    function logout() {
+        // Implementazione del logout
+        alert('Logout effettuato');
+        window.location.href = '../login.html';
+    }
+</script>
+
+<!-- Script del bot -->
+<script 
+  type="text/javascript" 
+  src="https://embed.chatnode.ai/4b455f88-b08f-4f27-a83b-59b94cdb3711/popup.js"
+  async
+></script>
+</body>
+</html>

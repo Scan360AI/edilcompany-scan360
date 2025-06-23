@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisi Patrimoniale - EDILCOMPANY S.R.L. | SCAN V9</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/print.css" rel="stylesheet" media="print">
+    <!-- Stili specifici eventuali -->
+</head>
+<body>
+
+<!-- Sidebar -->
+    <aside class="sidebar no-print">
+        <div class="sidebar-header"> <img src="../assets/img/logo_scan.png" alt="SCAN Logo" style="max-height: 40px;"> <h5>EDILCOMPANY S.R.L.</h5> </div>
+        <ul class="sidebar-nav flex-grow-1">
+            <li class="nav-item"> <a class="nav-link" href="../dashboard_v2.html"> <i class="fas fa-tachometer-alt fa-fw"></i> Dashboard </a> </li>
+            <li class="nav-title">Analisi Dettagliata</li>
+            <li class="nav-item"> <a class="nav-link" href="parte1_sintesi.html"> <i class="fas fa-file-alt fa-fw"></i> Sintesi e Profilo </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte2_economico.html"> <i class="fas fa-balance-scale fa-fw"></i> Analisi Economica </a> </li>
+            <li class="nav-item"> <a class="nav-link active" href="parte3_patrimoniale.html"> <i class="fas fa-landmark fa-fw"></i> Analisi Patrimoniale </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte4_bancabilita.html"> <i class="fas fa-university fa-fw"></i> Bancabilità </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte5_circolante-flussi.html"> <i class="fas fa-sync-alt fa-fw"></i> Circolante e Flussi </a> </li>
+            <li class="nav-item"> <a class="nav-link" href="parte6_rischi-raccomandazioni.html"> <i class="fas fa-exclamation-triangle fa-fw"></i> Rischi e Azioni </a> </li>
+            <li class="nav-title">Approfondimenti</li>
+            <li class="nav-item"> <a class="nav-link" href="irp_dettaglio.html"> <i class="fas fa-shield-alt fa-fw"></i> Dettaglio IRP </a> </li>
+            <!-- Removed Bilancio Plus Link -->
+        </ul>
+        <div class="sidebar-footer"> <small>SCAN360 © <span id="currentYearSidebar"></span> Kitzanos</small> </div>
+    </aside>
+
+
+
+    <!-- Contenuto Principale Wrapper -->
+    <div class="main-wrapper">
+        <!-- Header Orizzontale -->
+        <header class="dashboard-header no-print">
+            <div class="header-title">
+                <h5 class="mb-0">Report Dettagliato: Analisi Patrimoniale</h5>
+                <p class="mb-0">EDILCOMPANY S.R.L. | <span class="report-date">21 Maggio 2025</span></p>
+            </div>
+            <div class="header-controls d-flex align-items-center">
+                <span id="irp-header-badge" class="badge me-3"></span> <!-- Badge IRP -->
+                <button class="btn btn-sm btn-outline-secondary me-2 print-button" onclick="printDocument()"> <i class="fas fa-print"></i> Stampa </button>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user-circle me-1"></i> EDILCOMPANY S.R.L. </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton"> <li><button class="dropdown-item" type="button" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li> </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container d-none d-print-block mt-4 mb-4">
+            <h1 class="text-center mb-0"><span class="company-name">EDILCOMPANY S.R.L.</span></h1>
+            <p class="text-center mb-0">Report Dettagliato: Analisi Patrimoniale | <span class="report-date">21 Maggio 2025</span></p>
+            <hr>
+        </div>
+
+        <!-- Area Contenuto Specifico del Report -->
+        <div class="dashboard-container">
+
+            <!-- ================================================================ -->
+            <!-- CONTENUTO SPECIFICO PARTE 3 - V9 - Updated for EDILCOMPANY S.R.L. -->
+            <!-- ================================================================ -->
+
+            <h2 class="section-title" id="patrimonial-analysis"><i class="fas fa-landmark me-2"></i>ANALISI PATRIMONIALE</h2>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.1 Analisi Patrimoniale</h5></div>
+            <div class="card-body">
+                <p>L'analisi della struttura patrimoniale di EDILCOMPANY S.R.L., azienda operante nel settore "46.83 - Commercio all'ingrosso di legname, materiali da costruzione e articoli igienico-sanitari", evidenzia un profilo di equilibrio patrimoniale adeguato, caratterizzato da una struttura finanziaria sbilanciata verso il breve termine ma con indici di solidità complessivamente positivi, come dimostrato dai principali indicatori riportati nel Report Leanus.</p>
+
+                 <!-- Grafici Composizione Attivo e Passivo -->
+                 <div class="row mt-4">
+                     <div class="col-lg-6 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.1: Composizione Impieghi 2024 (%)</h6>
+                         <div class="chart-container" style="height: 300px;">
+                             <canvas id="assetsChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                     </div>
+                     <div class="col-lg-6">
+                          <h6 class="text-center small">Grafico 3.2: Composizione Fonti 2024 (%)</h6>
+                          <div class="chart-container" style="height: 300px;">
+                              <canvas id="liabilitiesChart"></canvas> <!-- ID for report_init.js -->
+                          </div>
+                     </div>
+                 </div>
+
+                <h6 class="mt-4">Quadro di sintesi patrimoniale</h6>
+                <p class="small">Secondo il Report Commentato Leanus, al 12/2024 la situazione patrimoniale dell'azienda presenta i seguenti elementi chiave:</p>
+                <ul class="small">
+                    <li><strong>Patrimonio Netto</strong>: €173.330</li>
+                    <li><strong>Posizione Finanziaria Netta (PFN)</strong>: €325.295 (indebitamento netto)</li>
+                    <li><strong>Liquidità</strong>: €72.916</li>
+                    <li><strong>Leanus Score</strong>: "3 - Discreto" con valore numerico pari a 5,59</li>
+                    <li><strong>Z-Score di Altman</strong>: 6,96</li>
+                    <li><strong>Probabilità di Default (MCC)</strong>: 3,62%, FASCIA "3"</li>
+                </ul>
+                <p class="small">La valutazione complessiva fornita da Leanus classifica l'azienda nella categoria "STABLE", indicando che "l'azienda, pur non crescendo o crescendo a ritmi modesti, mantiene un buon equilibrio patrimoniale".</p>
+            </div>
+        </div>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.2 Stato Patrimoniale Riclassificato (triennio)</h5></div>
+            <div class="card-body">
+                 <!-- Updated Table Data for EDILCOMPANY S.R.L. -->
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light">
+                             <tr><th>Stato Patrimoniale (€)</th><th class="text-end">31/12/2022</th><th class="text-end">%</th><th class="text-end">31/12/2023</th><th class="text-end">%</th><th class="text-end">31/12/2024</th><th class="text-end">%</th></tr>
+                         </thead>
+                         <tbody>
+                             <tr class="fw-bold"><td>IMPIEGHI</td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td></tr>
+                             <tr><td>Attivo Fisso Netto</td><td class="text-end">167.020</td><td class="text-end">10,7%</td><td class="text-end">119.221</td><td class="text-end">9,5%</td><td class="text-end">111.023</td><td class="text-end">9,4%</td></tr>
+                             <tr><td>Immobilizzazioni materiali</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">65.122</td><td class="text-end">5,5%</td></tr>
+                             <tr><td>Immobilizzazioni immateriali</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">0</td><td class="text-end">0,0%</td></tr>
+                             <tr><td>Immobilizzazioni finanziarie</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">45.901</td><td class="text-end">3,9%</td></tr>
+                             <tr><td>Capitale Circolante</td><td class="text-end">1.400.348</td><td class="text-end">89,3%</td><td class="text-end">1.129.307</td><td class="text-end">90,5%</td><td class="text-end">1.071.799</td><td class="text-end">90,6%</td></tr>
+                             <tr><td>Magazzino</td><td class="text-end">182.700</td><td class="text-end">11,7%</td><td class="text-end">202.000</td><td class="text-end">16,2%</td><td class="text-end">267.644</td><td class="text-end">22,6%</td></tr>
+                             <tr><td>Crediti commerciali</td><td class="text-end">1.131.803</td><td class="text-end">72,2%</td><td class="text-end">750.818</td><td class="text-end">60,1%</td><td class="text-end">714.656</td><td class="text-end">60,4%</td></tr>
+                             <tr><td>Altri Crediti</td><td class="text-end">13.408</td><td class="text-end">0,9%</td><td class="text-end">29.465</td><td class="text-end">2,4%</td><td class="text-end">16.584</td><td class="text-end">1,4%</td></tr>
+                             <tr><td>Liquidità</td><td class="text-end">72.437</td><td class="text-end">4,6%</td><td class="text-end">147.024</td><td class="text-end">11,8%</td><td class="text-end">72.916</td><td class="text-end">6,2%</td></tr>
+                             <tr class="table-primary fw-bold"><td>Totale Attivo</td><td class="text-end">1.567.368</td><td class="text-end">100,0%</td><td class="text-end">1.248.528</td><td class="text-end">100,0%</td><td class="text-end">1.182.822</td><td class="text-end">100,0%</td></tr>
+                         </tbody>
+                         <tbody>
+                             <tr class="fw-bold"><td>FONTI</td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td><td class="text-end"></td></tr>
+                             <tr><td>Patrimonio Netto</td><td class="text-end">171.860</td><td class="text-end">11,0%</td><td class="text-end">159.985</td><td class="text-end">12,8%</td><td class="text-end">173.330</td><td class="text-end">14,7%</td></tr>
+                             <tr><td>Capitale sociale</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">10.000</td><td class="text-end">0,8%</td></tr>
+                             <tr><td>Riserve</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">10.094</td><td class="text-end">0,9%</td></tr>
+                             <tr><td>Utili portati a nuovo</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">n.d.</td><td class="text-end">-</td><td class="text-end">139.892</td><td class="text-end">11,8%</td></tr>
+                             <tr><td>Utile d'esercizio</td><td class="text-end">116.533</td><td class="text-end">7,4%</td><td class="text-end">-11.873</td><td class="text-end">-1,0%</td><td class="text-end">13.345</td><td class="text-end">1,1%</td></tr>
+                             <tr><td>Passività consolidate</td><td class="text-end">172.779</td><td class="text-end">11,0%</td><td class="text-end">164.120</td><td class="text-end">13,1%</td><td class="text-end">205.978</td><td class="text-end">17,4%</td></tr>
+                             <tr><td>Debiti M/L termine</td><td class="text-end">89.714</td><td class="text-end">5,7%</td><td class="text-end">80.687</td><td class="text-end">6,5%</td><td class="text-end">111.139</td><td class="text-end">9,4%</td></tr>
+                             <tr><td>Fondi</td><td class="text-end">83.065</td><td class="text-end">5,3%</td><td class="text-end">83.433</td><td class="text-end">6,7%</td><td class="text-end">94.839</td><td class="text-end">8,0%</td></tr>
+                             <tr><td>Passività correnti</td><td class="text-end">1.222.729</td><td class="text-end">78,0%</td><td class="text-end">924.423</td><td class="text-end">74,0%</td><td class="text-end">803.514</td><td class="text-end">67,9%</td></tr>
+                             <tr><td>Debiti Fornitori</td><td class="text-end">628.143</td><td class="text-end">40,1%</td><td class="text-end">425.624</td><td class="text-end">34,1%</td><td class="text-end">289.670</td><td class="text-end">24,5%</td></tr>
+                             <tr><td>Debiti finanziari BT</td><td class="text-end">333.000</td><td class="text-end">21,2%</td><td class="text-end">254.000</td><td class="text-end">20,3%</td><td class="text-end">287.071</td><td class="text-end">24,3%</td></tr>
+                             <tr><td>Altri Debiti</td><td class="text-end">261.586</td><td class="text-end">16,7%</td><td class="text-end">244.799</td><td class="text-end">19,6%</td><td class="text-end">226.773</td><td class="text-end">19,2%</td></tr>
+                             <tr class="table-primary fw-bold"><td>Totale Passivo</td><td class="text-end">1.567.368</td><td class="text-end">100,0%</td><td class="text-end">1.248.528</td><td class="text-end">100,0%</td><td class="text-end">1.182.822</td><td class="text-end">100,0%</td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+            </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.3 Struttura degli Investimenti</h5></div>
+             <div class="card-body">
+                 <h6 class="mt-1">Analisi della composizione degli investimenti</h6>
+                 <p class="small">Nel triennio 2022-2024, la struttura degli investimenti di EDILCOMPANY S.R.L. mostra le seguenti caratteristiche:</p>
+                 <ul class="small">
+                    <li><strong>Attivo Fisso Netto</strong>: In diminuzione costante, passando da €167.020 nel 2022 a €111.023 nel 2024, con un calo del 33,5%. L'incidenza sul totale attivo è rimasta relativamente stabile intorno al 9-10%.</li>
+                    <li><strong>Immobilizzazioni materiali</strong>: Al 2024 ammontano a €65.122, rappresentando il 58,7% delle immobilizzazioni totali.</li>
+                    <li><strong>Immobilizzazioni finanziarie</strong>: Pari a €45.901 nel 2024, costituiscono il 41,3% delle immobilizzazioni totali.</li>
+                    <li><strong>Capitale Circolante</strong>: Rappresenta la componente predominante dell'attivo (90,6% nel 2024), tipico per un'azienda commerciale nel settore della distribuzione di materiali edili.</li>
+                    <li><strong>Magazzino</strong>: In crescita significativa nel triennio, passando da €182.700 (2022) a €267.644 (2024), con un incremento del 46,5%.</li>
+                 </ul>
+                 
+                 <div class="row mt-4">
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.3: Evoluzione Struttura Impieghi (€000)</h6>
+                         <div class="chart-container" style="height: 350px;">
+                             <canvas id="investmentsStructureChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                    </div>
+                     <div class="col-lg-5">
+                         <h6 class="mt-1">Analisi Componenti chiave del Capitale Circolante:</h6>
+                         <ul class="small list-unstyled">
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-success me-2"><i class="fas fa-file-invoice-dollar"></i></span><strong>Crediti Clienti:</strong> €714.656 (111 gg), tempi elevati rispetto ai benchmark di settore.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-info me-2"><i class="fas fa-boxes"></i></span><strong>Rimanenze:</strong> €267.644 (61 gg), in aumento significativo nel triennio.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-warning me-2"><i class="fas fa-file-invoice"></i></span><strong>Debiti Fornitori:</strong> €289.670 (53 gg), tempi di pagamento inferiori ai benchmark.</li>
+                             <li class="mb-2"><span class="icon-circle icon-circle-sm bg-icon-danger me-2"><i class="fas fa-coins"></i></span><strong>Liquidità:</strong> €72.916 (3,12% dei ricavi), valore adeguato ma in calo nel periodo.</li>
+                          </ul>
+                          
+                          <div class="alert alert-warning p-2 mt-3">
+                              <p class="small mb-0"><i class="fas fa-exclamation-triangle me-2"></i>L'analisi del circolante evidenzia un ciclo complessivo di 119 giorni (DSO + DIO - DPO), che indica un significativo assorbimento di risorse finanziarie nel capitale circolante, area di potenziale ottimizzazione.</p>
+                          </div>
+                     </div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.4 Struttura delle Fonti</h5></div>
+              <div class="card-body">
+                 <h6 class="mt-1">Analisi della composizione delle fonti</h6>
+                 <p class="small">Nel triennio 2022-2024, la struttura delle fonti di finanziamento di EDILCOMPANY S.R.L. presenta le seguenti caratteristiche:</p>
+                 <ul class="small">
+                    <li><strong>Patrimonio Netto</strong>: In lieve crescita, passando da €171.860 nel 2022 a €173.330 nel 2024, con un incremento dell'0,9%. La sua incidenza sul totale delle fonti è aumentata dall'11,0% al 14,7%.</li>
+                    <li><strong>Capitale Sociale</strong>: Rimasto stabile a €10.000, rappresentando solo lo 0,8% del totale passivo.</li>
+                    <li><strong>Riserve e Utili portati a nuovo</strong>: Ammontano a €149.986, costituendo l'86,5% del patrimonio netto.</li>
+                    <li><strong>Posizione Finanziaria Netta</strong>: Pari a €325.295 nel 2024, con un rapporto PFN/EBITDA di 1,24, sostenibile ma da monitorare.</li>
+                    <li><strong>Debiti finanziari</strong>: Totali €398.210 nel 2024, di cui il 72,1% a breve termine, evidenziando uno squilibrio temporale.</li>
+                 </ul>
+                 
+                 <div class="row">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                         <h6 class="text-center small">Grafico 3.4: Evoluzione Fonti 2022-2024 (%)</h6>
+                         <div class="chart-container" style="height: 300px;">
+                             <canvas id="equityCompositionChart"></canvas> <!-- ID for report_init.js -->
+                         </div>
+                         <h6 class="mt-3">Evoluzione dell'equilibrio delle fonti:</h6>
+                          <ul class="small list-unstyled">
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Limitata autonomia finanziaria</strong>: L'incidenza del patrimonio netto sul totale delle fonti (14,7%) rimane inferiore ai benchmark ottimali.</li>
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Elevata leva finanziaria</strong>: Il rapporto D/E pari a 2,30 indica una significativa dipendenza dal debito.</li>
+                             <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Ritorno all'utile</strong>: Dopo la perdita del 2023 (-€11.873), l'azienda torna in utile nel 2024 con €13.345.</li>
+                          </ul>
+                    </div>
+                     <div class="col-lg-6">
+                        <h6 class="text-center small">Grafico 3.5: Evoluzione Debiti Finanziari e PFN (€000)</h6>
+<div class="chart-container" style="height: 300px;">
+    <canvas id="financialDebtChart"></canvas>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('financialDebtChart').getContext('2d');
+        
+        // Dati per il grafico
+        const data = {
+            labels: ["2022", "2023", "2024"],
+            datasets: [
+                { 
+                    label: "Debiti Finanziari", 
+                    data: [422.714, 334.687, 398.210], 
+                    backgroundColor: "rgba(220, 53, 69, 0.7)",
+                    type: "bar",
+                    yAxisID: 'y'
+                },
+                { 
+                    label: "Liquidità", 
+                    data: [72.437, 147.024, 72.916], 
+                    backgroundColor: "rgba(34, 139, 34, 0.7)",
+                    type: "bar",
+                    yAxisID: 'y'
+                },
+                { 
+                    label: "PFN", 
+                    data: [350.277, 187.663, 325.295], 
+                    type: "line",
+                    borderColor: "rgba(255, 140, 0, 1)",
+                    backgroundColor: "transparent",
+                    yAxisID: 'y',
+                    borderWidth: 2,
+                    pointBackgroundColor: "rgba(255, 140, 0, 1)",
+                    fill: false
+                }
+            ]
+        };
+        
+        // Opzioni per il grafico
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { boxWidth: 12, padding: 15, font: { size: 11 } }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    titleFont: { weight: 'bold', size: 13 },
+                    bodyFont: { size: 12 },
+                    padding: 10,
+                    cornerRadius: 4,
+                    displayColors: true,
+                    boxPadding: 4,
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) label += ': ';
+                            let value = context.parsed.y;
+                            return label + '€' + value.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 11 } }
+                },
+                y: {
+                    grid: { color: '#e0e0e0', borderDash: [2, 3] },
+                    ticks: { 
+                        font: { size: 11 },
+                        callback: function(value) {
+                            return '€' + (value/1000).toFixed(0) + 'K';
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Valori in €000',
+                        font: { size: 10 }
+                    }
+                }
+            },
+            animation: { duration: 400 }
+        };
+        
+        // Creazione del grafico
+        new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options
+        });
+    });
+</script>
+                          <h6 class="mt-3">Costo del capitale e del debito:</h6>
+                           <ul class="small list-unstyled">
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Oneri Finanziari</strong>: €62.791 (2,69% dei Ricavi), con un costo medio del debito del 17,14%, significativamente elevato.</li>
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Rendimento del Capitale Proprio (ROE)</strong>: 7,70% nel 2024, in ripresa dopo il -7,42% del 2023.</li>
+                              <li class="mb-1"><i class="fas fa-arrow-circle-right text-primary me-1"></i> <strong>Rendimento del Capitale Investito (ROI)</strong>: 52,71% nel 2024, valore molto positivo che indica buona efficienza operativa.</li>
+                           </ul>
+                     </div>
+                 </div>
+              </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+             <div class="card-header"><h5 class="mb-0">3.5 Posizione Finanziaria Netta</h5></div>
+             <div class="card-body">
+                 <h6 class="mt-1">Evoluzione della PFN</h6>
+                 <p class="small">La Posizione Finanziaria Netta di EDILCOMPANY S.R.L. presenta un indebitamento netto nel triennio:</p>
+                 
+                 <div class="row">
+                    <div class="col-lg-7 mb-3 mb-lg-0">
+                         <h6 class="mt-1">Tabella 3.5: Analisi PFN 2022-2024 (€)</h6>
+                         <!-- Updated Table Data for EDILCOMPANY S.R.L. -->
+                         <div class="table-responsive">
+                             <table class="table table-sm table-striped table-hover">
+                                 <thead>
+                                     <tr><th>Componenti PFN (€)</th><th class="text-end">31/12/2022</th><th class="text-end">31/12/2023</th><th class="text-end">31/12/2024</th></tr>
+                                 </thead>
+                                 <tbody>
+                                     <tr><td>Debiti finanziari M/L Termine</td><td class="text-end">89.714</td><td class="text-end">80.687</td><td class="text-end">111.139</td></tr>
+                                     <tr><td>Debiti finanziari Breve Termine</td><td class="text-end">333.000</td><td class="text-end">254.000</td><td class="text-end">287.071</td></tr>
+                                     <tr><td>Totale Debiti Finanziari</td><td class="text-end">422.714</td><td class="text-end">334.687</td><td class="text-end">398.210</td></tr>
+                                     <tr><td>Liquidità</td><td class="text-end">(72.437)</td><td class="text-end">(147.024)</td><td class="text-end">(72.916)</td></tr>
+                                     <tr class="fw-bold"><td>PFN</td><td class="text-end">350.277</td><td class="text-end">187.663</td><td class="text-end">325.295</td></tr>
+                                 </tbody>
+                             </table>
+                         </div>
+                         
+                         <h6 class="mt-4">Indicatori di sostenibilità del debito</h6>
+                         <p class="small">Il Report fornisce i seguenti indicatori chiave per valutare la sostenibilità del debito:</p>
+                         <ul class="small">
+                            <li><strong>PFN/EBITDA</strong>: 1,24, valore sostenibile (soglia critica >3,0).</li>
+                            <li><strong>PFN/Patrimonio Netto</strong>: 1,88, indicando un indebitamento netto pari a 1,88 volte il patrimonio netto.</li>
+                            <li><strong>EBITDA/Oneri Finanziari</strong>: 4,19, indicando una sufficiente capacità di copertura degli oneri finanziari.</li>
+                            <li><strong>Debt-to-Equity ratio (Leva Finanziaria)</strong>: 2,30, valore elevato che segnala significativa dipendenza dal debito.</li>
+                         </ul>
+                    </div>
+                     <div class="col-lg-5">
+                         <h6 class="text-center small">Grafico 3.6: Evoluzione PFN 2022-2024</h6>
+                          <div class="chart-container" style="height: 300px;">
+                             <canvas id="pfnTrendChart"></canvas>
+                         </div>
+                         <h6 class="mt-3">Indicatori di Solidità:</h6>
+                         <ul class="small list-unstyled">
+                             <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-1"></i> <strong>PFN</strong>: €325.295 - indebitamento netto significativo</li>
+                             <li class="mb-2"><i class="fas fa-exclamation-triangle text-warning me-1"></i> <strong>Leva Finanziaria (D/E)</strong>: 2,30 - discreta (target <1,5)</li>
+                             <li class="mb-2"><i class="fas fa-check-circle text-success me-1"></i> <strong>Turnover</strong>: 4,69 - ottima efficienza</li>
+                             <li class="mb-2"><i class="fas fa-times-circle text-danger me-1"></i> <strong>DSCR</strong>: 0,241 - critico (soglia minima: 1,0)</li>
+                             <li class="mb-2"><i class="fas fa-check-circle text-success me-1"></i> <strong>Liquidità/Ricavi</strong>: 3,12% - adeguata</li>
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+         <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.6 Indici di Solidità Patrimoniale</h5></div>
+             <div class="card-body">
+                 <div class="table-responsive">
+                     <table class="table table-sm table-striped table-hover">
+                         <thead class="table-light"><tr><th>Indice</th><th>Formula</th><th class="text-end">31/12/2022</th><th class="text-end">31/12/2023</th><th class="text-end">31/12/2024</th><th>Valutazione</th></tr></thead>
+                         <tbody>
+                             <tr><td>Indice di Copertura delle Immobilizzazioni</td><td>PN / Immobilizzazioni</td><td class="text-end">1,03</td><td class="text-end">1,34</td><td class="text-end">1,56</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                             <tr><td>Leva Finanziaria (D/E)</td><td>Debiti Finanziari / PN</td><td class="text-end">2,46</td><td class="text-end">2,09</td><td class="text-end">2,30</td><td><span class="status-badge bg-warning">Discreta</span></td></tr>
+                             <tr><td>Autonomia Finanziaria</td><td>PN / Totale Passivo</td><td class="text-end">11,0%</td><td class="text-end">12,8%</td><td class="text-end">14,7%</td><td><span class="status-badge bg-warning">Sufficiente</span></td></tr>
+                             <tr><td>PFN/EBITDA</td><td>PFN / EBITDA</td><td class="text-end">1,58</td><td class="text-end">0,81</td><td class="text-end">1,24</td><td><span class="status-badge bg-success">Sostenibile</span></td></tr>
+                             <tr><td>ROI</td><td>EBIT / CIN</td><td class="text-end">39,97%</td><td class="text-end">61,44%</td><td class="text-end">52,71%</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                             <tr><td>Turnover</td><td>Ricavi / CIN</td><td class="text-end">6,00</td><td class="text-end">47,23</td><td class="text-end">4,69</td><td><span class="status-badge bg-success">Ottimo</span></td></tr>
+                         </tbody>
+                     </table>
+                 </div>
+                 
+                 <h6 class="mt-3">Interpretazione degli Indici</h6>
+                 <div class="row mt-3 small">
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>Indice di Copertura delle Immobilizzazioni (1,56):</strong> Valore ottimo, superiore alla soglia critica di 1,0. Il patrimonio netto copre completamente le immobilizzazioni con un margine del 56%.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-exclamation text-warning me-1"></i><strong>Leva Finanziaria (2,30):</strong> Valore elevato che indica significativa dipendenza dal debito finanziario, superiore al benchmark ottimale di 1,5.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-exclamation text-warning me-1"></i><strong>Autonomia Finanziaria (14,7%):</strong> Appena sotto la soglia del 15%, indica limitata capitalizzazione ma in miglioramento.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>PFN/EBITDA (1,24):</strong> Valore sostenibile, ben al di sotto della soglia critica di 3,0.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>ROI (52,71%):</strong> Valore eccellente che indica elevata redditività del capitale investito.</div>
+                     <div class="col-md-6 mb-2"><i class="fas fa-check text-success me-1"></i><strong>Turnover (4,69):</strong> Ottima efficienza nell'utilizzo del capitale, con capacità di generare ricavi 4,69 volte superiori al capitale investito.</div>
+                 </div>
+             </div>
+        </div>
+
+        <div class="card mb-4 report-section">
+            <div class="card-header"><h5 class="mb-0">3.7 Punti di Forza e Debolezza con Proposte di Miglioramento</h5></div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead class="table-light">
+                            <tr><th>Situazione attuale</th><th>Azione suggerita</th><th>Effetti previsti</th><th>Impatto quantitativo/costo</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Debiti finanziari BT elevati</strong> (72,1% del totale)</td>
+                                <td>Rimodulazione struttura del debito con incremento MLT</td>
+                                <td>Miglioramento DSCR e stabilità finanziaria</td>
+                                <td>Costo pratica: €5.000-8.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Costo del debito elevato</strong> (17,14%)</td>
+                                <td>Rinegoziazione condizioni con istituti finanziari</td>
+                                <td>Riduzione oneri finanziari</td>
+                                <td>Risparmio: €20.000-25.000/anno</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Incremento rimanenze</strong> (+32,5%)</td>
+                                <td>Implementazione sistema inventory management</td>
+                                <td>Ottimizzazione scorte e liberazione capitale</td>
+                                <td>Investimento: €3.000-5.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DSCR critico</strong> (0,241)</td>
+                                <td>Piano finanziario con simulazione scenari</td>
+                                <td>Miglioramento sostenibilità debito</td>
+                                <td>Costo consulenza: €4.000-6.000</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Autonomia finanziaria limitata</strong> (14,7%)</td>
+                                <td>Incremento patrimoniale tramite autofinanziamento</td>
+                                <td>Rafforzamento struttura patrimoniale</td>
+                                <td>Target: +20% PN in 3 anni</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ciclo circolante elevato</strong> (119 giorni)</td>
+                                <td>Ottimizzazione DSO e DPO</td>
+                                <td>Riduzione fabbisogno CCN</td>
+                                <td>Liberazione: €100.000-150.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card summary-card mb-4 report-section">
+             <div class="card-body">
+                 <h5 class="card-title"><i class="fas fa-check-circle text-primary me-2"></i>3.8 Conclusioni sull'Analisi Patrimoniale</h5>
+                 
+                 <p>L'analisi patrimoniale di EDILCOMPANY S.R.L. evidenzia una struttura con fondamentali sostanzialmente equilibrati ma con alcune aree di rischio che richiedono interventi mirati. L'azienda presenta un indice di copertura delle immobilizzazioni ottimo (1,56) e un Z-Score molto positivo (6,96), indicativi di un basso rischio di insolvenza nel breve-medio termine.</p>
+                 
+                 <p>I principali punti di forza includono l'elevata efficienza del capitale investito (Turnover 4,69), il rapporto PFN/EBITDA sostenibile (1,24) e il ROI eccellente (52,71%). Tuttavia, emergono criticità significative nel DSCR (0,241), nell'elevato costo del debito (17,14%) e nella struttura temporale del debito sbilanciata verso il breve termine (72,1%).</p>
+                 
+                 <p>Le aree di intervento prioritario riguardano la sostenibilità del debito, come evidenziato dal DSCR critico, l'ottimizzazione della struttura del capitale circolante, con particolare riferimento all'incremento delle rimanenze (+32,5%), e la revisione complessiva della strategia di finanziamento per ridurre il costo del debito.</p>
+                 
+                 <p class="mb-0">L'implementazione delle azioni suggerite consentirebbe di consolidare la struttura patrimoniale, migliorare la sostenibilità finanziaria e ridurre la vulnerabilità dell'impresa a potenziali shock di mercato, preservandone la stabilità nel medio-lungo periodo e creando le condizioni per un percorso di crescita sostenibile.</p>
+             </div>
+         </div>
+
+            <!-- ================================================================ -->
+            <!-- FINE CONTENUTO SPECIFICO PARTE 3 -->
+            <!-- ================================================================ -->
+
+        </div> <!-- /dashboard-container -->
+
+        <!-- Footer Standard V2 (Nessuna modifica necessaria) -->
+        <footer class="footer no-print"> <div class="container-fluid px-4"> <div class="row align-items-center"> <div class="col-md-6 text-center text-md-start mb-2 mb-md-0"> SCAN360 © <span id="currentYearFooterReport"></span> </div> <div class="col-md-6 text-center text-md-end"> Powered by <a href="http://www.kitzanos.com" target="_blank" class="text-white fw-bold">Kitzanos Lab</a> <img src="../assets/img/logo_kitzanos.png" alt="Kitzanos Logo" class="ms-2"> </div> </div> </div> </footer>
+
+    </div> <!-- /main-wrapper -->
+
+    <!-- Script JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/charts_config.js"></script>
+    <script src="../js/report_init.js"></script>
+     <script>
+        document.getElementById('currentYearSidebar').textContent = new Date().getFullYear();
+        document.getElementById('currentYearFooterReport').textContent = new Date().getFullYear();
+
+         // Script aggiornamento badge IRP header (Updated for EDILCOMPANY S.R.L.)
+         document.addEventListener('DOMContentLoaded', function() {
+             const irpScoreValue = 76.39; // IRP Value for EDILCOMPANY S.R.L.
+             const irpHeaderBadge = document.getElementById('irp-header-badge');
+             if(irpHeaderBadge) {
+                 let badgeClass = 'bg-warning'; // Medio rischio
+                 if (irpScoreValue >= 71) badgeClass = 'bg-success'; // Basso
+                 else if (irpScoreValue < 51) badgeClass = 'bg-danger'; // Alto
+                 irpHeaderBadge.className = `badge ${badgeClass} me-3`;
+                 irpHeaderBadge.textContent = `IRP: ${irpScoreValue.toFixed(1)}`;
+             }
+
+              // Ensure logout function is defined
+             if (typeof logout !== 'function') {
+                 window.logout = function() {
+                    console.log("Logout action triggered (placeholder)");
+                }
+             }
+             // Ensure print function is defined
+             if (typeof printDocument !== 'function') {
+                window.printDocument = function() {
+                    window.print();
+                }
+             }
+         });
+    </script>
+<script 
+  type="text/javascript" 
+  src="https://embed.chatnode.ai/4b455f88-b08f-4f27-a83b-59b94cdb3711/popup.js"
+  async
+></script>
+
+</body>
+</html>
